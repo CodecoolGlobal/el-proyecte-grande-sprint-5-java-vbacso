@@ -1,10 +1,10 @@
-package com.codecool.byteMe.Class;
+package com.codecool.byteMe.model.postable;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Post extends PostAbles {
+public class Post extends Postable {
 
     public static final int VOTE = 0;
     private String title;

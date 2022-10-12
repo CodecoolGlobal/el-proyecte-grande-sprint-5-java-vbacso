@@ -1,6 +1,6 @@
-package com.codecool.byteMe.Class;
+package com.codecool.byteMe.model.postable;
 
-public class Comment extends PostAbles {
+public class Comment extends Postable {
 
 
     public static final int VOTE = 0;

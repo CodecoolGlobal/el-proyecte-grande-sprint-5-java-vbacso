@@ -1,9 +1,8 @@
-package com.codecool.byteMe.Class;
+package com.codecool.byteMe.model;
 
-import javax.imageio.ImageIO;
+import com.codecool.byteMe.model.postable.Post;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;

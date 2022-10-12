@@ -2,8 +2,7 @@ package com.codecool.byteMe.controller;
 
 
 
-import com.codecool.byteMe.Class.Page;
-import com.codecool.byteMe.Class.User;
+import com.codecool.byteMe.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class ByteMeController {
+public class UserController {
 
     @Autowired
     private Page page;

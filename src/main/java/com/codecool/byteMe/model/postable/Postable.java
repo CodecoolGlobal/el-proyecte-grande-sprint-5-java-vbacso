@@ -1,14 +1,14 @@
-package com.codecool.byteMe.Class;
+package com.codecool.byteMe.model.postable;
 
 import java.util.UUID;
 
-public abstract class PostAbles {
+public abstract class Postable {
 
     private UUID id;
     private String body;
     private int vote;
 
-    public PostAbles(String body, int vote) {
+    public Postable(String body, int vote) {
         id = UUID.randomUUID();
         this.body = body;
         this.vote = vote;
