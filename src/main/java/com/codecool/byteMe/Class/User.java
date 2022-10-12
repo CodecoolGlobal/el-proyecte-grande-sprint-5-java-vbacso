@@ -12,8 +12,7 @@ import java.util.UUID;
 
 public class User {
 
-    String imagePath = "src/main/java/resources/static/img.png";
-    BufferedImage myPicture = ImageIO.read(new File(imagePath));
+
     private UUID id;
     private String name;
     private int age;
@@ -28,7 +27,7 @@ public class User {
         this.name = name;
         this.age = age;
         this.regDate = regDate;
-        profilePic = myPicture;
+        //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
         posts = new ArrayList<>();
     }
@@ -75,6 +74,18 @@ public class User {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setProfilePic(Image profilePic) {
+        this.profilePic = profilePic;
     }
 
     @Override
