@@ -1,6 +1,7 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
@@ -15,16 +16,18 @@ public class User {
     private UUID id;
     private String name;
     private int age;
+    private String email;
     private LocalDate regDate;
     private List<User> friendList;
     private Image profilePic;
     private List<Post> posts;
 
 
-    public User(String name, int age, LocalDate regDate) throws IOException {
+    public User(String name, int age, String email,LocalDate regDate) throws IOException {
         id = UUID.randomUUID();
         this.name = name;
         this.age = age;
+        this.email = email;
         this.regDate = regDate;
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
@@ -45,6 +48,10 @@ public class User {
 
     public void deletePost(Post post) {
         posts.remove(post);
+    }
+
+    public void updateName(User user){
+
     }
 
     public String getName() {
@@ -69,6 +76,10 @@ public class User {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public UUID getId() {

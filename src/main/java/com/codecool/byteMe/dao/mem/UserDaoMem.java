@@ -13,14 +13,19 @@ public class UserDaoMem implements UserDao {
     private static Set<User> data = new HashSet<>();
 
     @Override
-    public User add(User user) {
-        throw new UnsupportedOperationException("Not implemented method: (add) in class: (UserDaoMem)");
+    public void add(User user) {
+        data.add(user);
         //TODO: (fergencszeno, 2022. 10. 12.) Implement method: (add) for class: (UserDaoMem)
     }
 
     @Override
     public User find(String email) {
-        throw new UnsupportedOperationException("Not implemented method: (find) in class: (UserDaoMem)");
+        for(User user : data){
+            if(email.equals(user.getEmail())){
+                return user;
+            }
+        }
+        return null;
         //TODO: (fergencszeno, 2022. 10. 12.) Implement method: (find) for class: (UserDaoMem)
     }
 

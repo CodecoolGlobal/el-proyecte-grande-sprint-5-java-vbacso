@@ -5,7 +5,7 @@ import com.codecool.byteMe.model.User;
 import java.util.Set;
 
 public interface UserDao {
-    User add(User user);
+    void add(User user);
 
     User find(String email);
 
