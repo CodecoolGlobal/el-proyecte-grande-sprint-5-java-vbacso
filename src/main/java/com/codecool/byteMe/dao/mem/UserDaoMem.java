@@ -4,6 +4,7 @@ import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +15,8 @@ public class UserDaoMem implements UserDao {
 
     @Override
     public User add(User user) {
-        throw new UnsupportedOperationException("Not implemented method: (add) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 12.) Implement method: (add) for class: (UserDaoMem)
+        data.add(user);
+        return user;
     }
 
     @Override

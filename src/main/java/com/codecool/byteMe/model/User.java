@@ -21,7 +21,7 @@ public class User {
     private List<Post> posts;
 
 
-    public User(String name, int age, LocalDate regDate) throws IOException {
+    public User(String name, int age, LocalDate regDate) {
         id = UUID.randomUUID();
         this.name = name;
         this.age = age;
