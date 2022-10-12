@@ -4,14 +4,18 @@ import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component("userDaoMem")
+@Component("userDao")
 public class UserDaoMem implements UserDao {
 
-    private static Set<User> data = new HashSet<>();
+    private static Set<User> data;
+
+    public UserDaoMem(Set<User> users) {
+        data = new HashSet<>();
+        data.addAll(users);
+    }
 
     @Override
     public User add(User user) {

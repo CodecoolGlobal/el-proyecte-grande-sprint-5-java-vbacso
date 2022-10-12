@@ -2,21 +2,23 @@ package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Component("userService")
+@Service("userService")
 public class UserService {
-    @Autowired
-    UserDao userDaoMem;
-    
+    private final UserDao userDao;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     public Set<User> getAllUser() {
-        return userDaoMem.getAllUser();
+        return userDao.getAllUser();
     }
 
     public User add(User user) {
-        return userDaoMem.add(user);
+        return userDao.add(user);
     }
 }

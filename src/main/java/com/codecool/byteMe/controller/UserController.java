@@ -3,7 +3,6 @@ package com.codecool.byteMe.controller;
 
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -11,17 +10,20 @@ import java.util.Set;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("getAll")
-    public Set<User> getUsers() {
+    public Set<User> getAllUser() {
         return userService.getAllUser();
     }
 
     @PostMapping("/add")
-    public void addUsers(@RequestBody User user) {
-        userService.add(user);
+    public User addUser(@RequestBody User user) {
+        return userService.add(user);
     }
 
     @PutMapping("/update/{userName}")
