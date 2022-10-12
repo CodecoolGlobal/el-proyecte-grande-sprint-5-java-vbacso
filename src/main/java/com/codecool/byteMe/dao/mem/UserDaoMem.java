@@ -10,15 +10,7 @@ import java.util.Set;
 @Component("userDaoMem")
 public class UserDaoMem implements UserDao {
 
-    private static UserDaoMem instance = null;
-    private Set<User> data = new HashSet<>();
-
-    public static UserDaoMem getInstance() {
-        if (instance == null) {
-            instance = new UserDaoMem();
-        }
-        return instance;
-    }
+    private static Set<User> data = new HashSet<>();
 
     @Override
     public User add(User user) {
