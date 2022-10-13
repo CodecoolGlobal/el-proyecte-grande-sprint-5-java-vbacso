@@ -1,6 +1,6 @@
 package com.codecool.byteMe.controller;
 
-import com.codecool.byteMe.dao.AppDao;
+import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.postable.Comment;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,34 +11,34 @@ import java.util.UUID;
 @RequestMapping("/comment")
 public class CommentController {
 
-    private AppDao appDao;
+    private UserDao userDao;
 
-    private CommentController(AppDao appDao) {
-        this.appDao = appDao;
+    private CommentController(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @GetMapping("all")
     public Set<Comment> getAllComment() {
-        return appDao.getAllComment();
+        return userDao.getAllComment();
     }
 
     @GetMapping("find/{commentId}")
     public Comment find(@PathVariable UUID commentId) {
-        return appDao.findCommentById(commentId);
+        return userDao.findCommentById(commentId);
     }
 
     @PostMapping("add")
     public Comment add(@RequestBody Comment comment) {
-        return appDao.addComment(comment);
+        return userDao.addComment(comment);
     }
 
     @PutMapping("update")
     public Comment update(@RequestBody Comment comment) {
-        return appDao.editComment(comment);
+        return userDao.editComment(comment);
     }
 
     @DeleteMapping("delete")
     public Comment delete(@RequestBody Comment comment) {
-        return appDao.deleteComment(comment.getId());
+        return userDao.deleteComment(comment.getId());
     }
 }

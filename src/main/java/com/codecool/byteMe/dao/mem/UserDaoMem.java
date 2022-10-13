@@ -1,6 +1,6 @@
 package com.codecool.byteMe.dao.mem;
 
-import com.codecool.byteMe.dao.AppDao;
+import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
@@ -13,12 +13,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
-@Component("appDaoMem")
-public class AppDaoMem implements AppDao {
+@Component
+public class UserDaoMem implements UserDao {
 
     private static Set<User> data;
 
-    private AppDaoMem(Set<User> users) {
+    private UserDaoMem(Set<User> users) {
         data = new HashSet<>();
         data.addAll(users);
     }
@@ -35,7 +35,7 @@ public class AppDaoMem implements AppDao {
     }
 
     @Override
-    public User editUserName(User user) {
+    public User edit(User user) {
         data.stream().filter(userU -> userU.getId().equals(user.getId())).findFirst().orElseThrow(NoSuchElementException::new)
                 .setName(user.getName());
         return user;
@@ -50,7 +50,7 @@ public class AppDaoMem implements AppDao {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public User findByEmail(String email) {
         return data.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
@@ -63,58 +63,6 @@ public class AppDaoMem implements AppDao {
         return user;
     }
 
-
-    @Override
-    public Set<Post> getAllPost() {
-        return data.stream()
-                .map(User::getPosts)
-                .flatMap(Set::stream)
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Post addPost(Post post) {
-        User user = findUserById(post.getUserId());
-        user.addPost(post);
-        return post;
-
-    }
-
-    @Override
-    public Post editPost(Post newPost) {
-        Post editablePost = findPostById(newPost.getId());
-        editablePost.editPost(newPost);
-        return editablePost;
-    }
-
-    @Override
-    public Post findPostById(UUID postId) {
-        Set<Post> posts = getAllPost();
-        return posts.stream()
-                .filter(post -> post.getId().equals(postId))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-    }
-
-    @Override
-    public Set<Post> findPostsByUserId(UUID userId) {
-        return new HashSet<>(data.stream()
-                .filter(user -> user.getId().equals(userId))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new)
-                .getPosts());
-    }
-
-    @Override
-    public Post deletePost(UUID postId) {
-        Post deletePost = getAllPost().stream()
-                .filter(post -> post.getId().equals(postId))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-        getAllPost().remove(deletePost);
-        return deletePost;
-
-    }
 
 
     @Override

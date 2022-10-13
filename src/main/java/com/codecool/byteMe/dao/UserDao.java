@@ -7,33 +7,21 @@ import com.codecool.byteMe.model.postable.Post;
 import java.util.Set;
 import java.util.UUID;
 
-public interface AppDao {
+public interface UserDao {
     Set<User> getAllUser();
-
-    Set<Post> getAllPost();
-
     Set<Comment> getAllComment();
 
     User addUser(User user);
 
-    User editUserName(User user);
+    User edit(User user);
 
-    User findUserByEmail(String email);
+    User findByEmail(String email);
 
     User findUserById(UUID userId);
 
 
     User deleteUser(User user);
 
-    Set<Post> findPostsByUserId(UUID userId);
-
-    Post findPostById(UUID postId);
-
-    Post addPost(Post post);
-
-    Post editPost(Post post);
-
-    Post deletePost(UUID postId);
 
     Comment addComment(Comment comment);
 
