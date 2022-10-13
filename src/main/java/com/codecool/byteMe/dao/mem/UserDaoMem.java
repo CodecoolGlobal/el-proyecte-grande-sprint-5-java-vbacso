@@ -12,9 +12,9 @@ public class UserDaoMem implements UserDao {
 
     private static Set<User> data;
 
-    public UserDaoMem(Set<User> users) {
+    private UserDaoMem(Set<User> getBaseDaoUsers) {
         data = new HashSet<>();
-        data.addAll(users);
+        data.addAll(getBaseDaoUsers);
     }
 
     @Override

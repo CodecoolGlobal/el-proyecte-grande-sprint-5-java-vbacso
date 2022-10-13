@@ -12,7 +12,7 @@ import java.util.Set;
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private UserController(UserService userService) {
         this.userService = userService;
     }
 

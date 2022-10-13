@@ -10,7 +10,7 @@ import java.util.Set;
 @Configuration
 public class UserConfig {
     @Bean
-    public Set<User> users() {
+    public Set<User> getBaseDaoUsers() {
         return new HashSet<>(
                 Set.of(
                         new User("Zénó", 18),
