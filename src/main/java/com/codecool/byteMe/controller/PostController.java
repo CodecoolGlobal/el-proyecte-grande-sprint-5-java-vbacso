@@ -1,6 +1,6 @@
 package com.codecool.byteMe.controller;
 
-import com.codecool.byteMe.dao.mem.UserDaoMem;
+import com.codecool.byteMe.dao.mem.AppDaoMem;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +13,20 @@ import java.util.Set;
 public class PostController {
 
     @Autowired
-    private UserDaoMem userDaoMem;
+    private AppDaoMem appDaoMem;
 
     @PostMapping("/add")
-    public void addPost(@RequestBody Post post) {
-        userDaoMem.addPost(post);
+    public Post addPost(@RequestBody Post post) {
+        return appDaoMem.addPost(post);
     }
 
     @GetMapping("/find")
     public Set<Post> findByUser(@RequestBody User user) {
-        return userDaoMem.findPostsByUserId(user.getId());
+        return appDaoMem.findPostsByUserId(user.getId());
     }
 
     @DeleteMapping("/delete")
-    public void deletePost(@RequestBody Post post) {
-        userDaoMem.deletePost(post.getId());
+    public Post deletePost(@RequestBody Post post) {
+        return appDaoMem.deletePost(post.getId());
     }
 }

@@ -1,6 +1,6 @@
 package com.codecool.byteMe.dao.mem;
 
-import com.codecool.byteMe.dao.UserDao;
+import com.codecool.byteMe.dao.AppDao;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @Component("userDaoMem")
-public class UserDaoMem implements UserDao {
+public class AppDaoMem implements AppDao {
 
     private static Set<User> data = new HashSet<>();
 

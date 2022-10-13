@@ -7,7 +7,7 @@ import com.codecool.byteMe.model.postable.Post;
 import java.util.Set;
 import java.util.UUID;
 
-public interface UserDao {
+public interface AppDao {
     Set<User> getAllUser();
 
     Set<Post> getAllPost();
