@@ -35,16 +35,19 @@ public class AppDaoMem implements AppDao {
     }
 
     @Override
-    public User editUser(User user) {
-        throw new UnsupportedOperationException("Not implemented method: (editUser) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (editUser) for class: (UserDaoMem)
+    public User editUserName(User user) {
+        data.stream().filter(userU -> userU.getId().equals(user.getId())).findFirst().orElseThrow(NoSuchElementException::new)
+                .setName(user.getName());
+        return user;
     }
 
     @Override
     public User findUserById(UUID userId) {
-        throw new UnsupportedOperationException("Not implemented method: (findUserById) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findUserById) for class: (UserDaoMem)
-    }
+        return data.stream()
+                .filter(user -> user.getId().equals(userId))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+        }
 
     @Override
     public User findUserByEmail(String email) {
@@ -56,33 +59,41 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public User deleteUser(User user) {
-        throw new UnsupportedOperationException("Not implemented method: (deleteUser) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (deleteUser) for class: (UserDaoMem)
-    }
+        data.remove(data.stream().filter(userU -> userU.getId().equals(user.getId())).findFirst().orElseThrow(NoSuchElementException::new));
+        return user;
+        }
 
 
     @Override
     public Set<Post> getAllPost() {
-        throw new UnsupportedOperationException("Not implemented method: (getAllPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (getAllPost) for class: (UserDaoMem)
+        return data.stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Post addPost(Post post) {
-        throw new UnsupportedOperationException("Not implemented method: (addPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (addPost) for class: (UserDaoMem)
+        User user = findUserById(post.getUserId());
+        user.addPost(post);
+        return post;
+
     }
 
     @Override
-    public Post editPost(Post post) {
-        throw new UnsupportedOperationException("Not implemented method: (editPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (editPost) for class: (UserDaoMem)
+    public Post editPost(Post newPost) {
+        Post editablePost = findPostById(newPost.getId());
+        editablePost.editPost(newPost);
+        return editablePost;
     }
 
     @Override
     public Post findPostById(UUID postId) {
-        throw new UnsupportedOperationException("Not implemented method: (findPostById) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findPostById) for class: (UserDaoMem)
+        Set<Post> posts = getAllPost();
+        return posts.stream()
+                .filter(post -> post.getId().equals(postId))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
     }
 
     @Override
@@ -96,10 +107,13 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Post deletePost(UUID postId) {
-        return getAllPost().stream()
+        Post deletePost = getAllPost().stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
+        getAllPost().remove(deletePost);
+        return deletePost;
+
     }
 
 

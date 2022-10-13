@@ -18,24 +18,16 @@ public abstract class Postable {
         this.vote = vote;
     }
 
-    public static <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
-                    return list.get(0);
-                }
-        );
-    }
-
     public void increaseVote() {
         vote++;
     }
 
     public void decreaseVote() {
         vote--;
+    }
+
+    public UUID getUserId() {
+        return userId;
     }
 
     public UUID getId() {

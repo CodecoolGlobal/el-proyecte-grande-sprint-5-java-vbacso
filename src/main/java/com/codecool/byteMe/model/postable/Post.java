@@ -30,4 +30,9 @@ public class Post extends Postable {
     public void removeComment(Comment comment) {
         comments.remove(comment);
     }
+
+    public void editPost(Post newPost) {
+        this.title = newPost.title;
+        this.body = newPost.body;
+    }
 }
