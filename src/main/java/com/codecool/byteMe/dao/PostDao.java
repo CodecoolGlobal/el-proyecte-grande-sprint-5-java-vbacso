@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface PostDao {
-    Post add(Post post);
+    void add(Post post);
 
     Set<Post> findByUser(UUID userId);
 

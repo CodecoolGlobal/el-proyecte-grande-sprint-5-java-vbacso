@@ -2,10 +2,15 @@ package com.codecool.byteMe.dao.mem;
 
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static com.codecool.byteMe.model.User.toSingleton;
 
 @Component("userDaoMem")
 public class UserDaoMem implements UserDao {
@@ -15,23 +20,22 @@ public class UserDaoMem implements UserDao {
     @Override
     public void add(User user) {
         data.add(user);
-        //TODO: (fergencszeno, 2022. 10. 12.) Implement method: (add) for class: (UserDaoMem)
     }
 
     @Override
-    public User find(String email) {
-        for(User user : data){
-            if(email.equals(user.getEmail())){
-                return user;
-            }
-        }
-        return null;
-        //TODO: (fergencszeno, 2022. 10. 12.) Implement method: (find) for class: (UserDaoMem)
+    public User findByEmail(String email) {
+        return data.stream().filter(user -> user.getEmail().equals(email)).collect(toSingleton());
+    }
+
+    @Override
+    public Set<Post> findByUser(UUID userId){
+        return data.stream().filter(user -> user.getId()
+                        .equals(userId)).collect(toSingleton()).getPosts().stream().collect(Collectors.toSet());
+
     }
 
     @Override
     public Set<User> getAllUser() {
         return data;
-
     }
 }

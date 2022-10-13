@@ -1,13 +1,17 @@
 package com.codecool.byteMe.dao;
 
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 
 import java.util.Set;
+import java.util.UUID;
 
 public interface UserDao {
     void add(User user);
 
-    User find(String email);
+    User findByEmail(String email);
+
+    Set<Post> findByUser(UUID userId);
 
     Set<User> getAllUser();
 }
