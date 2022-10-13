@@ -127,6 +127,7 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Comment addComment(Comment comment) {
+        if (comment.getPostId()==null&&comment.getUserId()==null)throw new NoSuchElementException("Invalid comment body");
         data.stream()
                 .filter(user -> user.getId().equals(comment.getUserId()))
                 .findFirst().orElseThrow(NoSuchElementException::new)

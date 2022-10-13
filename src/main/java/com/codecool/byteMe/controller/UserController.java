@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private AppDao appDaoMem;
 
-    @GetMapping("/get")
+    @GetMapping("/all")
     public Set<User> getUsers() {
         return appDaoMem.getAllUser();
     }

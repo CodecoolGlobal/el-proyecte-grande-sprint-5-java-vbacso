@@ -2,6 +2,7 @@ package com.codecool.byteMe.controller;
 
 import com.codecool.byteMe.dao.AppDao;
 import com.codecool.byteMe.model.postable.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -11,13 +12,14 @@ import java.util.UUID;
 @RequestMapping("/comment")
 public class CommentController {
 
+    @Autowired
     private AppDao appDao;
 
     private CommentController(AppDao appDao) {
         this.appDao = appDao;
     }
 
-    @GetMapping("getAllComment")
+    @GetMapping("all")
     public Set<Comment> getAllComment() {
         return appDao.getAllComment();
     }
