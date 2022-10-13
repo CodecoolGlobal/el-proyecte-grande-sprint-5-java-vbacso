@@ -26,10 +26,6 @@ public abstract class Postable {
         vote--;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
     public UUID getId() {
         return id;
     }

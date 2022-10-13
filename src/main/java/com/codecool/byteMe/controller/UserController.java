@@ -34,7 +34,7 @@ public class UserController {
     public User findUserById(@RequestBody User user) {
         return appDaoMem.findUserById(user.getId());
     }
-    @GetMapping("/findById")
+    @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {
         return appDaoMem.findUserByEmail(user.getEmail());
     }
