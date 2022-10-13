@@ -27,6 +27,15 @@ public class UserController {
     }
 
     @PutMapping("/update/{userName}")
-    public void updateName(@RequestBody User user, @PathVariable String userName) {
+    public void updateName(
+            @RequestBody User user,
+            @PathVariable String userName) {
+
+    }
+
+    @GetMapping("/find")
+    public User find(
+            @RequestBody User user){
+        return userDaoMem.findByEmail(user.getEmail());
     }
 }

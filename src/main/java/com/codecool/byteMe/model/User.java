@@ -1,12 +1,16 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class User {
 
@@ -14,16 +18,19 @@ public class User {
     private UUID id;
     private String name;
     private int age;
+    private String email;
     private LocalDate regDate;
     private List<User> friendList;
     private Image profilePic;
     private List<Post> posts;
 
 
-    public User(String name, int age) {
+    public User(String name, int age, String email){
         id = UUID.randomUUID();
         this.name = name;
         this.age = age;
+        this.email = email;
+        this.regDate = regDate;
         this.regDate = LocalDate.now();
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
@@ -44,6 +51,10 @@ public class User {
 
     public void deletePost(Post post) {
         posts.remove(post);
+    }
+
+    public void updateName(User user){
+
     }
 
     public String getName() {
@@ -82,6 +93,10 @@ public class User {
         return posts;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -92,5 +107,17 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static <T> Collector<T, ?, T> toSingleton() {
+        return Collectors.collectingAndThen(
+                Collectors.toList(),
+                list -> {
+                    if (list.size() != 1) {
+                        throw new IllegalStateException();
+                    }
+                    return list.get(0);
+                }
+        );
     }
 }
