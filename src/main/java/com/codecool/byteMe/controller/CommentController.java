@@ -36,4 +36,9 @@ public class CommentController {
     public Comment update(@RequestBody Comment comment) {
         return appDao.editComment(comment);
     }
+
+    @DeleteMapping("delete")
+    public Comment delete(@RequestBody Comment comment) {
+        return appDao.deleteComment(comment.getId());
+    }
 }
