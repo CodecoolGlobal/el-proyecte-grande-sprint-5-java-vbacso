@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 public abstract class Postable {
 
-    private UUID id;
-    private UUID userId;
-    private String body;
-    private int vote;
+    protected UUID id;
+    protected UUID userId;
+    protected String body;
+    protected int vote;
 
     public Postable(UUID userId, String body, int vote) {
         id = UUID.randomUUID();
@@ -48,6 +48,10 @@ public abstract class Postable {
 
     public int getVote() {
         return vote;
+    }
+
+    public UUID getUserId() {
+        return userId;
     }
 
     @Override

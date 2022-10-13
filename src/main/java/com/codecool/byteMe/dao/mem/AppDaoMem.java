@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Component("appDaoMem")
@@ -104,43 +105,71 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Set<Comment> getAllComment() {
-        throw new UnsupportedOperationException("Not implemented method: (getAllComment) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (getAllComment) for class: (UserDaoMem)
+        return data.stream()
+                .map(User::getComments)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Comment addComment(Comment comment) {
-        throw new UnsupportedOperationException("Not implemented method: (addComment) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (addComment) for class: (UserDaoMem)
+        data.stream()
+                .filter(user -> user.getId().equals(comment.getUserId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .addComment(comment);
+        data.stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .filter(post -> post.getId().equals(comment.getPostId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .addComment(comment);
+        return comment;
     }
 
     @Override
-    public Comment editComment(Comment comment) {
-        throw new UnsupportedOperationException("Not implemented method: (editComment) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (editComment) for class: (UserDaoMem)
-    }
-
-    @Override
-    public Comment findCommentsById(UUID commentId) {
-        throw new UnsupportedOperationException("Not implemented method: (findCommentsById) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findCommentsById) for class: (UserDaoMem)
+    public Comment findCommentById(UUID commentId) {
+        return data.stream()
+                .map(User::getComments)
+                .flatMap(Set::stream)
+                .filter(comment -> comment.getId().equals(commentId))
+                .findFirst().orElseThrow(NoSuchElementException::new);
     }
 
     @Override
     public Set<Comment> findCommentsByUser(User user) {
-        throw new UnsupportedOperationException("Not implemented method: (findCommentsByUser) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findCommentsByUser) for class: (UserDaoMem)
+        return data.stream()
+                .filter(user1 -> user1.getId().equals(user.getId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .getComments();
     }
 
     @Override
     public Set<Comment> findCommentsByPostId(UUID postId) {
-        throw new UnsupportedOperationException("Not implemented method: (findCommentsByPostId) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findCommentsByPostId) for class: (UserDaoMem)
+        return getAllComment().stream()
+                .filter(comment -> comment.getPostId().equals(postId))
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public Comment deleteComment(Comment comment) {
-        throw new UnsupportedOperationException("Not implemented method: (deleteComment) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (deleteComment) for class: (UserDaoMem)
+    public Comment editComment(Comment comment) {
+        Comment editableComment = findCommentById(comment.getId());
+        editableComment.editComment(comment);
+        return editableComment;
+    }
+
+    @Override
+    public Comment deleteComment(UUID commentId) {
+        Comment comment = findCommentById(commentId);
+        data.stream()
+                .filter(user -> user.getId().equals(comment.getUserId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .removeComment(comment);
+        data.stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .filter(post -> post.getId().equals(comment.getPostId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .removeComment(comment);
+        return comment;
     }
 }

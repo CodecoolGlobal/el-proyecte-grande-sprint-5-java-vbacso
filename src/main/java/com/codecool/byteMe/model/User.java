@@ -1,12 +1,12 @@
 package com.codecool.byteMe.model;
 
+import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -20,7 +20,8 @@ public class User {
     private LocalDate regDate;
     private List<User> friendList;
     private Image profilePic;
-    private List<Post> posts;
+    private Set<Post> posts;
+    private Set<Comment> comments;
 
 
     public User(String name, int age, String email) {
@@ -32,7 +33,8 @@ public class User {
         this.regDate = LocalDate.now();
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
-        posts = new ArrayList<>();
+        posts = new HashSet<>();
+        comments = new HashSet<>();
     }
 
     public static <T> Collector<T, ?, T> toSingleton() {
@@ -57,6 +59,10 @@ public class User {
 
     public void addPost(Post post) {
         posts.add(post);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     public void deletePost(Post post) {
@@ -99,7 +105,7 @@ public class User {
         this.profilePic = profilePic;
     }
 
-    public List<Post> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 
@@ -109,6 +115,14 @@ public class User {
 
     public UUID getId() {
         return id;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
     }
 
     @Override
