@@ -1,10 +1,8 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
-import org.springframework.stereotype.Component;
 
 import java.awt.*;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +23,28 @@ public class User {
     private List<Post> posts;
 
 
-    public User(String name, int age, String email,LocalDate regDate) throws IOException {
+    public User(String name, int age, String email) {
         id = UUID.randomUUID();
         this.name = name;
         this.age = age;
         this.email = email;
         this.regDate = regDate;
+        this.regDate = LocalDate.now();
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
         posts = new ArrayList<>();
+    }
+
+    public static <T> Collector<T, ?, T> toSingleton() {
+        return Collectors.collectingAndThen(
+                Collectors.toList(),
+                list -> {
+                    if (list.size() != 1) {
+                        throw new IllegalStateException();
+                    }
+                    return list.get(0);
+                }
+        );
     }
 
     public void addFriend(User user) {
@@ -52,7 +63,7 @@ public class User {
         posts.remove(post);
     }
 
-    public void updateName(User user){
+    public void updateName(User user) {
 
     }
 
@@ -60,8 +71,16 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public LocalDate getRegDate() {
@@ -76,6 +95,10 @@ public class User {
         return profilePic;
     }
 
+    public void setProfilePic(Image profilePic) {
+        this.profilePic = profilePic;
+    }
+
     public List<Post> getPosts() {
         return posts;
     }
@@ -86,18 +109,6 @@ public class User {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setProfilePic(Image profilePic) {
-        this.profilePic = profilePic;
     }
 
     @Override
