@@ -16,7 +16,7 @@ public interface AppDao {
 
     User addUser(User user);
 
-    User editUser(User user);
+    User editUserName(User user);
 
     User findUserByEmail(String email);
 
