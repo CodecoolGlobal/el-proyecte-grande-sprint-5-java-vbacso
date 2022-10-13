@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 public abstract class Postable {
 
     private UUID id;
+    private UUID userId;
     private String body;
     private int vote;
 
-    public Postable(String body, int vote) {
+    public Postable(UUID userId, String body, int vote) {
         id = UUID.randomUUID();
+        this.userId = userId;
         this.body = body;
         this.vote = vote;
     }

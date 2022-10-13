@@ -3,6 +3,7 @@ package com.codecool.byteMe.model.postable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Post extends Postable {
 
@@ -10,8 +11,8 @@ public class Post extends Postable {
     private String title;
     private List<Comment> comments;
 
-    public Post(String title, String body) {
-        super(body, VOTE);
+    public Post(UUID userId, String title, String body) {
+        super(userId, body, VOTE);
         this.title = title;
         comments = new ArrayList<>();
     }

@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("/add")
     public void addUsers(
             @RequestBody User user){
-        userDaoMem.add(user);
+        userDaoMem.addUser(user);
     }
 
     @PutMapping("/update/{userName}")
@@ -37,6 +37,6 @@ public class UserController {
     @GetMapping("/find")
     public User find(
             @RequestBody User user){
-        return userDaoMem.findByEmail(user.getEmail());
+        return userDaoMem.findUserByEmail(user.getEmail());
     }
 }
