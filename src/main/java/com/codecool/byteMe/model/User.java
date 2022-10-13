@@ -1,10 +1,8 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
-import org.springframework.stereotype.Component;
 
 import java.awt.*;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,7 @@ public class User {
     private List<Post> posts;
 
 
-    public User(String name, int age, String email){
+    public User(String name, int age, String email) {
         id = UUID.randomUUID();
         this.name = name;
         this.age = age;
@@ -35,6 +33,18 @@ public class User {
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
         posts = new ArrayList<>();
+    }
+
+    public static <T> Collector<T, ?, T> toSingleton() {
+        return Collectors.collectingAndThen(
+                Collectors.toList(),
+                list -> {
+                    if (list.size() != 1) {
+                        throw new IllegalStateException();
+                    }
+                    return list.get(0);
+                }
+        );
     }
 
     public void addFriend(User user) {
@@ -53,7 +63,7 @@ public class User {
         posts.remove(post);
     }
 
-    public void updateName(User user){
+    public void updateName(User user) {
 
     }
 
@@ -107,17 +117,5 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public static <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
-                    return list.get(0);
-                }
-        );
     }
 }

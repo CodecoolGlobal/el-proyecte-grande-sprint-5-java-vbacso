@@ -1,4 +1,4 @@
-package com.codecool.byteMe;
+package com.codecool.byteMe.config;
 
 import com.codecool.byteMe.model.User;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +13,10 @@ public class UserConfig {
     public Set<User> getBaseDaoUsers() {
         return new HashSet<>(
                 Set.of(
-                        new User("Zénó", 18),
-                        new User("Vanda", 18),
-                        new User("Erik", 18),
-                        new User("Dani", 69420)
+                        new User("Zénó", 18, "zeno@byte.me"),
+                        new User("Vanda", 18, "vanda@byte.me"),
+                        new User("Erik", 18, "erik@byte.me"),
+                        new User("Dani", 69420, "dani@byte.me")
                 )
         );
     }

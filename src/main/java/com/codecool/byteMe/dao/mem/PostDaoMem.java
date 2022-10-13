@@ -14,9 +14,10 @@ import static com.codecool.byteMe.model.User.toSingleton;
 @Component("postDaoMem")
 public class PostDaoMem implements PostDao {
 
+    private static Set<Post> data = new HashSet<>();
     @Autowired
     UserDaoMem userDaoMem;
-    private static Set<Post> data = new HashSet<>();
+
     @Override
     public void add(Post post) {
         data.add(post);

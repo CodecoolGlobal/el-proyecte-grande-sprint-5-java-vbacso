@@ -34,14 +34,15 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public Set<Post> findByUser(UUID userId){
+    public Set<Post> findByUser(UUID userId) {
         return data.stream().filter(user -> user.getId()
-                        .equals(userId)).collect(toSingleton()).getPosts().stream().collect(Collectors.toSet());
+                .equals(userId)).collect(toSingleton()).getPosts().stream().collect(Collectors.toSet());
 
     }
 
     @Override
     public Set<User> getAllUser() {
         return data;
+
     }
 }

@@ -21,4 +21,8 @@ public class UserService {
     public User add(User user) {
         return userDao.add(user);
     }
+
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
 }
