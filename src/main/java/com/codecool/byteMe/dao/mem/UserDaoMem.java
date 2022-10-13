@@ -12,14 +12,20 @@ import java.util.stream.Collectors;
 
 import static com.codecool.byteMe.model.User.toSingleton;
 
-@Component("userDaoMem")
+@Component("userDao")
 public class UserDaoMem implements UserDao {
 
-    private static Set<User> data = new HashSet<>();
+    private static Set<User> data;
+
+    private UserDaoMem(Set<User> getBaseDaoUsers) {
+        data = new HashSet<>();
+        data.addAll(getBaseDaoUsers);
+    }
 
     @Override
-    public void add(User user) {
+    public User add(User user) {
         data.add(user);
+        return user;
     }
 
     @Override
@@ -28,14 +34,15 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public Set<Post> findByUser(UUID userId){
+    public Set<Post> findByUser(UUID userId) {
         return data.stream().filter(user -> user.getId()
-                        .equals(userId)).collect(toSingleton()).getPosts().stream().collect(Collectors.toSet());
+                .equals(userId)).collect(toSingleton()).getPosts().stream().collect(Collectors.toSet());
 
     }
 
     @Override
     public Set<User> getAllUser() {
         return data;
+
     }
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface UserDao {
-    void add(User user);
+    User add(User user);
 
     User findByEmail(String email);
 
