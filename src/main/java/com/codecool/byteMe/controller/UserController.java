@@ -21,17 +21,26 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public void addUsers(@RequestBody User user) {
-        appDaoMem.addUser(user);
+    public User addUsers(@RequestBody User user) {
+        return appDaoMem.addUser(user);
     }
 
     @PutMapping("/update/{userName}")
-    public void updateName(@RequestBody User user, @PathVariable String userName) {
-
+    public User updateName(@RequestBody User user) {
+        return appDaoMem.editUserName(user);
     }
 
-    @GetMapping("/find")
-    public User find(@RequestBody User user) {
+    @GetMapping("/findById")
+    public User findUserById(@RequestBody User user) {
+        return appDaoMem.findUserById(user.getId());
+    }
+    @GetMapping("/findById")
+    public User findUserByEmail(@RequestBody User user) {
         return appDaoMem.findUserByEmail(user.getEmail());
+    }
+
+    @DeleteMapping("/delete")
+    public User deleteUser(@RequestBody User user){
+        return deleteUser(user);
     }
 }
