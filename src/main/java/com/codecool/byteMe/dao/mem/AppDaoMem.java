@@ -12,10 +12,15 @@ import java.util.Set;
 import java.util.UUID;
 
 
-@Component("userDaoMem")
+@Component("appDaoMem")
 public class AppDaoMem implements AppDao {
 
-    private static Set<User> data = new HashSet<>();
+    private static Set<User> data;
+
+    private AppDaoMem(Set<User> users) {
+        data = new HashSet<>();
+        data.addAll(users);
+    }
 
     @Override
     public Set<User> getAllUser() {
