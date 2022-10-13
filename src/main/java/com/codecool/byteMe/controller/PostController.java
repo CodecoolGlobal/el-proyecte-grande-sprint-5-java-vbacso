@@ -30,7 +30,7 @@ public class PostController {
         return appDaoMem.editPost(newPost);
     }
 
-    @GetMapping("{postId}")
+    @GetMapping("find/{postId}")
     public Post findPostById(@PathVariable UUID postId) {
         return appDaoMem.findPostById(postId);
     }

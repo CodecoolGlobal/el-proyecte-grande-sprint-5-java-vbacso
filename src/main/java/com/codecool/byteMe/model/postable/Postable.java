@@ -1,8 +1,6 @@
 package com.codecool.byteMe.model.postable;
 
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public abstract class Postable {
 
@@ -26,10 +24,6 @@ public abstract class Postable {
         vote--;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
     public UUID getId() {
         return id;
     }
@@ -40,6 +34,10 @@ public abstract class Postable {
 
     public int getVote() {
         return vote;
+    }
+
+    public UUID getUserId() {
+        return userId;
     }
 
     @Override

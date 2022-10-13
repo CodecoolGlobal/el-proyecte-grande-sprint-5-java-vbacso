@@ -1,7 +1,9 @@
 package com.codecool.byteMe.model.postable;
 
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Post extends Postable {
 
@@ -25,6 +27,10 @@ public class Post extends Postable {
 
     public Set<Comment> getComments() {
         return comments;
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
     }
 
     public void editPost(Post newPost) {

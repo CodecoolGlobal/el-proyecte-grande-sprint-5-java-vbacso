@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private AppDao appDaoMem;
 
-    @GetMapping("/get")
+    @GetMapping("/all")
     public Set<User> getUsers() {
         return appDaoMem.getAllUser();
     }
@@ -34,13 +34,14 @@ public class UserController {
     public User findUserById(@RequestBody User user) {
         return appDaoMem.findUserById(user.getId());
     }
-    @GetMapping("/findById")
+
+    @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {
         return appDaoMem.findUserByEmail(user.getEmail());
     }
 
     @DeleteMapping("/delete")
-    public User deleteUser(@RequestBody User user){
+    public User deleteUser(@RequestBody User user) {
         return deleteUser(user);
     }
 }

@@ -41,10 +41,10 @@ public interface AppDao {
 
     Set<Comment> findCommentsByPostId(UUID postId);
 
-    Comment findCommentsById(UUID commentId);
+    Comment findCommentById(UUID commentId);
 
     Comment editComment(Comment comment);
 
-    Comment deleteComment(Comment comment);
+    Comment deleteComment(UUID commentId);
 
 }

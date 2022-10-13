@@ -1,13 +1,12 @@
 package com.codecool.byteMe.model;
 
+import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.*;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class User {
 
@@ -20,6 +19,7 @@ public class User {
     private List<User> friendList;
     private Image profilePic;
     private Set<Post> posts;
+    private Set<Comment> comments;
 
 
     public User(String name, int age, String email) {
@@ -32,18 +32,7 @@ public class User {
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new ArrayList<>();
         posts = new HashSet<>();
-    }
-
-    public static <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
-                    return list.get(0);
-                }
-        );
+        comments = new HashSet<>();
     }
 
     public void addFriend(User user) {
@@ -56,6 +45,10 @@ public class User {
 
     public void addPost(Post post) {
         posts.add(post);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     public void deletePost(Post post) {
@@ -108,6 +101,14 @@ public class User {
 
     public UUID getId() {
         return id;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
     }
 
     @Override
