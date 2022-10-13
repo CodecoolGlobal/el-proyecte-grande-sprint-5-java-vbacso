@@ -1,7 +1,9 @@
 package com.codecool.byteMe.model.postable;
 
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Post extends Postable {
 

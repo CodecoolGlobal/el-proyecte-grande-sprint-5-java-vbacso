@@ -5,10 +5,8 @@ import com.codecool.byteMe.model.postable.Post;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.*;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class User {
 

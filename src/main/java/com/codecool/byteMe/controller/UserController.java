@@ -34,13 +34,14 @@ public class UserController {
     public User findUserById(@RequestBody User user) {
         return appDaoMem.findUserById(user.getId());
     }
+
     @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {
         return appDaoMem.findUserByEmail(user.getEmail());
     }
 
     @DeleteMapping("/delete")
-    public User deleteUser(@RequestBody User user){
+    public User deleteUser(@RequestBody User user) {
         return deleteUser(user);
     }
 }

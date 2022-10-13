@@ -47,7 +47,7 @@ public class AppDaoMem implements AppDao {
                 .filter(user -> user.getId().equals(userId))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
-        }
+    }
 
     @Override
     public User findUserByEmail(String email) {
@@ -61,7 +61,7 @@ public class AppDaoMem implements AppDao {
     public User deleteUser(User user) {
         data.remove(data.stream().filter(userU -> userU.getId().equals(user.getId())).findFirst().orElseThrow(NoSuchElementException::new));
         return user;
-        }
+    }
 
 
     @Override
@@ -127,7 +127,8 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Comment addComment(Comment comment) {
-        if (comment.getPostId()==null&&comment.getUserId()==null)throw new NoSuchElementException("Invalid comment body");
+        if (comment.getPostId() == null && comment.getUserId() == null)
+            throw new IllegalArgumentException("Missing object attribute: userId and postId can't be null.");
         data.stream()
                 .filter(user -> user.getId().equals(comment.getUserId()))
                 .findFirst().orElseThrow(NoSuchElementException::new)
