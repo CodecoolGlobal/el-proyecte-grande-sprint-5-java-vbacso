@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -67,26 +66,34 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Set<Post> getAllPost() {
-        throw new UnsupportedOperationException("Not implemented method: (addPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (addPost) for class: (UserDaoMem)
+        return data.stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Post addPost(Post post) {
-        throw new UnsupportedOperationException("Not implemented method: (addPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (addPost) for class: (UserDaoMem)
+        User user = findUserById(post.getUserId());
+        user.addPost(post);
+        return post;
+
     }
 
     @Override
-    public Post editPost(Post post) {
-        throw new UnsupportedOperationException("Not implemented method: (editPost) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (editPost) for class: (UserDaoMem)
+    public Post editPost(Post newPost) {
+        Post editablePost = findPostById(newPost.getId());
+        editablePost.editPost(newPost);
+        return editablePost;
     }
 
     @Override
     public Post findPostById(UUID postId) {
-        throw new UnsupportedOperationException("Not implemented method: (findPostById) in class: (UserDaoMem)");
-        //TODO: (fergencszeno, 2022. 10. 13.) Implement method: (findPostById) for class: (UserDaoMem)
+        Set<Post> posts = getAllPost();
+        return posts.stream()
+                .filter(post -> post.getId().equals(postId))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
     }
 
     @Override
@@ -100,10 +107,13 @@ public class AppDaoMem implements AppDao {
 
     @Override
     public Post deletePost(UUID postId) {
-        return getAllPost().stream()
+        Post deletePost = getAllPost().stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
+        getAllPost().remove(deletePost);
+        return deletePost;
+
     }
 
 
