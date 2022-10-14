@@ -4,9 +4,11 @@ import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 
 import java.awt.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class User {
 
@@ -16,21 +18,21 @@ public class User {
     private int age;
     private String email;
     private LocalDate regDate;
-    private List<User> friendList;
+    private Set<User> friendList;
     private Image profilePic;
     private Set<Post> posts;
     private Set<Comment> comments;
 
 
     public User(String name, int age, String email) {
-        id = UUID.randomUUID();
+        id = UUID.nameUUIDFromBytes(email.getBytes(StandardCharsets.UTF_8));
         this.name = name;
         this.age = age;
         this.email = email;
         this.regDate = regDate;
         this.regDate = LocalDate.now();
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
-        friendList = new ArrayList<>();
+        friendList = new HashSet<>();
         posts = new HashSet<>();
         comments = new HashSet<>();
     }
@@ -79,7 +81,7 @@ public class User {
         return regDate;
     }
 
-    public List<User> getFriendList() {
+    public Set<User> getFriendList() {
         return friendList;
     }
 

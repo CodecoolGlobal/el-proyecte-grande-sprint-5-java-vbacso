@@ -2,6 +2,7 @@ package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -9,9 +10,15 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private final UserDao userDao;
+    private UserDao userDao;
 
-    private UserService(UserDao userDao) {
+    @Autowired
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 

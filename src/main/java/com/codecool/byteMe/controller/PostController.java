@@ -3,6 +3,7 @@ package com.codecool.byteMe.controller;
 import com.codecool.byteMe.model.postable.Post;
 import com.codecool.byteMe.service.PostService;
 import com.codecool.byteMe.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -12,12 +13,17 @@ import java.util.UUID;
 @RequestMapping("/post")
 public class PostController {
 
-    private PostService postService;
-    private UserService userService;
-    
-    private PostController(PostService postService,UserService userService) {
-        this.postService = postService;
-        this.userService = userService;
+    private static PostService postService;
+    private static UserService userService;
+
+    @Autowired
+    public void setPostService(PostService postService) {
+        PostController.postService = postService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        PostController.userService = userService;
     }
 
     @GetMapping("all")

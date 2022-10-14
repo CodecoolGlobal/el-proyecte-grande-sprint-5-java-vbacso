@@ -3,7 +3,6 @@ package com.codecool.byteMe.dao.mem;
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
-import com.codecool.byteMe.model.postable.Post;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -16,11 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class UserDaoMem implements UserDao {
 
-    private static Set<User> data;
+    private final Set<User> data;
 
-    private UserDaoMem(Set<User> users) {
+    public UserDaoMem() {
         data = new HashSet<>();
-        data.addAll(users);
     }
 
     @Override

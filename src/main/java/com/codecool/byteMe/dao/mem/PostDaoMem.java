@@ -1,7 +1,10 @@
 package com.codecool.byteMe.dao.mem;
 
 import com.codecool.byteMe.dao.PostDao;
+import com.codecool.byteMe.dao.UserDao;
+import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
@@ -14,8 +17,14 @@ public class PostDaoMem implements PostDao {
 
     private Set<Post> data;
 
-    private PostDaoMem(Set<Post> posts) {
-        this.data = posts;
+    @Autowired
+    private void setData(UserDao userDao) {
+
+        this.data = userDao.getAllUser()
+                .stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.codecool.byteMe.controller;
 
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.postable.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -13,7 +14,8 @@ public class CommentController {
 
     private UserDao userDao;
 
-    private CommentController(UserDao userDao) {
+    @Autowired
+    private void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
