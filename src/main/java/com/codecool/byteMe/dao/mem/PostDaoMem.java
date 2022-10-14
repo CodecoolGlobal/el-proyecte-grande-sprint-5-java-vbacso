@@ -15,37 +15,33 @@ import java.util.stream.Collectors;
 @Component
 public class PostDaoMem implements PostDao {
 
-    private Set<Post> data;
+    private UserDao userDao;
 
     @Autowired
-    private void setData(UserDao userDao) {
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
-        this.data = userDao.getAll()
-                .stream()
+    @Override
+    public Set<Post> getAll() {
+        return userDao.getAll().stream()
                 .map(User::getPosts)
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
 
     @Override
-    public Set<Post> getAll() {
-        return data;
+    public Post add(Post post) {
+        userDao.findById(post.getUserId()).addPost(post);
+        return post;
     }
 
     @Override
     public Post findById(UUID postId) {
-        Set<Post> posts = getAll();
-        return posts.stream()
+        return getAll().stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
-    }
-
-    @Override
-    public Post add(Post post) {
-        data.add(post);
-        return post;
-
     }
 
     @Override
@@ -56,19 +52,15 @@ public class PostDaoMem implements PostDao {
 
     @Override
     public Set<Post> findByUserId(UUID userId) {
-        return data.stream()
-                .filter(post -> post.getUserId().equals(userId))
-                .collect(Collectors.toSet());
+        return userDao.findById(userId).getPosts();
     }
 
     @Override
     public Post delete(UUID postId) {
-        Post removablePost = data.stream()
-                .filter(post -> post.getId().equals(postId))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-        data.remove(removablePost);
-        return removablePost;
+        Post postToDelete = findById(postId);
+        findByUserId(postToDelete.getUserId())
+                .remove(postToDelete);
+        return postToDelete;
 
     }
 

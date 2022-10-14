@@ -2,7 +2,6 @@ package com.codecool.byteMe.controller;
 
 import com.codecool.byteMe.model.postable.Post;
 import com.codecool.byteMe.service.PostService;
-import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,17 +12,11 @@ import java.util.UUID;
 @RequestMapping("/post")
 public class PostController {
 
-    private static PostService postService;
-    private static UserService userService;
+    private PostService postService;
 
     @Autowired
     public void setPostService(PostService postService) {
-        PostController.postService = postService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        PostController.userService = userService;
+        this.postService = postService;
     }
 
     @GetMapping("all")
@@ -33,12 +26,12 @@ public class PostController {
 
     @PostMapping("add")
     public Post addPost(@RequestBody Post post) {
-        userService.findById(post.getUserId()).addPost(post);
-        return postService.add(post);
+        postService.add(post);
+        return post;
     }
 
-    @PostMapping("edit")
-    public Post editPost(Post post) {
+    @PutMapping("edit")
+    public Post editPost(@RequestBody Post post) {
         return postService.edit(post);
     }
 
@@ -52,8 +45,8 @@ public class PostController {
         return postService.findByUserId(userId);
     }
 
-    @DeleteMapping("delete")
-    public Post deletePost(@RequestBody Post post) {
-        return postService.delete(post.getId());
+    @DeleteMapping("delete/{postId}")
+    public Post deletePost(@PathVariable UUID postId) {
+        return postService.delete(postId);
     }
 }

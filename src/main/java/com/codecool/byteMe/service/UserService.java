@@ -10,15 +10,10 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    @Autowired
-    public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
