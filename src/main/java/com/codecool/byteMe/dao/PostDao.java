@@ -6,15 +6,16 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface PostDao {
-    Set<Post> getAllPost();
+    Set<Post> getAll();
+
     Post findById(UUID postId);
 
-    Set<Post> findPostsByUserId(UUID userId);
+    Set<Post> findByUserId(UUID userId);
 
-    Post addPost(Post post);
+    Post add(Post post);
 
-    Post editPost(Post post);
+    Post edit(Post post);
 
-    Post deletePost(UUID postId);
+    Post delete(UUID postId);
 
 }

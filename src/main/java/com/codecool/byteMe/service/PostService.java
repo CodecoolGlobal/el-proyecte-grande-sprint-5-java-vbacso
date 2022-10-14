@@ -17,27 +17,27 @@ public class PostService {
         this.postDao = postDao;
     }
 
-    public Set<Post> getAllPost() {
-        return postDao.getAllPost();
+    public Set<Post> getAll() {
+        return postDao.getAll();
     }
 
-    public Post addPost(Post post) {
-        return postDao.addPost(post);
+    public Post add(Post post) {
+        return postDao.add(post);
     }
 
-    public Post editPost(Post post) {
-        return postDao.editPost(post);
-    }
-
-    public Set<Post> findPostsByUserId(UUID userId) {
-        return postDao.findPostsByUserId(userId);
-    }
-
-    public Post findPostById(UUID postId) {
+    public Post findById(UUID postId) {
         return postDao.findById(postId);
     }
 
-    public Post deletePost(UUID postId) {
-        return postDao.deletePost(postId);
+    public Set<Post> findByUserId(UUID userId) {
+        return postDao.findByUserId(userId);
+    }
+
+    public Post edit(Post post) {
+        return postDao.edit(post);
+    }
+
+    public Post delete(UUID postId) {
+        return postDao.delete(postId);
     }
 }

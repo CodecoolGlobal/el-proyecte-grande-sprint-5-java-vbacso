@@ -2,25 +2,24 @@ package com.codecool.byteMe.dao;
 
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
-import com.codecool.byteMe.model.postable.Post;
 
 import java.util.Set;
 import java.util.UUID;
 
 public interface UserDao {
-    Set<User> getAllUser();
+    Set<User> getAll();
+
     Set<Comment> getAllComment();
 
-    User addUser(User user);
+    User add(User user);
 
     User edit(User user);
 
     User findByEmail(String email);
 
-    User findUserById(UUID userId);
+    User findById(UUID userId);
 
-
-    User deleteUser(User user);
+    User delete(UUID userId);
 
 
     Comment addComment(Comment comment);

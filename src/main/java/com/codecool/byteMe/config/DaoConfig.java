@@ -21,10 +21,10 @@ public class DaoConfig {
     @Scope("singleton")
     UserDao userDao() {
         UserDao userDao = new UserDaoMem();
-        userDao.addUser(userConfig.zeno());
-        userDao.addUser(userConfig.vanda());
-        userDao.addUser(userConfig.erik());
-        userDao.addUser(userConfig.dani());
+        userDao.add(userConfig.zeno());
+        userDao.add(userConfig.vanda());
+        userDao.add(userConfig.erik());
+        userDao.add(userConfig.dani());
         return userDao;
     }
 }

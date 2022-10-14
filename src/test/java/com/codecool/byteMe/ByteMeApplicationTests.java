@@ -24,7 +24,7 @@ class ByteMeApplicationTests {
 
         UserService secondUserService = new UserService((UserDao) ac.getBean("userDao"));
 
-        Assertions.assertEquals(firstUserService.getAllUser(),secondUserService.getAllUser());
+        Assertions.assertEquals(firstUserService.getAll(),secondUserService.getAll());
     }
 
 }

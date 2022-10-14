@@ -28,32 +28,32 @@ public class PostController {
 
     @GetMapping("all")
     public Set<Post> getAllPost() {
-        return postService.getAllPost();
+        return postService.getAll();
     }
 
     @PostMapping("add")
     public Post addPost(@RequestBody Post post) {
         userService.findById(post.getUserId()).addPost(post);
-        return postService.addPost(post);
+        return postService.add(post);
     }
 
     @PostMapping("edit")
     public Post editPost(Post post) {
-        return postService.editPost(post);
+        return postService.edit(post);
     }
 
     @GetMapping("find/{postId}")
     public Post findPostById(@PathVariable UUID postId) {
-        return postService.findPostById(postId);
+        return postService.findById(postId);
     }
 
     @GetMapping("/user/{userId}")
     public Set<Post> findPostsByUserId(@PathVariable UUID userId) {
-        return postService.findPostsByUserId(userId);
+        return postService.findByUserId(userId);
     }
 
     @DeleteMapping("delete")
     public Post deletePost(@RequestBody Post post) {
-        return postService.deletePost(post.getId());
+        return postService.delete(post.getId());
     }
 }

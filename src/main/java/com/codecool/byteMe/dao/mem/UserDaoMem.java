@@ -22,12 +22,12 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public Set<User> getAllUser() {
+    public Set<User> getAll() {
         return data;
     }
 
     @Override
-    public User addUser(User user) {
+    public User add(User user) {
         data.add(user);
         return user;
     }
@@ -40,7 +40,7 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public User findUserById(UUID userId) {
+    public User findById(UUID userId) {
         return data.stream()
                 .filter(user -> user.getId().equals(userId))
                 .findFirst()
@@ -56,9 +56,10 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public User deleteUser(User user) {
-        data.remove(data.stream().filter(userU -> userU.getId().equals(user.getId())).findFirst().orElseThrow(NoSuchElementException::new));
-        return user;
+    public User delete(UUID userId) {
+        User userToDelete = data.stream().filter(user -> user.getId().equals(userId)).findFirst().orElseThrow(NoSuchElementException::new);
+        data.remove(userToDelete);
+        return userToDelete;
     }
 
 

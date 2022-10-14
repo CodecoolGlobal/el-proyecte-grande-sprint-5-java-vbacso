@@ -20,7 +20,7 @@ public class PostDaoMem implements PostDao {
     @Autowired
     private void setData(UserDao userDao) {
 
-        this.data = userDao.getAllUser()
+        this.data = userDao.getAll()
                 .stream()
                 .map(User::getPosts)
                 .flatMap(Set::stream)
@@ -28,13 +28,13 @@ public class PostDaoMem implements PostDao {
     }
 
     @Override
-    public Set<Post> getAllPost() {
+    public Set<Post> getAll() {
         return data;
     }
 
     @Override
     public Post findById(UUID postId) {
-        Set<Post> posts = getAllPost();
+        Set<Post> posts = getAll();
         return posts.stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()
@@ -42,27 +42,27 @@ public class PostDaoMem implements PostDao {
     }
 
     @Override
-    public Post addPost(Post post) {
+    public Post add(Post post) {
         data.add(post);
         return post;
 
     }
 
     @Override
-    public Post editPost(Post post) {
+    public Post edit(Post post) {
         return findById(post.getId()).editPost(post);
     }
 
 
     @Override
-    public Set<Post> findPostsByUserId(UUID userId) {
+    public Set<Post> findByUserId(UUID userId) {
         return data.stream()
                 .filter(post -> post.getUserId().equals(userId))
                 .collect(Collectors.toSet());
     }
 
     @Override
-    public Post deletePost(UUID postId) {
+    public Post delete(UUID postId) {
         Post removablePost = data.stream()
                 .filter(post -> post.getId().equals(postId))
                 .findFirst()

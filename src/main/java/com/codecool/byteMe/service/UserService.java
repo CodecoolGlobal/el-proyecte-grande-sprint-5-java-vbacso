@@ -22,19 +22,19 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public Set<User> getAllUser() {
-        return userDao.getAllUser();
+    public Set<User> getAll() {
+        return userDao.getAll();
     }
 
     public User add(User user) {
-        return userDao.addUser(user);
+        return userDao.add(user);
     }
 
     public User findByEmail(String email) {
         return userDao.findByEmail(email);
     }
     public User findById(UUID uuid) {
-        return userDao.findUserById(uuid);
+        return userDao.findById(uuid);
     }
 
     public User edit(User user) {

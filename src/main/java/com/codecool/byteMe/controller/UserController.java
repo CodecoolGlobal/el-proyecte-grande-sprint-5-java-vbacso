@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/all")
     public Set<User> getAllUser() {
-        return userService.getAllUser();
+        return userService.getAll();
     }
 
     @PostMapping("/add")
