@@ -54,20 +54,26 @@ public class CommentDaoMem implements CommentDao {
 
     @Override
     public Comment findById(UUID commentId) {
-        throw new UnsupportedOperationException("Not implemented method: (findById) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (findById) for class: (CommentDaoMem)
+        return getAll()
+                .stream()
+                .filter(comment -> comment.getId().equals(commentId))
+                .findFirst().orElseThrow(NoSuchElementException::new);
     }
 
     @Override
     public Set<Comment> findByUserId(UUID userId) {
-        throw new UnsupportedOperationException("Not implemented method: (findByUserId) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (findByUserId) for class: (CommentDaoMem)
+        return getAll()
+                .stream()
+                .filter(comment -> comment.getUserId().equals(userId))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Set<Comment> findByPostId(UUID postId) {
-        throw new UnsupportedOperationException("Not implemented method: (findByPostId) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (findByPostId) for class: (CommentDaoMem)
+        return  getAll()
+                .stream()
+                .filter(comment -> comment.getPostId().equals(postId))
+                .collect(Collectors.toSet());
     }
 
     @Override

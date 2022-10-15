@@ -42,9 +42,17 @@ public class CommentController {
         return commentService.add(comment);
     }
 
-    @GetMapping("find/{commentId}")
+    @GetMapping("{commentId}")
     public Comment find(@PathVariable UUID commentId) {
-        return userDao.findCommentById(commentId);
+        return commentService.findById(commentId);
+    }
+    @GetMapping("user/{userId}")
+    public Set<Comment> findByUserId(@PathVariable UUID userId) {
+        return commentService.findByUserId(userId);
+    }
+    @GetMapping("post/{postId}")
+    public Set<Comment> findByPostId(@PathVariable UUID postId) {
+        return commentService.findByPostId(postId);
     }
 
     @PutMapping("update")
@@ -52,8 +60,8 @@ public class CommentController {
         return userDao.editComment(comment);
     }
 
-    @DeleteMapping("delete")
-    public Comment delete(@RequestBody Comment comment) {
-        return userDao.deleteComment(comment.getId());
+    @DeleteMapping("delete/{commentId}")
+    public Comment delete(@PathVariable UUID commentId) {
+        return userDao.deleteComment(commentId);
     }
 }
