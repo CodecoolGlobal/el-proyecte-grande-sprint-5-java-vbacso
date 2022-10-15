@@ -14,6 +14,10 @@ public class PostController {
 
     private PostService postService;
 
+    public PostController() {
+        this.postService = new PostService();
+    }
+
     @Autowired
     public void setPostService(PostService postService) {
         this.postService = postService;

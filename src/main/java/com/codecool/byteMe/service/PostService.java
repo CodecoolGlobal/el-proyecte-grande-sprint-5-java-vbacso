@@ -1,6 +1,7 @@
 package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.PostDao;
+import com.codecool.byteMe.dao.mem.PostDaoMem;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ import java.util.UUID;
 public class PostService {
     private PostDao postDao;
 
+    public PostService() {
+        this.postDao = new PostDaoMem();
+    }
     @Autowired
     public void setPostDao(PostDao postDao) {
         this.postDao = postDao;

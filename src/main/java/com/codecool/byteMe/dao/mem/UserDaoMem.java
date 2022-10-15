@@ -3,6 +3,8 @@ package com.codecool.byteMe.dao.mem;
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -15,10 +17,16 @@ import java.util.stream.Collectors;
 @Component
 public class UserDaoMem implements UserDao {
 
-    private final Set<User> data;
+    private Set<User> data;
 
     public UserDaoMem() {
         data = new HashSet<>();
+    }
+
+    @Autowired
+    @Qualifier("baseUsers")
+    public void setData(Set<User> data) {
+        this.data = data;
     }
 
     @Override
@@ -61,7 +69,6 @@ public class UserDaoMem implements UserDao {
         data.remove(userToDelete);
         return userToDelete;
     }
-
 
 
     @Override

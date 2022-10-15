@@ -2,8 +2,12 @@ package com.codecool.byteMe.config;
 
 import com.codecool.byteMe.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class UserConfig {
@@ -13,6 +17,16 @@ public class UserConfig {
     @Autowired
     public void setPostConfig(PostConfig postConfig) {
         this.postConfig = postConfig;
+    }
+
+    @Bean
+    Set<User> baseUsers() {
+        Set<User> users = new HashSet<>();
+        users.add(zeno());
+        users.add(vanda());
+        users.add(erik());
+        users.add(dani());
+        return users;
     }
 
     @Bean

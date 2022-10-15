@@ -17,6 +17,10 @@ public class PostDaoMem implements PostDao {
 
     private UserDao userDao;
 
+    public PostDaoMem() {
+        this.userDao = new UserDaoMem();
+    }
+
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

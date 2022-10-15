@@ -14,6 +14,10 @@ public class UserController {
 
     private UserService userService;
 
+    public UserController() {
+        this.userService = new UserService();
+    }
+
     @Autowired
     private void setUserService(UserService userService) {
         this.userService = userService;
