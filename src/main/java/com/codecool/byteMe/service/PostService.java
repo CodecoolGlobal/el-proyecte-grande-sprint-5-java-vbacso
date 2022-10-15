@@ -16,6 +16,7 @@ public class PostService {
     public PostService() {
         this.postDao = new PostDaoMem();
     }
+
     @Autowired
     public void setPostDao(PostDao postDao) {
         this.postDao = postDao;

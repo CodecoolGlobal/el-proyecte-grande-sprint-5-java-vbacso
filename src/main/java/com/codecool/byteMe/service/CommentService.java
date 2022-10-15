@@ -38,6 +38,7 @@ public class CommentService {
     public Set<Comment> findByUserId(UUID userId) {
         return commentDao.findByUserId(userId);
     }
+
     public Set<Comment> findByPostId(UUID postId) {
         return commentDao.findByPostId(postId);
     }

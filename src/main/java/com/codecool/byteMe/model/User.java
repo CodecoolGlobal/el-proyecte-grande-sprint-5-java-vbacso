@@ -1,6 +1,5 @@
 package com.codecool.byteMe.model;
 
-import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 
 import java.awt.*;

@@ -53,7 +53,6 @@ public class PostDaoMem implements PostDao {
         return findById(post.getId()).editPost(post);
     }
 
-
     @Override
     public Set<Post> findByUserId(UUID userId) {
         return userDao.findById(userId).getPosts();
@@ -62,8 +61,8 @@ public class PostDaoMem implements PostDao {
     @Override
     public Post delete(UUID postId) {
         Post postToDelete = findById(postId);
-        findByUserId(postToDelete.getUserId())
-                .remove(postToDelete);
+        userDao.findById(postToDelete.getUserId())
+                .deletePost(postToDelete);
         return postToDelete;
 
     }

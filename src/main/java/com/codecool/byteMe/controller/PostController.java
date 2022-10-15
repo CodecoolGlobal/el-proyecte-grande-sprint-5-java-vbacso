@@ -30,8 +30,7 @@ public class PostController {
 
     @PostMapping("add")
     public Post addPost(@RequestBody Post post) {
-        postService.add(post);
-        return post;
+        return postService.add(post);
     }
 
     @PutMapping("edit")
@@ -39,12 +38,12 @@ public class PostController {
         return postService.edit(post);
     }
 
-    @GetMapping("find/{postId}")
+    @GetMapping("{postId}")
     public Post findPostById(@PathVariable UUID postId) {
         return postService.findById(postId);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("user/{userId}")
     public Set<Post> findPostsByUserId(@PathVariable UUID userId) {
         return postService.findByUserId(userId);
     }
