@@ -16,7 +16,8 @@ public class Comment extends Postable {
         return postId;
     }
 
-    public void editComment(Comment comment) {
+    public Comment editComment(Comment comment) {
         this.body = comment.body;
+        return this;
     }
 }

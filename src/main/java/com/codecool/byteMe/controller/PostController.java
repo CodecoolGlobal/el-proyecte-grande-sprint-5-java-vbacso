@@ -1,7 +1,7 @@
 package com.codecool.byteMe.controller;
 
-import com.codecool.byteMe.dao.mem.AppDaoMem;
 import com.codecool.byteMe.model.postable.Post;
+import com.codecool.byteMe.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,36 +12,44 @@ import java.util.UUID;
 @RequestMapping("/post")
 public class PostController {
 
+    private PostService postService;
+
+    public PostController() {
+        this.postService = new PostService();
+    }
+
     @Autowired
-    private AppDaoMem appDaoMem;
+    public void setPostService(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping("all")
     public Set<Post> getAllPost() {
-        return appDaoMem.getAllPost();
+        return postService.getAll();
     }
 
     @PostMapping("add")
     public Post addPost(@RequestBody Post post) {
-        return appDaoMem.addPost(post);
+        return postService.add(post);
     }
 
-    @PostMapping("edit")
-    public Post editPost(Post newPost) {
-        return appDaoMem.editPost(newPost);
+    @PutMapping("edit")
+    public Post editPost(@RequestBody Post post) {
+        return postService.edit(post);
     }
 
-    @GetMapping("find/{postId}")
+    @GetMapping("{postId}")
     public Post findPostById(@PathVariable UUID postId) {
-        return appDaoMem.findPostById(postId);
+        return postService.findById(postId);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("user/{userId}")
     public Set<Post> findPostsByUserId(@PathVariable UUID userId) {
-        return appDaoMem.findPostsByUserId(userId);
+        return postService.findByUserId(userId);
     }
 
-    @DeleteMapping("delete")
-    public Post deletePost(@RequestBody Post post) {
-        return appDaoMem.deletePost(post.getId());
+    @DeleteMapping("delete/{postId}")
+    public Post deletePost(@PathVariable UUID postId) {
+        return postService.delete(postId);
     }
 }

@@ -1,8 +1,8 @@
 package com.codecool.byteMe.controller;
 
 
-import com.codecool.byteMe.dao.AppDao;
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,32 +12,40 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
+    private UserService userService;
+
+    public UserController() {
+        this.userService = new UserService();
+    }
+
     @Autowired
-    private AppDao appDaoMem;
+    private void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/all")
-    public Set<User> getUsers() {
-        return appDaoMem.getAllUser();
+    public Set<User> getAllUser() {
+        return userService.getAll();
     }
 
     @PostMapping("/add")
-    public User addUsers(@RequestBody User user) {
-        return appDaoMem.addUser(user);
+    public User add(@RequestBody User user) {
+        return userService.add(user);
     }
 
-    @PutMapping("/update/{userName}")
-    public User updateName(@RequestBody User user) {
-        return appDaoMem.editUserName(user);
+    @PutMapping("/update")
+    public User update(@RequestBody User user) {
+        return userService.edit(user);
     }
 
     @GetMapping("/findById")
     public User findUserById(@RequestBody User user) {
-        return appDaoMem.findUserById(user.getId());
+        return userService.findById(user.getId());
     }
 
     @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {
-        return appDaoMem.findUserByEmail(user.getEmail());
+        return userService.findByEmail(user.getEmail());
     }
 
     @DeleteMapping("/delete")

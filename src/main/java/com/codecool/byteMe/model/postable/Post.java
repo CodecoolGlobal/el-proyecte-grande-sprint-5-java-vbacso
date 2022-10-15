@@ -17,8 +17,9 @@ public class Post extends Postable {
         comments = new HashSet<>();
     }
 
-    public void addComment(Comment comment) {
+    public Comment addComment(Comment comment) {
         comments.add(comment);
+        return comment;
     }
 
     public String getTitle() {
@@ -29,12 +30,13 @@ public class Post extends Postable {
         return comments;
     }
 
-    public void removeComment(Comment comment) {
+    public void deleteComment(Comment comment) {
         comments.remove(comment);
     }
 
-    public void editPost(Post newPost) {
+    public Post editPost(Post newPost) {
         this.title = newPost.title;
         this.body = newPost.body;
+        return this;
     }
 }
