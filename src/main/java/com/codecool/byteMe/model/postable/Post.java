@@ -30,7 +30,7 @@ public class Post extends Postable {
         return comments;
     }
 
-    public void removeComment(Comment comment) {
+    public void deleteComment(Comment comment) {
         comments.remove(comment);
     }
 

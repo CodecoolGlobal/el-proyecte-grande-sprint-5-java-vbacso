@@ -1,7 +1,5 @@
 package com.codecool.byteMe.controller;
 
-import com.codecool.byteMe.dao.UserDao;
-import com.codecool.byteMe.dao.mem.UserDaoMem;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +11,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
-
-    private UserDao userDao;
     private CommentService commentService;
 
     public CommentController() {
-        this.userDao = new UserDaoMem();
         this.commentService = new CommentService();
     }
 
     @Autowired
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
-    }
-
-    @Autowired
-    private void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
     }
 
     @GetMapping("all")
@@ -46,10 +36,12 @@ public class CommentController {
     public Comment find(@PathVariable UUID commentId) {
         return commentService.findById(commentId);
     }
+
     @GetMapping("user/{userId}")
     public Set<Comment> findByUserId(@PathVariable UUID userId) {
         return commentService.findByUserId(userId);
     }
+
     @GetMapping("post/{postId}")
     public Set<Comment> findByPostId(@PathVariable UUID postId) {
         return commentService.findByPostId(postId);
@@ -57,11 +49,11 @@ public class CommentController {
 
     @PutMapping("update")
     public Comment update(@RequestBody Comment comment) {
-        return userDao.editComment(comment);
+        return commentService.edit(comment);
     }
 
     @DeleteMapping("delete/{commentId}")
     public Comment delete(@PathVariable UUID commentId) {
-        return userDao.deleteComment(commentId);
+        return commentService.delete(commentId);
     }
 }

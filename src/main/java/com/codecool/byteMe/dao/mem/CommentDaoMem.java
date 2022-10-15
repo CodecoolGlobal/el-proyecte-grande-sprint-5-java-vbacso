@@ -1,8 +1,7 @@
 package com.codecool.byteMe.dao.mem;
 
 import com.codecool.byteMe.dao.CommentDao;
-import com.codecool.byteMe.dao.UserDao;
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.dao.PostDao;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,21 @@ import java.util.stream.Collectors;
 
 @Component
 public class CommentDaoMem implements CommentDao {
-
-    private UserDao userDao;
+    private PostDao postDao;
 
     public CommentDaoMem() {
-        this.userDao = new UserDaoMem();
+        this.postDao = new PostDaoMem();
     }
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setPostDao(PostDao postDao) {
+        this.postDao = postDao;
     }
 
     @Override
     public Set<Comment> getAll() {
-        return userDao.getAll()
+        return postDao.getAll()
                 .stream()
-                .map(User::getPosts)
-                .flatMap(Set::stream)
                 .map(Post::getComments)
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
@@ -42,10 +38,8 @@ public class CommentDaoMem implements CommentDao {
     public Comment add(Comment comment) {
         if (comment.getPostId() == null && comment.getUserId() == null)
             throw new IllegalArgumentException("Missing object attribute: userId and postId can't be null.");
-        return userDao.getAll()
+        return postDao.getAll()
                 .stream()
-                .map(User::getPosts)
-                .flatMap(Set::stream)
                 .filter(post -> post.getId().equals(comment.getPostId()))
                 .findFirst().orElseThrow(NoSuchElementException::new)
                 .addComment(comment);
@@ -70,7 +64,7 @@ public class CommentDaoMem implements CommentDao {
 
     @Override
     public Set<Comment> findByPostId(UUID postId) {
-        return  getAll()
+        return getAll()
                 .stream()
                 .filter(comment -> comment.getPostId().equals(postId))
                 .collect(Collectors.toSet());
@@ -78,13 +72,14 @@ public class CommentDaoMem implements CommentDao {
 
     @Override
     public Comment edit(Comment comment) {
-        throw new UnsupportedOperationException("Not implemented method: (edit) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (edit) for class: (CommentDaoMem)
+        return findById(comment.getId()).editComment(comment);
     }
 
     @Override
     public Comment delete(UUID commentId) {
-        throw new UnsupportedOperationException("Not implemented method: (delete) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (delete) for class: (CommentDaoMem)
+        Comment commentToDelete = findById(commentId);
+        postDao.findById(commentToDelete.getPostId())
+                .deleteComment(commentToDelete);
+        return commentToDelete;
     }
 }
