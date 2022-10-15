@@ -21,7 +21,6 @@ public class User {
     private Set<User> friendList;
     private Image profilePic;
     private Set<Post> posts;
-    private Set<Comment> comments;
 
 
     public User(String name, int age, String email) {
@@ -34,7 +33,6 @@ public class User {
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new HashSet<>();
         posts = new HashSet<>();
-        comments = new HashSet<>();
     }
 
     public void addFriend(User user) {
@@ -47,10 +45,6 @@ public class User {
 
     public void addPost(Post post) {
         posts.add(post);
-    }
-
-    public void addComment(Comment comment) {
-        comments.add(comment);
     }
 
     public void deletePost(Post post) {
@@ -103,14 +97,6 @@ public class User {
 
     public UUID getId() {
         return id;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void removeComment(Comment comment) {
-        comments.remove(comment);
     }
 
     @Override
