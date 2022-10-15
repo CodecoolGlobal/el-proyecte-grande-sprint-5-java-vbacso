@@ -17,8 +17,9 @@ public class Post extends Postable {
         comments = new HashSet<>();
     }
 
-    public void addComment(Comment comment) {
+    public Comment addComment(Comment comment) {
         comments.add(comment);
+        return comment;
     }
 
     public String getTitle() {

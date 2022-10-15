@@ -34,17 +34,17 @@ public class CommentController {
 
     @GetMapping("all")
     public Set<Comment> getAllComment() {
-        return userDao.getAllComment();
+        return commentService.getAll();
+    }
+
+    @PostMapping("add")
+    public Comment add(@RequestBody Comment comment) {
+        return commentService.add(comment);
     }
 
     @GetMapping("find/{commentId}")
     public Comment find(@PathVariable UUID commentId) {
         return userDao.findCommentById(commentId);
-    }
-
-    @PostMapping("add")
-    public Comment add(@RequestBody Comment comment) {
-        return userDao.addComment(comment);
     }
 
     @PutMapping("update")

@@ -2,12 +2,16 @@ package com.codecool.byteMe.dao.mem;
 
 import com.codecool.byteMe.dao.CommentDao;
 import com.codecool.byteMe.dao.UserDao;
+import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
+import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class CommentDaoMem implements CommentDao {
@@ -25,14 +29,27 @@ public class CommentDaoMem implements CommentDao {
 
     @Override
     public Set<Comment> getAll() {
-        throw new UnsupportedOperationException("Not implemented method: (getAll) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (getAll) for class: (CommentDaoMem)
+        return userDao.getAll()
+                .stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .map(Post::getComments)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Comment add(Comment comment) {
-        throw new UnsupportedOperationException("Not implemented method: (add) in class: (CommentDaoMem)");
-        //TODO: (fekete, 2022. 10. 15.) Implement method: (add) for class: (CommentDaoMem)
+        if (comment.getPostId() == null && comment.getUserId() == null)
+            throw new IllegalArgumentException("Missing object attribute: userId and postId can't be null.");
+        return userDao.getAll()
+                .stream()
+                .map(User::getPosts)
+                .flatMap(Set::stream)
+                .filter(post -> post.getId().equals(comment.getPostId()))
+                .findFirst().orElseThrow(NoSuchElementException::new)
+                .addComment(comment);
+
     }
 
     @Override
