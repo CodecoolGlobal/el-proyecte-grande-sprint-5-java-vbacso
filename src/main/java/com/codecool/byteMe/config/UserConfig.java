@@ -21,8 +21,15 @@ public class UserConfig {
     @Bean
     Set<User> baseUsers() {
         Set<User> users = new HashSet<>();
-        users.add(zeno());
-        users.add(vanda());
+
+        User vanda = vanda();
+        User zeno = zeno();
+
+        users.add(zeno);
+        users.add(vanda);
+        vanda.addFriend(zeno);
+        zeno.addFriend(vanda);
+
         users.add(erik());
         users.add(dani());
         return users;

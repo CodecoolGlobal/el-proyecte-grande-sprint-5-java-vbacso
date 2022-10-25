@@ -1,6 +1,7 @@
 import './App.css';
 import LoginPage from "./components/LoginPage";
 import {useEffect, useState} from "react";
+import MainPage from "./components/main_page/MainPage";
 
 function App() {
 
@@ -26,14 +27,16 @@ function App() {
             const userDetails = await resp.json();
             setUser(userDetails);
             localStorage.setItem("loggedInUser", JSON.stringify(userDetails))
+        }else {
+            alert("Invalid email!")
         }
-        console.log(user)
     }
 
     return (<div>
         {user === ""
             ? <LoginPage onLogin={onLogin}/>
             : <div>
+                <MainPage/>
                 {user.name} Logged in<br/>
                 {JSON.stringify(user)}
             </div>}
