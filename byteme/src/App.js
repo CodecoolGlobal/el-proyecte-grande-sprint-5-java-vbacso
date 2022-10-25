@@ -1,14 +1,20 @@
 import './App.css';
-import logo from './images/byteMe-logo.png'
+import LoginPage from "./components/LoginPage";
+import {useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
-  );
+
+    const [user, setUser] = useState("");
+
+    const onLogin = async (email) => {
+        setUser(email);
+    }
+
+    return (<div>
+        {user === ""
+            ? <LoginPage onLogin={onLogin}/>
+            : <div>Logged in</div>}
+    </div>)
 }
 
 export default App;
