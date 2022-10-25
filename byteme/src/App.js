@@ -1,6 +1,7 @@
 import './App.css';
 import LoginPage from "./components/LoginPage";
 import {useState} from "react";
+import MainPage from "./components/main_page/MainPage";
 
 function App() {
 
@@ -16,14 +17,16 @@ function App() {
         })
         if (resp.ok) {
             setUser(await resp.json())
+        } else {
+            alert("Invalid email!")
         }
-        console.log(user)
     }
 
     return (<div>
         {user === ""
             ? <LoginPage onLogin={onLogin}/>
             : <div>
+                <MainPage/>
                 {user.name} Logged in<br/>
                 {JSON.stringify(user)}
             </div>}
