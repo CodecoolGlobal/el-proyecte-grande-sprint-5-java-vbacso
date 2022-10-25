@@ -69,9 +69,9 @@ public class PostDaoMem implements PostDao {
 
     @Override
     public Set<Post> getAllFriendsPosts(UUID userId) {
-        Set<User> friends = userDao.findById(userId).getFriendList();
+        Set<UUID> friends = userDao.findById(userId).getFriendList();
         return friends.stream()
-                .map(User::getPosts)
+                .map(friend -> userDao.findById(friend).getPosts())
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
