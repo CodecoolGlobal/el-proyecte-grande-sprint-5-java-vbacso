@@ -1,11 +1,15 @@
 import './App.css';
-import logo from './images/byteMe-logo.png'
+import logo from './images/byteMe-logo.png';
+import {Button} from 'react-bootstrap'
+import User from './User'
+
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <header>
+          <User />
       </header>
     </div>
   );
