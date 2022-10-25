@@ -1,10 +1,18 @@
 import './App.css';
 import LoginPage from "./components/LoginPage";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
 
     const [user, setUser] = useState("");
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("loggedInUser")
+        if (loggedInUser) {
+            setUser(JSON.parse(loggedInUser));
+        }
+    }, [])
+
 
     const onLogin = async (email) => {
         const resp = await fetch("http://localhost:8080/login", {
@@ -15,7 +23,9 @@ function App() {
             body: JSON.stringify({"email": email})
         })
         if (resp.ok) {
-            setUser(await resp.json())
+            const userDetails = await resp.json();
+            setUser(userDetails);
+            localStorage.setItem("loggedInUser", JSON.stringify(userDetails))
         }
         console.log(user)
     }
