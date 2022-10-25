@@ -7,13 +7,26 @@ function App() {
     const [user, setUser] = useState("");
 
     const onLogin = async (email) => {
-        setUser(email);
+        const resp = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"email": email})
+        })
+        if (resp.ok) {
+            setUser(await resp.json())
+        }
+        console.log(user)
     }
 
     return (<div>
         {user === ""
             ? <LoginPage onLogin={onLogin}/>
-            : <div>Logged in</div>}
+            : <div>
+                {user.name} Logged in<br/>
+                {JSON.stringify(user)}
+            </div>}
     </div>)
 }
 
