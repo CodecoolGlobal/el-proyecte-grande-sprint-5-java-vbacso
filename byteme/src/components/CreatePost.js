@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const CreatePost = ({ onAdd }) => {
 
-    const [title, setTitle] = useState();
+    const [title, setName] = useState();
     const [body, setPostBody] = useState();
     
     const onSubmit = (e) => {
@@ -13,7 +13,7 @@ const CreatePost = ({ onAdd }) => {
             return
         }
         onAdd({body,title})
-        setTitle('')
+        setName('')
         setPostBody('')
     }
 
@@ -24,7 +24,7 @@ const CreatePost = ({ onAdd }) => {
             <br />
             <label className="form-label">Title</label>
             <input type="text" className="form-control" placeholder="Title"
-            value={title} onChange={(e)=> setTitle(e.target.value)}/>
+            value={title} onChange={(e)=> setName(e.target.value)}/>
         </div>
         <div className="mb-3">
             <label htmlFor="exampleFormControlTextarea1" className="form-label"></label>
