@@ -39,6 +39,7 @@ public class UserConfig {
     public User zeno() {
         User zeno = new User("Zénó", 18, "zeno@byte.me");
         zeno.addPost(postConfig.zenoFirstPost());
+        zeno.addPost(postConfig.zenoSecondPost());
         return zeno;
     }
 

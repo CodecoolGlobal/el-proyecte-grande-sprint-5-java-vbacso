@@ -14,5 +14,9 @@ public class PostConfig {
     public Post zenoFirstPost() {
         return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "Zeno's first post", "That's my first post");
     }
+    @Bean
+    public Post zenoSecondPost() {
+        return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "Zeno's second post", "That's my second post");
+    }
 
 }
