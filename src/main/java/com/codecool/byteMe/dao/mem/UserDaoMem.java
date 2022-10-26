@@ -2,6 +2,7 @@ package com.codecool.byteMe.dao.mem;
 
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -72,5 +73,12 @@ public class UserDaoMem implements UserDao {
                 .orElseThrow(NoSuchElementException::new);
         data.remove(userToDelete);
         return userToDelete;
+    }
+
+    @Override
+    public User findByIdAdd(UUID userId, Post post) {
+        User user = findById(userId);
+        user.getPosts().add(post);
+        return user;
     }
 }

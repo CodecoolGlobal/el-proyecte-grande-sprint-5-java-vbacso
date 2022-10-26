@@ -1,6 +1,7 @@
 package com.codecool.byteMe.dao;
 
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 
 import java.util.Set;
 import java.util.UUID;
@@ -17,4 +18,6 @@ public interface UserDao {
     User findById(UUID userId);
 
     User delete(UUID userId);
+
+    User findByIdAdd(UUID userId, Post post);
 }

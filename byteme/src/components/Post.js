@@ -3,15 +3,16 @@ import Postbody from './Postbody'
 const Post = ({ user, onDelete }) => {
   return (
     <div className='container'>
+        {user.posts.map((p, index) => (
             <Postbody 
-              key={user.id}
+              key={index}
               name={user.name}
-              title={user.posts.map((post)=>{return post.title})}
-              postbody={user.posts.map((post)=>{return post.body})}
+              title={p.title}
+              postbody={p.body}
               id={user.id}
               onDelete={''}
             />
-
+        ))}
     </div>
   )
 }

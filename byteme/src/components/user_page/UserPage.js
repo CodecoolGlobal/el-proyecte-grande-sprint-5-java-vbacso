@@ -17,10 +17,10 @@ const UserPage = () => {
     getUser()
   }, [])
 
+  const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+
   // Fetch user
   const fetchUser = async () => {
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
-
     const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`)
     const data = await res.json()
 
@@ -35,8 +35,7 @@ const UserPage = () => {
 
   // Create Post
   const createPost = async (input) => {
-
-    const res = await fetch('http://localhost:8080/user/all', {
+    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/add`,{
       method: 'POST',
       headers:{
         'Content-type':'application/json'
@@ -46,7 +45,7 @@ const UserPage = () => {
 
     const data = await res.json()
 
-    setUser([...user, data])
+    setUser(data)
   }
 
   if(!user){
