@@ -3,7 +3,7 @@ import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 
-const MainPage = ({onLogout}) => {
+const MainPage = ({loggedInUserId, onLogout}) => {
     const [showContent, setShowContent] = useState("feedPage")
 
     const loadFeedPage = (e) => {
@@ -17,9 +17,9 @@ const MainPage = ({onLogout}) => {
 
     const routeController = () => {
         if (showContent === "feedPage") {
-            return <FeedPage />
+            return <FeedPage loggedInUserId={loggedInUserId}/>
         } else if (showContent === "userPage") {
-            return <UserPage />
+            return <UserPage/>
         }
     };
 
