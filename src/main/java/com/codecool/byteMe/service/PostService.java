@@ -45,4 +45,8 @@ public class PostService {
     public Post delete(UUID postId) {
         return postDao.delete(postId);
     }
+
+    public Set<Post> getAllFriendsPosts(UUID userId) {
+        return postDao.getAllFriendsPosts(userId);
+    }
 }
