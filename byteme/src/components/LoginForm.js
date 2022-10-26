@@ -14,15 +14,14 @@ const LoginForm = ({onSubmitForm}) => {
         setEmail("");
     }
     return (
-        <form className="w-25 mx-auto" onSubmit={submitForm}>
-            <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control"/>
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-    )
+        <form className="login-form w-25 mx" onSubmit={submitForm}>
+                <div className="mb-3">
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email"
+                           className="form-control"/>
+                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <button type="submit" className="button">Byte.in</button>
+            </form>)
 };
 
 export default LoginForm;
