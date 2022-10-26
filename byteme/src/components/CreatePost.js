@@ -15,8 +15,6 @@ const CreatePost = ({ onAdd }) => {
         onAdd({body,title})
         setTitle('')
         setPostBody('')
-        console.log(title)
-        console.log(body)
     }
 
   return (

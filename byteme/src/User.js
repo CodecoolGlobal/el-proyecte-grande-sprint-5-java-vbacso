@@ -1,45 +1,62 @@
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import Post from './components/Post'
 import CreatePost from './components/CreatePost';
 
 const User = () => {
 
-  const [posts, setPost] = useState([
-    {
-      id:1,
-      title:"first title",
-      body:"first comment"
-    },
-    {
-      id:2,
-      title:"second title",
-      body:"second comment"
-    },
-    {
-      id:3,
-      title:"third title",
-      body:"third comment"
-    }
-  ])
+  const [posts, setPost] = useState([])
 
+  // Fetch user
+  useEffect(()=> {
+    const getUser = async () => {
+      const usersFromServer = await fetchUser()
+      setPost(usersFromServer)
+    }
+
+    getUser()
+  }, [])
+
+  // Fetch user
+  const fetchUser = async () => {
+    const res = await fetch('http://localhost:8080/user/all')
+    const data = await res.json()
+
+    console.log(data)
+    return data
+  }
+
+  // Delete Post
   const deletePost = (id) => {
     setPost(posts.filter((post) => post.id !== id))
   }
 
-  const createPost = (input) => {
+  // Create Post
+  const createPost = async (input) => {
 
-    const id = Math.floor(Math.random() * 10000) + 1
-    const newComment = {id, ...input }
+    const res = await fetch('http://localhost:8080/user/all', {
+      method: 'POST',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(input)
+    })
+
+    const data = await res.json()
+
+    setPost([...posts, data])
+
+    //const id = Math.floor(Math.random() * 10000) + 1
+    //const newComment = {id, ...input }
     
 
-    setPost([...posts, newComment])
+    //setPost([...posts, newComment])
   }
 
   return (
     <div>
       <CreatePost onAdd={createPost}/>
-      <Post posts={posts} onDelete={deletePost} />
+      <Post postsMain={posts} onDelete={deletePost} />
     </div>
   )
 }

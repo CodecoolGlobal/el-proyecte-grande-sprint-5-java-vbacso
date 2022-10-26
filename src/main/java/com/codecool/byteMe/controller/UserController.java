@@ -24,6 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Set<User> getAllUser() {
         return userService.getAll();
     }
