@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.UUID;
 
 
+
 @Component
 public class UserDaoMem implements UserDao {
 
@@ -79,6 +80,15 @@ public class UserDaoMem implements UserDao {
     public User findByIdAdd(UUID userId, Post post) {
         User user = findById(userId);
         user.getPosts().add(post);
+        return user;
+    }
+
+    @Override
+    public User findByIdDelete(UUID userId, UUID postId) {
+        User user = findById(userId);
+        Post postToDelete = user.getPosts().stream().filter(post -> post.getId().equals(postId)).findFirst().orElseThrow(NoSuchElementException::new);
+
+        user.deletePost(postToDelete);
         return user;
     }
 }

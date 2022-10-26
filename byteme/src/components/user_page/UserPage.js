@@ -29,8 +29,16 @@ const UserPage = () => {
   }
 
   // Delete Post
-  const deletePost = (id) => {
-    setUser(user.filter((post) => post.id !== id))
+  const deletePost = async (id) => {
+    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/delete`, {
+      method:'DELETE',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(id)
+    })
+
+    setUser(user.posts.filter((p)=>p.id !== id))
   }
 
   // Create Post
@@ -54,6 +62,7 @@ const UserPage = () => {
 
   return (
     <div>
+      <h1 style={{textAlign:"center"}}>{user.name}</h1>
       <CreatePost onAdd={createPost}/>
       {console.log(user)}
       <Post user={user} onDelete={deletePost} />

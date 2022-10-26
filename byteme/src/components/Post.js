@@ -9,8 +9,8 @@ const Post = ({ user, onDelete }) => {
               name={user.name}
               title={p.title}
               postbody={p.body}
-              id={user.id}
-              onDelete={''}
+              id={p.id}
+              onDelete={onDelete}
             />
         ))}
     </div>

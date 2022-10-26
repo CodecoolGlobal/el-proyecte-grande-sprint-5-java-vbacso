@@ -46,4 +46,8 @@ public class UserService {
     public User findByIdAdd(UUID userId, Post post) {
         return userDao.findByIdAdd(userId, post);
     }
+
+    public User findByIdDelete(UUID userId, UUID postId) {
+        return userDao.findByIdDelete(userId, postId);
+    }
 }

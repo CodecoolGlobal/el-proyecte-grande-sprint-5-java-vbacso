@@ -20,4 +20,6 @@ public interface UserDao {
     User delete(UUID userId);
 
     User findByIdAdd(UUID userId, Post post);
+
+    User findByIdDelete(UUID userId, UUID postId);
 }
