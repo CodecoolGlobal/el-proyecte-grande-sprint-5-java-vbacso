@@ -1,3 +1,57 @@
 :root {
   --primary: #ffb0b0;
+  --secondary: #050505;
+  --white: #dad0d0;
 }
+
+.navbar {
+  background-color: var(--primary);
+}
+
+.main-container {
+  min-height: 100vh;
+  background-color: var(--secondary);
+  color: var(--white);
+}
+
+.login-container {
+  background-color: var(--primary);
+  min-height: 100vh;
+}
+
+.login-form {
+  position: absolute;
+  left: 65%;
+  top: 50%;
+  transform: translate(-60%, -50%);
+  padding: 10px;
+  text-align: center;
+}
+
+#login-logo {
+  max-width: 100%;
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  transform: translate(-60%, -50%);
+}
+
+.button {
+  padding: 12px 25px;
+  background-color: var(--secondary);
+  color: var(--white);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+#logo {
+  height: 35px;
+}
+

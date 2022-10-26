@@ -24,7 +24,7 @@ const MainPage = ({loggedInUserId, onLogout}) => {
     };
 
     return (
-        <div>
+        <div className="main-container">
             <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout}/>
             {routeController()}
         </div>

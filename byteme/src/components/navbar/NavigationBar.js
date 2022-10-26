@@ -6,8 +6,8 @@ import LinkUserPage from "./LinkUserPage";
 const NavigationBar = ({loadFeedPage, loadUserPage, onLogout}) => {
     return (
         <div>
-            <nav className="navbar justify-content-between mx-3">
-                <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo}/></a>
+            <nav className="navbar justify-content-between px-3">
+                <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo} alt="logo"/></a>
 
                 <div className="" id="navbarSupportedContent">
                     <ul className="navbar-nav flex-row mr-auto">
