@@ -5,7 +5,7 @@ import CreatePost from '../CreatePost';
 
 const UserPage = () => {
 
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState()
 
   // Fetch user
   useEffect(()=> {
@@ -23,6 +23,7 @@ const UserPage = () => {
 
     const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`)
     const data = await res.json()
+
 
     return data
   }
@@ -46,20 +47,19 @@ const UserPage = () => {
     const data = await res.json()
 
     setUser([...user, data])
-
-    //const id = Math.floor(Math.random() * 10000) + 1
-    //const newComment = {id, ...input }
-    
-
-    //setUser([...posts, newComment])
   }
+
+  if(!user){
+    console.log("loading...")
+  }else {
 
   return (
     <div>
       <CreatePost onAdd={createPost}/>
+      {console.log(user)}
       <Post user={user} onDelete={deletePost} />
     </div>
-  )
+  )}
 }
 
 export default UserPage
