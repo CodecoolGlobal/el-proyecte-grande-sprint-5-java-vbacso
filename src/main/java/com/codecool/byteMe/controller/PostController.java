@@ -52,4 +52,9 @@ public class PostController {
     public Post deletePost(@PathVariable UUID postId) {
         return postService.delete(postId);
     }
+
+    @GetMapping("friends/{userId}")
+    public Set<Post> getAllFriendsPosts(@PathVariable UUID userId) {
+        return postService.getAllFriendsPosts(userId);
+    }
 }

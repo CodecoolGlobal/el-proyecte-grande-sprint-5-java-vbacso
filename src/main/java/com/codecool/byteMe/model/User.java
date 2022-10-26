@@ -17,7 +17,7 @@ public class User {
     private int age;
     private String email;
     private LocalDate regDate;
-    private Set<User> friendList;
+    private Set<UUID> friendList;
     private Image profilePic;
     private Set<Post> posts;
 
@@ -27,7 +27,6 @@ public class User {
         this.name = name;
         this.age = age;
         this.email = email;
-        this.regDate = regDate;
         this.regDate = LocalDate.now();
         //profilePic = ImageIO.read(new File("src/main/resources/static/img.png"));
         friendList = new HashSet<>();
@@ -35,11 +34,11 @@ public class User {
     }
 
     public void addFriend(User user) {
-        friendList.add(user);
+        friendList.add(user.getId());
     }
 
     public void deleteFriend(User user) {
-        friendList.remove(user);
+        friendList.remove(user.getId());
     }
 
     public void addPost(Post post) {
@@ -74,7 +73,7 @@ public class User {
         return regDate;
     }
 
-    public Set<User> getFriendList() {
+    public Set<UUID> getFriendList() {
         return friendList;
     }
 
