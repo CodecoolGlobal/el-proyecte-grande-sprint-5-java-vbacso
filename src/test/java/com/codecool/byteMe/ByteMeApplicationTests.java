@@ -19,7 +19,7 @@ class ByteMeApplicationTests {
         ApplicationContext ac = new AnnotationConfigApplicationContext(DaoConfig.class, UserConfig.class, PostConfig.class);
 
         UserDao userDaoA = (UserDao) ac.getBean("userDao");
-        userDaoA.add(new User("Test User", 2, "kacsa@byte.me"));
+        userDaoA.add(new User("Test UserPage", 2, "kacsa@byte.me"));
 
         UserDao userDaoB = (UserDao) ac.getBean("userDao");
 

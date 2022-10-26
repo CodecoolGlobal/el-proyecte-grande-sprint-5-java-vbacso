@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "fontawesome": "^5.6.3",
+    "json-server": "^0.17.0",
+    "react-bootstrap": "^2.5.0",
+    "react-icon": "^1.0.0",
+    "react-icons": "^4.6.0"
+  },
+  "devDependencies": {
+    "sass": "^1.55.0"
+  }
+}

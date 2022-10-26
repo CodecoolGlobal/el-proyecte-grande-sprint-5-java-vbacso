@@ -99,7 +99,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserPage{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
