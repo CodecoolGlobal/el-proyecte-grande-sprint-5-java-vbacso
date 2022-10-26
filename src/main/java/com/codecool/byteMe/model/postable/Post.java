@@ -1,6 +1,5 @@
 package com.codecool.byteMe.model.postable;
 
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -11,8 +10,8 @@ public class Post extends Postable {
     private String title;
     private Set<Comment> comments;
 
-    public Post(UUID userId, String title, String body) {
-        super(userId, body, VOTE);
+    public Post(UUID userId, String title, String body, String username) {
+        super(userId, body, VOTE, username);
         this.title = title;
         comments = new HashSet<>();
     }

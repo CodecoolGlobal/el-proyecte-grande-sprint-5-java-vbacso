@@ -18,7 +18,7 @@ const FeedPage = ({loggedInUserId}) => {
         <div>
             {posts.map((post) => (
                 <div className="post" key={post.id}>
-                    <p>{post.userId}</p>
+                    <p>{post.username}</p>
                     <p>{post.title}</p>
                 </div>
             ))}

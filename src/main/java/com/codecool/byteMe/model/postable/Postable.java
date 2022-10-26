@@ -6,14 +6,16 @@ public abstract class Postable {
 
     protected UUID id;
     protected UUID userId;
+    protected String username;
     protected String body;
     protected int vote;
 
-    public Postable(UUID userId, String body, int vote) {
+    public Postable(UUID userId, String body, int vote, String username) {
         id = UUID.randomUUID();
         this.userId = userId;
         this.body = body;
         this.vote = vote;
+        this.username = username;
     }
 
     public void increaseVote() {
@@ -38,6 +40,10 @@ public abstract class Postable {
 
     public UUID getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     @Override
