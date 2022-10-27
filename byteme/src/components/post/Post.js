@@ -38,7 +38,7 @@ const Post = ({post, onDelete}) => {
                 postBody={post.body}
             />
             {post.comments.map((comment) => (
-                <div className="comment-container" key={comment.id}>{comment.body}</div>
+                <div className="comment-container" key={comment.id}>{comment.username + ": " + comment.body}</div>
             ))}
         </div>
     )
