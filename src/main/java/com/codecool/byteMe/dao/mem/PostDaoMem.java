@@ -37,7 +37,9 @@ public class PostDaoMem implements PostDao {
 
     @Override
     public Post add(Post post) {
-        userDao.findById(post.getUserId()).addPost(post);
+        User user = userDao.findById(post.getUserId());
+        post.setUsername(user.getName());
+        user.addPost(post);
         return post;
     }
 

@@ -1,6 +1,6 @@
 import '../../App.css';
 import {useEffect, useState} from 'react'
-import Post from '../post/Post'
+import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
 
 const UserPage = () => {
@@ -10,11 +10,10 @@ const UserPage = () => {
     // Fetch user
     useEffect(() => {
         const getUserPosts = async () => {
-            const postsFromServer = await fetchUserPosts()
-            setPosts(postsFromServer)
+            const postsFromServer = await fetchUserPosts();
+            setPosts(postsFromServer);
         }
-
-        getUserPosts().catch(console.error)
+        getUserPosts().catch(console.error);
     }, [])
 
     const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
@@ -22,47 +21,29 @@ const UserPage = () => {
     // Fetch user
     const fetchUserPosts = async () => {
         const res = await fetch(`http://localhost:8080/post/user/${loggedInUserId}`)
-        return await res.json()
+        return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 
     // Delete Post
-    const deletePost = async (id) => {
-        const res = await fetch(`http://localhost:8080/post/delete/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(id)
-        })
-
+    const deletePostEvent = async (id) => {
+        await deletePost(id);
         setPosts(posts.filter((p) => p.id !== id))
     }
 
     // Create Post
-    const createPost = async (input) => {
-        const res = await fetch(`http://localhost:8080/post/add`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(input)
-        })
-        const newPost = await res.json();
-        setPosts([...posts,newPost]);
+    const createPostEvent = async (input) => {
+        const newPost = await createPost(input);
+        setPosts([...posts, newPost]);
     }
 
     if (!posts) {
         console.log("loading...")
     } else {
 
-        return (
-            <div className="user-page-container">
-                <CreatePost onAdd={createPost}/>
-                {posts.map((post)=>(
-                    <Post key={post.id} post={post} onDelete={deletePost}/>
-                ))}
-            </div>
-        )
+        return (<div className="user-page-container">
+            <CreatePost onAdd={createPostEvent}/>
+            {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
+        </div>)
     }
 }
 

@@ -5,7 +5,7 @@
     --white: #dad0d0;
 }
 
-html{
+html {
     height: 100%;
 }
 
@@ -45,10 +45,10 @@ html{
 }
 
 .post-card {
-    margin: 20px auto 20px;
+    margin: 3em auto 20px;
     position: relative;
     width: 40%;
-    padding: 40px;
+    padding: 1em;
     border: 2px solid var(--primary);
     border-radius: 10px;
 }

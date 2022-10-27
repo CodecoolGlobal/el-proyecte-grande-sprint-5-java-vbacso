@@ -15,14 +15,14 @@ const NavigationBar = ({loadFeedPage, loadUserPage, onLogout}) => {
                             <LinkUserPage loadUserPage={loadUserPage}/>
                         </li>
                         <li className="nav-item mx-2">
-                            <LinkFeedPage loadFeedPage={loadFeedPage} />
+                            <LinkFeedPage loadFeedPage={loadFeedPage}/>
                         </li>
                         <li className="nav-item mx-2">
                             <a className="nav-link" href="byteme/src/components/NavigationBar#">byte.Arrays</a>
                         </li>
                     </ul>
                 </div>
-                <Logout onLogout={onLogout} />
+                <Logout onLogout={onLogout}/>
             </nav>
 
         </div>
