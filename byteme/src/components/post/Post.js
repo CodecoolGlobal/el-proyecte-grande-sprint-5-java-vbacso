@@ -9,8 +9,12 @@ const Post = ({post, onDelete}) => {
                 title={post.title}
                 postbody={post.body}
                 id={post.id}
+                userId={post.userId}
                 onDelete={onDelete}
             />
+            {post.comments.map((comment) => (
+                <p key={comment.id}>{comment.body}</p>
+            ))}
         </div>
     )
 }

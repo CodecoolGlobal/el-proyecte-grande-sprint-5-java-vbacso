@@ -1,5 +1,8 @@
 import Feed from "./Feed";
 import {useEffect, useState} from "react";
+import CreatePost from "../post/CreatePost";
+import Post from "../post/Post";
+import createPost from "../post/CreatePost";
 
 const FeedPage = ({loggedInUserId}) => {
     const [posts, setPosts] = useState([]);
@@ -14,16 +17,12 @@ const FeedPage = ({loggedInUserId}) => {
         getPosts().catch(console.error);
     }, []);
 
+    let deletePost;
     return (
         <div>
-            {posts.map((post) => (
-                <div className="post-card" key={post.id}>
-                    <p>{post.username}</p>
-                    <p>{post.title}</p>
-                    {post.comments.map((comment) => (
-                        <p key={comment.id}>{comment.body}</p>
-                    ))}
-                </div>
+            <CreatePost onAdd={createPost}/>
+            {posts.map((post)=>(
+                <Post key={post.id} post={post} onDelete={deletePost}/>
             ))}
             <Feed/>
         </div>
