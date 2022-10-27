@@ -2,6 +2,7 @@ package com.codecool.byteMe.controller;
 
 
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +42,21 @@ public class UserController {
     }
 
     @GetMapping("/findById/{userId}")
+    @CrossOrigin(origins = "*")
     public User findUserById(@PathVariable UUID userId) {
         return userService.findById(userId);
+    }
+
+    @PostMapping("/findById/{userId}/add")
+    @CrossOrigin(origins = "*")
+    public User findUserByIdAdd(@RequestBody Post post, @PathVariable UUID userId) {
+        return userService.findByIdAdd(userId, post);
+    }
+
+    @DeleteMapping("/findById/{userId}/delete")
+    @CrossOrigin(origins = "*")
+    public User findUserByIdDelete(@RequestBody UUID postId, @PathVariable UUID userId) {
+        return userService.findByIdDelete(userId, postId);
     }
 
     @GetMapping("/findByEmail")

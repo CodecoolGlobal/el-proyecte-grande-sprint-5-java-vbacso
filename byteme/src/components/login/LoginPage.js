@@ -1,5 +1,5 @@
 import LoginForm from "./LoginForm";
-import logo from '../images/byteMe-logo.png';
+import logo from '../../images/byteMe-logo.png';
 
 const LoginPage = ({onLogin}) => {
 
