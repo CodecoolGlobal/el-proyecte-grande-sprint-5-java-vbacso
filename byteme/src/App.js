@@ -40,7 +40,7 @@ function App() {
 
     return (<div>
         {
-            user===""? <LoginPage onLogin={onLogin}/>:<MainPage onLogout={onLogout}/>
+            user===""? <LoginPage onLogin={onLogin}/>:<MainPage loggedInUserId={user.id} onLogout={onLogout}/>
         }
     </div>);
 }

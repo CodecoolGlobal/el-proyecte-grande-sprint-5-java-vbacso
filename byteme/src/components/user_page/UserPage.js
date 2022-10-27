@@ -1,73 +1,70 @@
 import '../../App.css';
-import { useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import Post from '../post/Post'
 import CreatePost from '../post/CreatePost';
 
 const UserPage = () => {
 
-  const [user, setUser] = useState()
+    const [posts, setPosts] = useState([])
 
-  // Fetch user
-  useEffect(()=> {
-    const getUser = async () => {
-      const usersFromServer = await fetchUser()
-      setUser(usersFromServer)
+    // Fetch user
+    useEffect(() => {
+        const getUserPosts = async () => {
+            const postsFromServer = await fetchUserPosts()
+            setPosts(postsFromServer)
+        }
+
+        getUserPosts().catch(console.error)
+    }, [])
+
+    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+
+    // Fetch user
+    const fetchUserPosts = async () => {
+        const res = await fetch(`http://localhost:8080/post/user/${loggedInUserId}`)
+        return await res.json()
     }
 
-    getUser()
-  }, [])
+    // Delete Post
+    const deletePost = async (id) => {
+        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(id)
+        })
 
-  const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+        setPosts(posts.filter((p) => p.id !== id))
+    }
 
-  // Fetch user
-  const fetchUser = async () => {
-    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`)
-    const data = await res.json()
+    // Create Post
+    const createPost = async (input) => {
+        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/add`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(input)
+        })
+        const data = await res.json();
+        setPosts(data);
+    }
 
+    if (!posts) {
+        console.log("loading...")
+    } else {
 
-    return data
-  }
-
-  // Delete Post
-  const deletePost = async (id) => {
-    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/delete`, {
-      method:'DELETE',
-      headers:{
-        'Content-type':'application/json'
-      },
-      body: JSON.stringify(id)
-    })
-
-    setUser(user.posts.filter((p)=>p.id !== id))
-  }
-
-  // Create Post
-  const createPost = async (input) => {
-    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/add`,{
-      method: 'POST',
-      headers:{
-        'Content-type':'application/json'
-      },
-      body: JSON.stringify(input)
-    })
-
-    const data = await res.json()
-
-    setUser(data)
-  }
-
-  if(!user){
-    console.log("loading...")
-  }else {
-
-  return (
-    <div>
-      <h1 style={{textAlign:"center"}}>{user.name}</h1>
-      <CreatePost onAdd={createPost}/>
-      {console.log(user)}
-      <Post user={user} onDelete={deletePost} />
-    </div>
-  )}
+        return (
+            <div>
+                <CreatePost onAdd={createPost}/>
+                {console.log(posts)}
+                {posts.map((post)=>(
+                    <Post post={post} onDelete={deletePost}/>
+                ))}
+            </div>
+        )
+    }
 }
 
 export default UserPage

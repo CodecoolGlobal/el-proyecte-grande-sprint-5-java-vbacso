@@ -7,8 +7,8 @@ public class Comment extends Postable {
     public static final int VOTE = 0;
     private final UUID postId;
 
-    public Comment(String body, UUID postId, UUID userId) {
-        super(userId, body, VOTE);
+    public Comment(String body, UUID postId, UUID userId, String username) {
+        super(userId, body, VOTE, username);
         this.postId = postId;
     }
 

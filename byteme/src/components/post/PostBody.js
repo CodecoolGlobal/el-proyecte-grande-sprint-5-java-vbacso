@@ -1,6 +1,6 @@
 import { FaTimes } from 'react-icons/fa'
 
-const Postbody = ({ id,title,postbody, onDelete, key }) => {
+const PostBody = ({ id,title,postbody, onDelete, key }) => {
 
   
 
@@ -15,4 +15,4 @@ const Postbody = ({ id,title,postbody, onDelete, key }) => {
   )
 }
 
-export default Postbody
+export default PostBody
