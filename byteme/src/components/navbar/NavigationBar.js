@@ -1,4 +1,4 @@
-import logo from '../../images/byteMe-logo.png';
+import logo from '../../images/byteMe-logo-orig.png';
 import Logout from "./Logout";
 import LinkFeedPage from "./LinkFeedPage";
 import LinkUserPage from "./LinkUserPage";

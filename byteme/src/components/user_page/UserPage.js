@@ -27,7 +27,7 @@ const UserPage = () => {
 
     // Delete Post
     const deletePost = async (id) => {
-        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/delete`, {
+        const res = await fetch(`http://localhost:8080/post/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json'
@@ -40,15 +40,16 @@ const UserPage = () => {
 
     // Create Post
     const createPost = async (input) => {
-        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/add`, {
+        console.log(input)
+        const res = await fetch(`http://localhost:8080/post/add`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(input)
         })
-        const data = await res.json();
-        setPosts(data);
+        const newPost = await res.json();
+        setPosts([...posts,newPost]);
     }
 
     if (!posts) {
@@ -58,7 +59,6 @@ const UserPage = () => {
         return (
             <div>
                 <CreatePost onAdd={createPost}/>
-                {console.log(posts)}
                 {posts.map((post)=>(
                     <Post key={post.id} post={post} onDelete={deletePost}/>
                 ))}

@@ -2,8 +2,9 @@ import { useState } from 'react'
 
 const CreatePost = ({ onAdd }) => {
 
-    const [title, setName] = useState();
-    const [body, setPostBody] = useState();
+    const userId = JSON.parse(localStorage.getItem("loggedInUser")).id
+    const [title, setName] = useState('');
+    const [body, setPostBody] = useState('');
     
     const onSubmit = (e) => {
         e.preventDefault()
@@ -12,7 +13,7 @@ const CreatePost = ({ onAdd }) => {
             alert("hey!")
             return
         }
-        onAdd({body,title})
+        onAdd({body,title,userId})
         setName('')
         setPostBody('')
     }

@@ -2,10 +2,6 @@ import { FaTimes } from 'react-icons/fa'
 
 const PostBody = ({ id,title,postbody, onDelete}) => {
 
-  
-
-  
-
   return (
     
     <div>
