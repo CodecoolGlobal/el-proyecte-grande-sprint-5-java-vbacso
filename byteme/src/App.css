@@ -5,8 +5,15 @@
     --white: #dad0d0;
 }
 
-.navbar {
+html{
+    height: 100%;
+}
+
+.navbar-container {
     background-color: var(--primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .navbar a {
@@ -14,9 +21,11 @@
 }
 
 .main-container {
-    min-height: 100vh;
+    position: relative;
+    min-height: 100%;
     background-color: var(--secondary);
     color: var(--white);
+    padding-bottom: 1em;
 }
 
 .login-container {
@@ -97,8 +106,8 @@
 }
 
 .button-light {
-  background-color: var(--primary);
-  color: var(--secondary-opacity);
+    background-color: var(--primary);
+    color: var(--secondary-opacity);
 }
 
 .form-control {

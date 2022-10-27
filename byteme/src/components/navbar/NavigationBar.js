@@ -5,7 +5,7 @@ import LinkUserPage from "./LinkUserPage";
 
 const NavigationBar = ({loadFeedPage, loadUserPage, onLogout}) => {
     return (
-        <div>
+        <div className="navbar-container">
             <nav className="navbar justify-content-between px-3">
                 <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo} alt="logo"/></a>
 
