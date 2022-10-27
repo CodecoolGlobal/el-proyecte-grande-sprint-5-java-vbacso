@@ -17,9 +17,12 @@ const FeedPage = ({loggedInUserId}) => {
     return (
         <div>
             {posts.map((post) => (
-                <div className="post" key={post.id}>
+                <div className="post-card" key={post.id}>
                     <p>{post.username}</p>
                     <p>{post.title}</p>
+                    {post.comments.map((comment) => (
+                        <p key={comment.id}>{comment.body}</p>
+                    ))}
                 </div>
             ))}
             <Feed/>
