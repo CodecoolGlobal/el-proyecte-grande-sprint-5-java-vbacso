@@ -38,4 +38,17 @@ public class Post extends Postable {
         this.body = newPost.body;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", comments=" + comments +
+                ", id=" + id +
+                ", userId=" + userId +
+                ", username='" + username + '\'' +
+                ", body='" + body + '\'' +
+                ", vote=" + vote +
+                '}';
+    }
 }
