@@ -42,29 +42,36 @@ public class UserConfig {
 
     @Bean
     public User zeno() {
-        User zeno = new User("Zénó", 18, "zeno@byte.me");
+        User zeno = new User("Zénó Fergencs", 18, "zeno@byte.me");
 
         Post post = postConfig.zenoFirstPost();
-        Comment comment = commentConfig.daniFirstComment(post);
-        post.addComment(comment);
+        post.setUsername(zeno.getName());
         zeno.addPost(post);
 
-        zeno.addPost(postConfig.zenoSecondPost());
+        Comment comment = commentConfig.daniFirstComment(post);
+        comment.setUsername(dani().getName());
+        post.addComment(comment);
+
+
+        Post secondPost = (postConfig.zenoSecondPost());
+        secondPost.setUsername(zeno.getName());
+        zeno.addPost(secondPost);
+
         return zeno;
     }
 
     @Bean
     public User vanda() {
-        return new User("Vanda", 18, "vanda@byte.me");
+        return new User("Vanda Bacsó", 18, "vanda@byte.me");
     }
 
     @Bean
     public User erik() {
-        return new User("Erik", 18, "erik@byte.me");
+        return new User("Erik Izeli", 18, "erik@byte.me");
     }
 
     @Bean
     public User dani() {
-        return new User("Dani", 69420, "dani@byte.me");
+        return new User("Dániel Tivadar Fekete", 69420, "dani@byte.me");
     }
 }

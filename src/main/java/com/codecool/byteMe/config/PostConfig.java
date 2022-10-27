@@ -12,12 +12,12 @@ public class PostConfig {
 
     @Bean
     public Post zenoFirstPost() {
-        return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "Zeno's first post", "That's my first post", "Zeno");
+        return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "It's the best day ever!", "I just caught a 25kg fish!", "");
     }
 
     @Bean
     public Post zenoSecondPost() {
-        return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "Zeno's second post", "That's my second post", "Zeno");
+        return new Post(UUID.nameUUIDFromBytes("zeno@byte.me".getBytes(StandardCharsets.UTF_8)), "The day got even better!!", "Another fish came! 35 kg this time! I'm so happy!!", "");
     }
 
 }
