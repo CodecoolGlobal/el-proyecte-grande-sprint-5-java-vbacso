@@ -1,20 +1,18 @@
-import Postbody from './Postbody'
+import PostBody from './PostBody'
 
-const Post = ({ user, onDelete }) => {
-  return (
-    <div className='container'>
-        {user.posts.map((p, index) => (
-            <Postbody 
-              key={index}
-              name={user.name}
-              title={p.title}
-              postbody={p.body}
-              id={p.id}
-              onDelete={onDelete}
+const Post = ({post, onDelete}) => {
+    return (
+        <div className='container'>
+            <PostBody
+                key={post.id}
+                name={post.username}
+                title={post.title}
+                postbody={post.body}
+                id={post.id}
+                onDelete={onDelete}
             />
-        ))}
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Post
