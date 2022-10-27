@@ -18,5 +18,5 @@ public interface PostDao {
 
     Post delete(UUID postId);
 
-    Set<Post> getAllFriendsPosts(UUID userId);
+    Set<Post> getFeedPosts(UUID userId);
 }

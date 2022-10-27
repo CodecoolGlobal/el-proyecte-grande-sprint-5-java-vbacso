@@ -7,6 +7,7 @@ import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
@@ -68,11 +69,16 @@ public class PostDaoMem implements PostDao {
     }
 
     @Override
-    public Set<Post> getAllFriendsPosts(UUID userId) {
+    public Set<Post> getFeedPosts(UUID userId) {
+        Set<Post> userPosts = findByUserId(userId);
         Set<UUID> friends = userDao.findById(userId).getFriendList();
-        return friends.stream()
+        Set<Post> friendsPost = friends.stream()
                 .map(friend -> userDao.findById(friend).getPosts())
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
+        Set<Post> feedPosts = new HashSet<>();
+        feedPosts.addAll(friendsPost);
+        feedPosts.addAll(userPosts);
+        return feedPosts;
     }
 }

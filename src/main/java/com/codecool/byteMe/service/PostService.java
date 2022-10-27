@@ -46,7 +46,7 @@ public class PostService {
         return postDao.delete(postId);
     }
 
-    public Set<Post> getAllFriendsPosts(UUID userId) {
-        return postDao.getAllFriendsPosts(userId);
+    public Set<Post> getFeedPosts(UUID userId) {
+        return postDao.getFeedPosts(userId);
     }
 }
