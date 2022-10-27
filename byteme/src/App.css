@@ -24,6 +24,47 @@
     min-height: 100vh;
 }
 
+.user-page-container {
+    position: relative;
+}
+
+.create-new-post-container {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    padding: 30px;
+}
+
+.post-card {
+    margin: 20px auto 20px;
+    position: relative;
+    width: 40%;
+    padding: 40px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+}
+
+.post-title {
+    color: var(--primary);
+}
+
+.post-body {
+    padding: 5px;
+    font-weight: 500;
+    font-size: large;
+}
+
+.username-in-post {
+    padding: 5px;
+}
+
+.delete-icon {
+    color: var(--primary) !important;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
 .login-form {
     position: absolute;
     left: 65%;
@@ -66,16 +107,4 @@
 
 #logo {
     height: 35px;
-}
-
-
-.container {
-    max-width: 66vh;
-    margin: 1px auto;
-    overflow: auto;
-    min-height: 300px;
-    border: 1px solid steelblue;
-    padding: 1px;
-    border-radius: 5px;
-    background-color: #313133a4;
 }
