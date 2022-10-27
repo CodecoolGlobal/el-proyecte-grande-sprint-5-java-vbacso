@@ -40,7 +40,6 @@ const UserPage = () => {
 
     // Create Post
     const createPost = async (input) => {
-        console.log(input)
         const res = await fetch(`http://localhost:8080/post/add`, {
             method: 'POST',
             headers: {
@@ -57,7 +56,7 @@ const UserPage = () => {
     } else {
 
         return (
-            <div>
+            <div className="user-page-container">
                 <CreatePost onAdd={createPost}/>
                 {posts.map((post)=>(
                     <Post key={post.id} post={post} onDelete={deletePost}/>
