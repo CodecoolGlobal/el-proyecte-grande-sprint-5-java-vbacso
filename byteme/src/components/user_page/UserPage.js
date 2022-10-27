@@ -5,7 +5,7 @@ import CreatePost from '../CreatePost';
 
 const UserPage = () => {
 
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState()
 
   // Fetch user
   useEffect(()=> {
@@ -17,25 +17,33 @@ const UserPage = () => {
     getUser()
   }, [])
 
+  const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+
   // Fetch user
   const fetchUser = async () => {
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
-
     const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`)
     const data = await res.json()
+
 
     return data
   }
 
   // Delete Post
-  const deletePost = (id) => {
-    setUser(user.filter((post) => post.id !== id))
+  const deletePost = async (id) => {
+    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/delete`, {
+      method:'DELETE',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(id)
+    })
+
+    setUser(user.posts.filter((p)=>p.id !== id))
   }
 
   // Create Post
   const createPost = async (input) => {
-
-    const res = await fetch('http://localhost:8080/user/all', {
+    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}/add`,{
       method: 'POST',
       headers:{
         'Content-type':'application/json'
@@ -45,21 +53,21 @@ const UserPage = () => {
 
     const data = await res.json()
 
-    setUser([...user, data])
-
-    //const id = Math.floor(Math.random() * 10000) + 1
-    //const newComment = {id, ...input }
-    
-
-    //setUser([...posts, newComment])
+    setUser(data)
   }
+
+  if(!user){
+    console.log("loading...")
+  }else {
 
   return (
     <div>
+      <h1 style={{textAlign:"center"}}>{user.name}</h1>
       <CreatePost onAdd={createPost}/>
+      {console.log(user)}
       <Post user={user} onDelete={deletePost} />
     </div>
-  )
+  )}
 }
 
 export default UserPage

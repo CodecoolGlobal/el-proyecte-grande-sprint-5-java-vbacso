@@ -3,6 +3,7 @@ package com.codecool.byteMe.service;
 import com.codecool.byteMe.dao.UserDao;
 import com.codecool.byteMe.dao.mem.UserDaoMem;
 import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,13 @@ public class UserService {
 
     public User edit(User user) {
         return userDao.edit(user);
+    }
+
+    public User findByIdAdd(UUID userId, Post post) {
+        return userDao.findByIdAdd(userId, post);
+    }
+
+    public User findByIdDelete(UUID userId, UUID postId) {
+        return userDao.findByIdDelete(userId, postId);
     }
 }
