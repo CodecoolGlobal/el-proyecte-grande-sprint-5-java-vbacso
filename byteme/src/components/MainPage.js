@@ -4,7 +4,7 @@ import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 
 const MainPage = ({onLogout}) => {
-    const [showContent, setShowContent] = useState("feedPage")
+    const [showContent, setShowContent] = useState("userPage")
 
     const loadFeedPage = (e) => {
         e.preventDefault();

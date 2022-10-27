@@ -1,9 +1,9 @@
-import Post from "./Post";
+import Post from "../post/Post";
 
 const Feed = () => {
     return (
         <div>
-            <Post/>
+            {/*<Post/>*/}
         </div>
     );
 };

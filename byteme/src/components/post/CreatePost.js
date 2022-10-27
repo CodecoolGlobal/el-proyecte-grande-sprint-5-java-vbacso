@@ -19,7 +19,7 @@ const CreatePost = ({ onAdd }) => {
 
   return (
     <form onSubmit={onSubmit}>
-        <button type='submit' value='Create Post' className='btn btn-primary'>Create Post</button>
+        <button type='submit' value='Create Post' className='button button-light'>Create Post</button>
         <div className="mb-3">
             <br />
             <label className="form-label">Title</label>

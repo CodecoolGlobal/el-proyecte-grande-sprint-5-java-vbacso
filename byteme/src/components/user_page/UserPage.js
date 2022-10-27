@@ -1,7 +1,7 @@
 import '../../App.css';
 import { useState, useEffect} from 'react'
-import Post from '../Post'
-import CreatePost from '../CreatePost';
+import Post from '../post/Post'
+import CreatePost from '../post/CreatePost';
 
 const UserPage = () => {
 
