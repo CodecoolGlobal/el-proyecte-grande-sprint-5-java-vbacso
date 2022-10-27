@@ -27,13 +27,8 @@ export const createPost = async (input) => {
 const Post = ({post, onDelete}) => {
     return (
         <div className="post-card">
-            {new Date(post.created).toLocaleTimeString('en', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour12: false
-            })}
             <PostHeader userName={post.username}
+                        created={post.created}
                         title={post.title}
                         postId={post.id}
                         userId={post.userId}
@@ -43,7 +38,7 @@ const Post = ({post, onDelete}) => {
                 postBody={post.body}
             />
             {post.comments.map((comment) => (
-                <p key={comment.id}>{comment.body}</p>
+                <div className="comment-container" key={comment.id}>{comment.body}</div>
             ))}
         </div>
     )

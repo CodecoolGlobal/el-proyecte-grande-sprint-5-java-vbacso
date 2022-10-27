@@ -48,27 +48,39 @@ html {
     margin: 3em auto 20px;
     position: relative;
     width: 40%;
-    padding: 1em;
+    /*padding: 1em;*/
     border: 2px solid var(--primary);
+    color: var(--secondary);
     border-radius: 10px;
 }
 
 .post-title {
-    color: var(--primary);
+padding: 0.5em 0em;
+}
+
+.post-header {
+    background-color: var(--primary);
+    padding: 1em 1em 0 1em;
 }
 
 .post-body {
     padding: 5px;
     font-weight: 500;
     font-size: large;
+    color: var(--white)!important;
 }
 
 .username-in-post {
-    padding: 5px;
+}
+
+.comment-container {
+    padding: 0.5em 1em;
+    background-color: var(--primary);
+    color:var(--secondary);
 }
 
 .delete-icon {
-    color: var(--primary) !important;
+    color: var(--secondary) !important;
     position: absolute;
     right: 5px;
     top: 5px;
