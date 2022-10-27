@@ -7,6 +7,9 @@
 .navbar {
   background-color: var(--primary);
 }
+.navbar a {
+  cursor: pointer;
+}
 
 .main-container {
   min-height: 100vh;
@@ -55,3 +58,14 @@
   height: 35px;
 }
 
+
+.container {
+  max-width: 66vh;
+  margin: 1px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #313133a4;
+}

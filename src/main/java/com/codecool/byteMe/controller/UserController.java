@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private UserService userService;
@@ -38,9 +40,9 @@ public class UserController {
         return userService.edit(user);
     }
 
-    @GetMapping("/findById")
-    public User findUserById(@RequestBody User user) {
-        return userService.findById(user.getId());
+    @GetMapping("/findById/{userId}")
+    public User findUserById(@PathVariable UUID userId) {
+        return userService.findById(userId);
     }
 
     @GetMapping("/findByEmail")

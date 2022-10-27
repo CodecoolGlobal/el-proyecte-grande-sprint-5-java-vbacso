@@ -1,11 +1,65 @@
-import React from 'react';
+import '../../App.css';
+import { useState, useEffect} from 'react'
+import Post from '../Post'
+import CreatePost from '../CreatePost';
 
 const UserPage = () => {
-    return (
-        <div>
-            user page loaded
-        </div>
-    );
-};
 
-export default UserPage;
+  const [user, setUser] = useState([])
+
+  // Fetch user
+  useEffect(()=> {
+    const getUser = async () => {
+      const usersFromServer = await fetchUser()
+      setUser(usersFromServer)
+    }
+
+    getUser()
+  }, [])
+
+  // Fetch user
+  const fetchUser = async () => {
+    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+
+    const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`)
+    const data = await res.json()
+
+    return data
+  }
+
+  // Delete Post
+  const deletePost = (id) => {
+    setUser(user.filter((post) => post.id !== id))
+  }
+
+  // Create Post
+  const createPost = async (input) => {
+
+    const res = await fetch('http://localhost:8080/user/all', {
+      method: 'POST',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(input)
+    })
+
+    const data = await res.json()
+
+    setUser([...user, data])
+
+    //const id = Math.floor(Math.random() * 10000) + 1
+    //const newComment = {id, ...input }
+    
+
+    //setUser([...posts, newComment])
+  }
+
+  return (
+    <div>
+      <CreatePost onAdd={createPost}/>
+      <Post user={user} onDelete={deletePost} />
+    </div>
+  )
+}
+
+export default UserPage
