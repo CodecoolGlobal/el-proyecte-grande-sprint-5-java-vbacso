@@ -22,7 +22,7 @@ html{
 
 .main-container {
     position: relative;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: var(--secondary);
     color: var(--white);
     padding-bottom: 1em;
