@@ -2,7 +2,7 @@ import PostBody from './PostBody'
 
 const Post = ({post, onDelete}) => {
     return (
-        <div className='container'>
+        <div className="post-card"  >
             <PostBody
                 key={post.id+'-body'}
                 name={post.username}

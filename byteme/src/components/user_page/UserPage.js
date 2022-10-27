@@ -56,12 +56,13 @@ const UserPage = () => {
     } else {
 
         return (
-            <div>
+            <div className="user-page-container">
                 <CreatePost onAdd={createPost}/>
-                {console.log(posts)}
-                {posts.map((post)=>(
-                    <Post key={post.id} post={post} onDelete={deletePost}/>
-                ))}
+                <div>
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post} onDelete={deletePost}/>
+                    ))}
+                </div>
             </div>
         )
     }
