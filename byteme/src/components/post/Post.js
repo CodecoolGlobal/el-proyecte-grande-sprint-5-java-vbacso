@@ -4,7 +4,7 @@ const Post = ({post, onDelete}) => {
     return (
         <div className='container'>
             <PostBody
-                key={post.id}
+                key={post.id+'-body'}
                 name={post.username}
                 title={post.title}
                 postbody={post.body}

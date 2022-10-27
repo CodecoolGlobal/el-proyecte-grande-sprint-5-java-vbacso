@@ -60,7 +60,7 @@ const UserPage = () => {
                 <CreatePost onAdd={createPost}/>
                 {console.log(posts)}
                 {posts.map((post)=>(
-                    <Post post={post} onDelete={deletePost}/>
+                    <Post key={post.id} post={post} onDelete={deletePost}/>
                 ))}
             </div>
         )
