@@ -1,4 +1,3 @@
-import Feed from "./Feed";
 import {useEffect, useState} from "react";
 import CreatePost from "../post/CreatePost";
 import Post from "../post/Post";
@@ -37,7 +36,6 @@ const FeedPage = ({loggedInUserId}) => {
             {posts.map((post) => (
                 <Post key={post.id} post={post} onDelete={deletePost}/>
             ))}
-            <Feed/>
         </div>
     );
 };
