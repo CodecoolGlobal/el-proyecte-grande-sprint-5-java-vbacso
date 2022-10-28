@@ -3,13 +3,13 @@ import PostHeader from "./post-components/PostHeader";
 
 
 export const deletePost = async (id) => {
-    const res = await fetch(`http://localhost:8080/post/delete/${id}`, {
+    await fetch(`http://localhost:8080/post/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json'
         },
         body: JSON.stringify(id)
-    })
+    }).catch(console.error)
 }
 
 export const createPost = async (input) => {
