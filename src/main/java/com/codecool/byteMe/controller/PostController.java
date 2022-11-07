@@ -50,8 +50,9 @@ public class PostController {
         postService.delete(postId);
     }
 
-//    @GetMapping("feed/{userId}")
-//    public List<Post> getFeedPosts(@PathVariable Long userId) {
-//        return postService.getFeedPosts(userId);
-//    }
+    @GetMapping("feed/{userId}")
+    public List<Post> getFeedPosts(@PathVariable Long userId) {
+        System.out.println(postService.getFeedPosts(userId));
+        return postService.getFeedPosts(userId);
+    }
 }

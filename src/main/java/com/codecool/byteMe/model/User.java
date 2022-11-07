@@ -1,6 +1,7 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,21 +18,36 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+    private final LocalDate regDate = LocalDate.now();
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private int age;
     private String email;
-    private LocalDate regDate;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "user_friend",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
     private List<User> friendList;
-    private String profilePic;
+    @Builder.Default
+    private String profilePic = "static/img.png";
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Post> posts;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", regDate=" + regDate +
+                ", profilePic='" + profilePic + '\'' +
+                '}';
+    }
 }

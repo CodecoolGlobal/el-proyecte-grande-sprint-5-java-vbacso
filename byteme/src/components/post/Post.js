@@ -27,7 +27,7 @@ export const createPost = async (input) => {
 const Post = ({post, onDelete}) => {
     return (
         <div className="post-card">
-            <PostHeader userName={post.username}
+            <PostHeader userName={post.user.name}
                         created={post.created}
                         title={post.title}
                         postId={post.id}
@@ -37,8 +37,8 @@ const Post = ({post, onDelete}) => {
             <PostBody
                 postBody={post.body}
             />
-            {post.comments.map((comment) => (
-                <div className="comment-container" key={comment.id}>{comment.username + ": " + comment.body}</div>
+            {post.comments?.map((comment) => (
+                <div className="comment-container" key={comment.id}>{comment.user.name + ": " + comment.body}</div>
             ))}
         </div>
     )

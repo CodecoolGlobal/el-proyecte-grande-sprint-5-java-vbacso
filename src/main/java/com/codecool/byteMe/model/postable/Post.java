@@ -1,15 +1,21 @@
 package com.codecool.byteMe.model.postable;
 
-import lombok.*;
+import com.codecool.byteMe.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,4 +26,25 @@ public class Post extends Postable {
     @OneToMany
     @JoinColumn(name = "post_id")
     private List<Comment> comments;
+
+    public Post(User user, String body, String title, LocalDateTime created) {
+        super(user, body, created);
+        this.title = title;
+    }
+
+    public Post(User user, String body, String title) {
+        super(user, body);
+        this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", id=" + id +
+                ", body='" + body + '\'' +
+                ", vote=" + vote +
+                ", created=" + created +
+                '}';
+    }
 }

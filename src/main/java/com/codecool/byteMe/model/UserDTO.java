@@ -1,5 +1,8 @@
 package com.codecool.byteMe.model;
 
+import lombok.Getter;
+
+@Getter
 public class UserDTO {
     private Long id;
     private String name;
