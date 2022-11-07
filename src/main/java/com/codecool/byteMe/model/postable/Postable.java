@@ -1,11 +1,13 @@
 package com.codecool.byteMe.model.postable;
 
 import com.codecool.byteMe.model.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,8 +19,8 @@ public abstract class Postable {
     @GeneratedValue
     protected Long id;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     protected User user;
-    protected String username;
     protected String body;
     protected int vote;
     protected LocalDateTime created = LocalDateTime.now();

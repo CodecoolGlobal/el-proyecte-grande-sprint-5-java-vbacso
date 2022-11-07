@@ -25,8 +25,13 @@ public class User {
     private String email;
     private LocalDate regDate;
     @ManyToMany
+    @JoinTable(
+            name = "user_friend",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
     private List<User> friendList;
     private String profilePic;
     @OneToMany
+    @JoinColumn(name = "user_id")
     private List<Post> posts;
 }

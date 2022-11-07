@@ -3,6 +3,7 @@ package com.codecool.byteMe.model.postable;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -13,6 +14,6 @@ import javax.persistence.Entity;
 public class Comment extends Postable {
 
     public static final int VOTE = 0;
-    private Long postId;
-
+    @ManyToOne
+    private Post post;
 }
