@@ -1,0 +1,13 @@
+package com.codecool.byteMe.dao;
+
+import com.codecool.byteMe.model.postable.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    List<Comment> findByUserId(Long userId);
+
+    List<Comment> findByPostId(Long postId);
+}

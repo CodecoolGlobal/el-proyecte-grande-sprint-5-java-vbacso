@@ -7,7 +7,7 @@ import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,17 +17,13 @@ public class UserController {
 
     private UserService userService;
 
-    public UserController() {
-        this.userService = new UserService();
-    }
-
     @Autowired
-    private void setUserService(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/all")
-    public Set<User> getAllUser() {
+    public List<User> getAllUser() {
         return userService.getAll();
     }
 
@@ -43,21 +39,21 @@ public class UserController {
 
     @GetMapping("/findById/{userId}")
     @CrossOrigin(origins = "*")
-    public User findUserById(@PathVariable UUID userId) {
+    public User findUserById(@PathVariable Long userId) {
         return userService.findById(userId);
     }
 
-    @PostMapping("/findById/{userId}/add")
-    @CrossOrigin(origins = "*")
-    public User findUserByIdAdd(@RequestBody Post post, @PathVariable UUID userId) {
-        return userService.findByIdAdd(userId, post);
-    }
+//    @PostMapping("/findById/{userId}/add")
+//    @CrossOrigin(origins = "*")
+//    public User findUserByIdAdd(@RequestBody Post post, @PathVariable UUID userId) {
+//        return userService.findByIdAdd(userId, post);
+//    }
 
-    @DeleteMapping("/findById/{userId}/delete")
-    @CrossOrigin(origins = "*")
-    public User findUserByIdDelete(@RequestBody UUID postId, @PathVariable UUID userId) {
-        return userService.findByIdDelete(userId, postId);
-    }
+//    @DeleteMapping("/findById/{userId}/delete")
+//    @CrossOrigin(origins = "*")
+//    public User findUserByIdDelete(@RequestBody UUID postId, @PathVariable UUID userId) {
+//        return userService.findByIdDelete(userId, postId);
+//    }
 
     @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {

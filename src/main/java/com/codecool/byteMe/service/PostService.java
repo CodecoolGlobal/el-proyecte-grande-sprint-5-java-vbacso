@@ -1,52 +1,49 @@
 package com.codecool.byteMe.service;
 
-import com.codecool.byteMe.dao.PostDao;
-import com.codecool.byteMe.dao.mem.PostDaoMem;
+import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
 
 @Service("postService")
 public class PostService {
-    private PostDao postDao;
-
-    public PostService() {
-        this.postDao = new PostDaoMem();
-    }
+    private PostRepository postRepository;
 
     @Autowired
-    public void setPostDao(PostDao postDao) {
-        this.postDao = postDao;
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
     }
 
-    public Set<Post> getAll() {
-        return postDao.getAll();
+    public List<Post> getAll() {
+        return postRepository.findAll();
     }
 
     public Post add(Post post) {
-        return postDao.add(post);
+        return postRepository.save(post);
     }
 
-    public Post findById(UUID postId) {
-        return postDao.findById(postId);
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("No post with ginven id"));
     }
 
-    public Set<Post> findByUserId(UUID userId) {
-        return postDao.findByUserId(userId);
+    public List<Post> findByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
     }
 
     public Post edit(Post post) {
-        return postDao.edit(post);
+        return postRepository.save(post);
     }
 
-    public Post delete(UUID postId) {
-        return postDao.delete(postId);
+    public void delete(Long postId) {
+        postRepository.deleteById(postId);
     }
 
-    public Set<Post> getFeedPosts(UUID userId) {
-        return postDao.getFeedPosts(userId);
-    }
+//    public List<Post> getFeedPosts(UUID userId) {
+//        return postRepository.getFeedPosts(userId);
+//    }
 }

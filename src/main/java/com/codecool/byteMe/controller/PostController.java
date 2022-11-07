@@ -5,8 +5,7 @@ import com.codecool.byteMe.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/post")
@@ -15,17 +14,14 @@ public class PostController {
 
     private PostService postService;
 
-    public PostController() {
-        this.postService = new PostService();
-    }
 
     @Autowired
-    public void setPostService(PostService postService) {
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
     @GetMapping("all")
-    public Set<Post> getAllPost() {
+    public List<Post> getAllPost() {
         return postService.getAll();
     }
 
@@ -40,22 +36,22 @@ public class PostController {
     }
 
     @GetMapping("{postId}")
-    public Post findPostById(@PathVariable UUID postId) {
+    public Post findPostById(@PathVariable Long postId) {
         return postService.findById(postId);
     }
 
     @GetMapping("user/{userId}")
-    public Set<Post> findPostsByUserId(@PathVariable UUID userId) {
+    public List<Post> findPostsByUserId(@PathVariable Long userId) {
         return postService.findByUserId(userId);
     }
 
     @DeleteMapping("delete/{postId}")
-    public Post deletePost(@PathVariable UUID postId) {
-        return postService.delete(postId);
+    public void deletePost(@PathVariable Long postId) {
+        postService.delete(postId);
     }
 
-    @GetMapping("feed/{userId}")
-    public Set<Post> getFeedPosts(@PathVariable UUID userId) {
-        return postService.getFeedPosts(userId);
-    }
+//    @GetMapping("feed/{userId}")
+//    public List<Post> getFeedPosts(@PathVariable Long userId) {
+//        return postService.getFeedPosts(userId);
+//    }
 }
