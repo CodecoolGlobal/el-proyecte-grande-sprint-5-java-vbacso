@@ -2,13 +2,11 @@ package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.UserRepository;
 import com.codecool.byteMe.model.User;
-import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 public class UserService {

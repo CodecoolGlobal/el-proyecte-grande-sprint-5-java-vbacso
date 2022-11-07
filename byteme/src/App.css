@@ -55,7 +55,7 @@ html {
 }
 
 .post-title {
-padding: 0.5em 0em;
+    padding: 0.5em 0em;
 }
 
 .post-header {
@@ -67,7 +67,7 @@ padding: 0.5em 0em;
     padding: 5px;
     font-weight: 500;
     font-size: large;
-    color: var(--white)!important;
+    color: var(--white) !important;
 }
 
 .username-in-post {
@@ -76,7 +76,7 @@ padding: 0.5em 0em;
 .comment-container {
     padding: 0.5em 1em;
     background-color: var(--primary);
-    color:var(--secondary);
+    color: var(--secondary);
 }
 
 .delete-icon {

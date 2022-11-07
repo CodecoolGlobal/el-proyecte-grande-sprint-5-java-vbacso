@@ -1,7 +1,5 @@
 package com.codecool.byteMe.model;
 
-import java.util.UUID;
-
 public class UserDTO {
     private Long id;
     private String name;

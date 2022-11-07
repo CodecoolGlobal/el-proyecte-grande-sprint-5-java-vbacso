@@ -2,13 +2,11 @@ package com.codecool.byteMe.controller;
 
 
 import com.codecool.byteMe.model.User;
-import com.codecool.byteMe.model.postable.Post;
 import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
