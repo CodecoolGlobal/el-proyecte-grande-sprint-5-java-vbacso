@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 const CreatePost = ({onAdd}) => {
 
-    const userId = JSON.parse(localStorage.getItem("loggedInUser")).id
+    const user = JSON.parse(localStorage.getItem("loggedInUser"))
     const [title, setName] = useState('');
     const [body, setPostBody] = useState('');
 
@@ -13,7 +13,7 @@ const CreatePost = ({onAdd}) => {
             alert("hey!")
             return
         }
-        onAdd({body, title, userId})
+        onAdd({body, title, user})
         setName('')
         setPostBody('')
     }

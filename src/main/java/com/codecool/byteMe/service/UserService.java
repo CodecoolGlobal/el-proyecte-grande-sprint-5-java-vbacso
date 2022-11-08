@@ -1,53 +1,48 @@
 package com.codecool.byteMe.service;
 
-import com.codecool.byteMe.dao.UserDao;
-import com.codecool.byteMe.dao.mem.UserDaoMem;
+import com.codecool.byteMe.dao.UserRepository;
 import com.codecool.byteMe.model.User;
-import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
-    private UserDao userDao;
-
-    public UserService() {
-        this.userDao = new UserDaoMem();
-    }
+    private UserRepository userRepository;
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public Set<User> getAll() {
-        return userDao.getAll();
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     public User add(User user) {
-        return userDao.add(user);
+        return userRepository.save(user);
     }
 
     public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+        System.out.println(userRepository.findByEmail(email));
+        return userRepository.findByEmail(email);
     }
 
-    public User findById(UUID uuid) {
-        return userDao.findById(uuid);
+    public User findById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No user with given id"));
     }
 
     public User edit(User user) {
-        return userDao.edit(user);
+        return userRepository.save(user);
     }
 
-    public User findByIdAdd(UUID userId, Post post) {
-        return userDao.findByIdAdd(userId, post);
-    }
-
-    public User findByIdDelete(UUID userId, UUID postId) {
-        return userDao.findByIdDelete(userId, postId);
-    }
+//    public User findByIdAdd(UUID userId, Post post) {
+//        return userRepository.findByIdAdd(userId, post);
+//    }
+//
+//    public User findByIdDelete(UUID userId, UUID postId) {
+//        return userRepository.findByIdDelete(userId, postId);
+//    }
 }

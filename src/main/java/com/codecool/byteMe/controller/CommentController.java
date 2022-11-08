@@ -5,25 +5,20 @@ import com.codecool.byteMe.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
     private CommentService commentService;
 
-    public CommentController() {
-        this.commentService = new CommentService();
-    }
-
     @Autowired
-    public void setCommentService(CommentService commentService) {
+    public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
     @GetMapping("all")
-    public Set<Comment> getAllComment() {
+    public List<Comment> getAllComment() {
         return commentService.getAll();
     }
 
@@ -33,17 +28,17 @@ public class CommentController {
     }
 
     @GetMapping("{commentId}")
-    public Comment find(@PathVariable UUID commentId) {
+    public Comment find(@PathVariable Long commentId) {
         return commentService.findById(commentId);
     }
 
     @GetMapping("user/{userId}")
-    public Set<Comment> findByUserId(@PathVariable UUID userId) {
+    public List<Comment> findByUserId(@PathVariable Long userId) {
         return commentService.findByUserId(userId);
     }
 
     @GetMapping("post/{postId}")
-    public Set<Comment> findByPostId(@PathVariable UUID postId) {
+    public List<Comment> findByPostId(@PathVariable Long postId) {
         return commentService.findByPostId(postId);
     }
 
@@ -53,7 +48,7 @@ public class CommentController {
     }
 
     @DeleteMapping("delete/{commentId}")
-    public Comment delete(@PathVariable UUID commentId) {
-        return commentService.delete(commentId);
+    public void delete(@PathVariable Long commentId) {
+        commentService.delete(commentId);
     }
 }

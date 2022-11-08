@@ -1,54 +1,49 @@
 package com.codecool.byteMe.service;
 
-import com.codecool.byteMe.dao.CommentDao;
-import com.codecool.byteMe.dao.mem.CommentDaoMem;
+import com.codecool.byteMe.dao.CommentRepository;
 import com.codecool.byteMe.model.postable.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("commentService")
 
 public class CommentService {
-    private CommentDao commentDao;
-
-    public CommentService() {
-        this.commentDao = new CommentDaoMem();
-    }
+    private CommentRepository commentRepository;
 
     @Autowired
-    public void setCommentDao(CommentDao commentDao) {
-        this.commentDao = commentDao;
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
-    public Set<Comment> getAll() {
-        return commentDao.getAll();
+    public List<Comment> getAll() {
+        return commentRepository.findAll();
     }
 
     public Comment add(Comment comment) {
-        return commentDao.add(comment);
+        return commentRepository.save(comment);
     }
 
-    public Comment findById(UUID commentId) {
-        return commentDao.findById(commentId);
+    public Comment findById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new NoSuchElementException("No comment with given id"));
     }
 
-    public Set<Comment> findByUserId(UUID userId) {
-        return commentDao.findByUserId(userId);
+    public List<Comment> findByUserId(Long userId) {
+        return commentRepository.findByUserId(userId);
     }
 
-    public Set<Comment> findByPostId(UUID postId) {
-        return commentDao.findByPostId(postId);
+    public List<Comment> findByPostId(Long postId) {
+        return commentRepository.findByPostId(postId);
     }
 
     public Comment edit(Comment comment) {
-        return commentDao.edit(comment);
+        return commentRepository.save(comment);
     }
 
-    public Comment delete(UUID commentId) {
-        return commentDao.delete(commentId);
+    public void delete(Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 }
 

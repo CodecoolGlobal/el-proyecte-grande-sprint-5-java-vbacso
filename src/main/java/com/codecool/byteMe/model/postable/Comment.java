@@ -1,23 +1,27 @@
 package com.codecool.byteMe.model.postable;
 
-import java.util.UUID;
+import com.codecool.byteMe.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Comment extends Postable {
 
     public static final int VOTE = 0;
-    private final UUID postId;
+    @JsonIgnore
+    @ManyToOne
+    private Post post;
 
-    public Comment(String body, UUID postId, UUID userId, String username) {
-        super(userId, body, VOTE, username);
-        this.postId = postId;
-    }
-
-    public UUID getPostId() {
-        return postId;
-    }
-
-    public Comment editComment(Comment comment) {
-        this.body = comment.body;
-        return this;
+    @Builder
+    public Comment(User user, String body, Post post) {
+        super(user, body);
+        this.post = post;
     }
 }
