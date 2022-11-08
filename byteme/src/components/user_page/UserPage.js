@@ -5,7 +5,7 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 
-const UserPage = ({loadEditProfile}) => {
+const UserPage = () => {
 
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState(null);
@@ -60,7 +60,7 @@ const UserPage = ({loadEditProfile}) => {
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
-            <EditProfileButton loadEditProfile={loadEditProfile}/>
+            <EditProfileButton/>
             <ProfilePicture image={user.profilePic}/>
         </div>)
     }
