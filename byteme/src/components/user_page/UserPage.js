@@ -3,12 +3,29 @@ import {useEffect, useState} from 'react'
 import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
+import ProfilePicture from "./ProfilePicture";
 
 const UserPage = ({loadEditProfile}) => {
 
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
+    const [user, setUser] = useState(null);
+
+    // Get user
+    useEffect(() => {
+        const getUser = async () => {
+            const res = await fetchUser();
+            setUser(res);
+        }
+        getUser().catch(console.error);
+    }, [])
 
     // Fetch user
+    const fetchUser = async () => {
+        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`);
+        return (await res.json());
+    }
+
+    // Get user posts
     useEffect(() => {
         const getUserPosts = async () => {
             const postsFromServer = await fetchUserPosts();
@@ -19,7 +36,7 @@ const UserPage = ({loadEditProfile}) => {
 
     const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
 
-    // Fetch user
+    // Fetch user posts
     const fetchUserPosts = async () => {
         const res = await fetch(`http://localhost:8080/post/user/${loggedInUserId}`)
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -37,14 +54,14 @@ const UserPage = ({loadEditProfile}) => {
         setPosts([newPost, ...posts]);
     }
 
-    if (!posts) {
+    if (!posts || !user) {
         console.log("loading...")
     } else {
-
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
             <EditProfileButton loadEditProfile={loadEditProfile}/>
+            <ProfilePicture image={user.profilePic}/>
         </div>)
     }
 }
