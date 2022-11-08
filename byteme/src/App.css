@@ -2,7 +2,8 @@
     --primary: #ffb0b0;
     --secondary: #050505;
     --secondary-opacity: #05050590;
-    --white: #dad0d0;
+    --grey: #dad0d0;
+    --white: #ffffff;
 }
 
 html {
@@ -24,7 +25,7 @@ html {
     position: relative;
     min-height: 100vh;
     background-color: var(--secondary);
-    color: var(--white);
+    color: var(--grey);
     padding-bottom: 1em;
 }
 
@@ -67,7 +68,7 @@ html {
     padding: 5px;
     font-weight: 500;
     font-size: large;
-    color: var(--white) !important;
+    color: var(--grey) !important;
 }
 
 .username-in-post {
@@ -113,13 +114,38 @@ html {
 }
 
 .button-dark {
-    background-color: var(--secondary);
-    color: var(--white);
+    background-color: var(--secondary) !important;
+    color: var(--grey) !important;
 }
 
 .button-light {
-    background-color: var(--primary);
-    color: var(--secondary-opacity);
+    background-color: var(--primary) !important;
+    color: var(--secondary-opacity) !important;
+}
+
+input,
+textarea {
+    box-shadow: none !important;
+}
+
+.searchbar input {
+    border-radius: 2em 0 0 2em!important;
+    padding-left: 2em!important;
+    margin: 0!important;
+}
+
+.searchbar input:focus {
+    border: 1px solid #ced4da !important;
+    border-right: none !important;
+}
+
+.button-search {
+    background-color: var(--white) !important;
+    color: var(--secondary-opacity) !important;
+    border: 1px solid #ced4da !important;
+    border-left: none !important;
+    border-radius: 0 2em 2em 0!important;
+    padding-right: 1em!important;
 }
 
 .form-control {

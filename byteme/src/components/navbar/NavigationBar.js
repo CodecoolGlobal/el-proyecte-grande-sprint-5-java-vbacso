@@ -2,13 +2,16 @@ import logo from '../../images/byteMe-logo.png';
 import Logout from "./Logout";
 import LinkFeedPage from "./LinkFeedPage";
 import LinkUserPage from "./LinkUserPage";
+import SearchBar from "./searchbar/SearchBar";
 
 const NavigationBar = ({loadFeedPage, loadUserPage, onLogout}) => {
     return (
         <div className="navbar-container">
             <nav className="navbar justify-content-between px-3">
-                <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo} alt="logo"/></a>
-
+                <div className="d-flex">
+                    <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo} alt="logo"/></a>
+                    <SearchBar/>
+                </div>
                 <div className="" id="navbarSupportedContent">
                     <ul className="navbar-nav flex-row mr-auto">
                         <li className="nav-item mx-2">
