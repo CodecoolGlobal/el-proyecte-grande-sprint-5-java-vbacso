@@ -41,18 +41,6 @@ public class UserController {
         return userService.findById(userId);
     }
 
-//    @PostMapping("/findById/{userId}/add")
-//    @CrossOrigin(origins = "*")
-//    public User findUserByIdAdd(@RequestBody Post post, @PathVariable UUID userId) {
-//        return userService.findByIdAdd(userId, post);
-//    }
-
-//    @DeleteMapping("/findById/{userId}/delete")
-//    @CrossOrigin(origins = "*")
-//    public User findUserByIdDelete(@RequestBody UUID postId, @PathVariable UUID userId) {
-//        return userService.findByIdDelete(userId, postId);
-//    }
-
     @GetMapping("/findByEmail")
     public User findUserByEmail(@RequestBody User user) {
         return userService.findByEmail(user.getEmail());

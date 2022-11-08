@@ -33,7 +33,7 @@ const UserPage = () => {
     // Create Post
     const createPostEvent = async (input) => {
         const newPost = await createPost(input);
-        setPosts([newPost,...posts]);
+        setPosts([newPost, ...posts]);
     }
 
     if (!posts) {

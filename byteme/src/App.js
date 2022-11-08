@@ -39,7 +39,7 @@ function App() {
         setUser(null);
     };
     return (
-            user === undefined ? <div>"loading..."</div> :
+        user === undefined ? <div>"loading..."</div> :
             user === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUserId={user.id} onLogout={onLogout}/>
     );
 }
