@@ -33,7 +33,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
     private List<User> friendList;
     @Builder.Default
-    private String profilePic = "static/img.png";
+    private String profilePic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
     @JsonIgnore
     @OneToMany
     @JoinColumn(name = "user_id")
