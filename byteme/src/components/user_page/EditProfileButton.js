@@ -1,8 +1,18 @@
-const EditProfileButton = ({loadEditProfile}) => {
+import EditProfileModal from "./EditProfileModal";
+
+const EditProfileButton = () => {
+
+    function openModal() {
+        const modal = document.querySelector("#myModal")
+        modal.style.display = "block";
+    }
+
     return (
         <div>
-            <button className="button-dark button" onClick={loadEditProfile}>Edit profile</button>
+            <button className="btn-primary btn" id="myBtn" onClick={openModal}>Edit Profile</button>
+            <EditProfileModal/>
         </div>
+
     );
 };
 
