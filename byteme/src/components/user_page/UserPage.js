@@ -2,8 +2,9 @@ import '../../App.css';
 import {useEffect, useState} from 'react'
 import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
+import EditProfileButton from "./EditProfileButton";
 
-const UserPage = () => {
+const UserPage = ({loadEditProfile}) => {
 
     const [posts, setPosts] = useState([])
 
@@ -43,6 +44,7 @@ const UserPage = () => {
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
+            <EditProfileButton loadEditProfile={loadEditProfile}/>
         </div>)
     }
 }
