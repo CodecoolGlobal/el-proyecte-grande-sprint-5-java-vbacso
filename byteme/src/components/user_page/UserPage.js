@@ -55,13 +55,13 @@ const UserPage = ({loadEditProfile}) => {
     }
 
     if (!posts || !user) {
-        console.log("loading...")
+        return (<div>Loading...</div>)
     } else {
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
             <EditProfileButton loadEditProfile={loadEditProfile}/>
-            <ProfilePicture image={user.profilePic}/>
+            <ProfilePicture profilePictureId={user.profilePictureId}/>
         </div>)
     }
 }
