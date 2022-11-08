@@ -6,12 +6,14 @@ import MainPage from "./components/MainPage";
 
 function App() {
 
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState();
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem("loggedInUser")
         if (loggedInUser) {
             setUser(JSON.parse(loggedInUser));
+        } else {
+            setUser(null)
         }
     }, [])
 
@@ -34,14 +36,12 @@ function App() {
     }
     const onLogout = () => {
         localStorage.setItem("loggedInUser", "");
-        setUser("");
+        setUser(null);
     };
-
-    return (<div>
-        {
-            user === "" ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUserId={user.id} onLogout={onLogout}/>
-        }
-    </div>);
+    return (
+            user === undefined ? <div>"loading..."</div> :
+            user === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUserId={user.id} onLogout={onLogout}/>
+    );
 }
 
 export default App;
