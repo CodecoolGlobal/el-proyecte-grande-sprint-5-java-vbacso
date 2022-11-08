@@ -31,7 +31,7 @@ const Post = ({post, onDelete}) => {
                         created={post.created}
                         title={post.title}
                         postId={post.id}
-                        userId={post.userId}
+                        userId={post.user.id}
                         onDelete={onDelete}
             />
             <PostBody

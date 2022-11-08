@@ -18,7 +18,7 @@ public abstract class Postable {
     @Id
     @GeneratedValue
     protected Long id;
-    @JsonIncludeProperties("name")
+    @JsonIncludeProperties({"id","name"})
     @ManyToOne
     @JoinColumn(name = "user_id")
     protected User user;

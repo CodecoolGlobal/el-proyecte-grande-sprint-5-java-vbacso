@@ -14,8 +14,8 @@ const PostHeader = ({postId, userName, created, title, userId, onDelete}) => {
                         hour12: false
                     })}
             </h6>
-            <h4 className='post-title'>{title}</h4>{loggedInUserId === userId ?
-            <FaTimes onClick={() => onDelete(postId)} className='delete-icon' cursor='pointer'/> : ''}
+            <h4 className='post-title'>{title}</h4>
+            {loggedInUserId === userId ? <FaTimes onClick={() => onDelete(postId)} className='delete-icon' cursor='pointer'/> : ''}
 
         </div>
     );
