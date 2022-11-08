@@ -1,52 +1,59 @@
 package com.codecool.byteMe.service;
 
-import com.codecool.byteMe.dao.PostDao;
-import com.codecool.byteMe.dao.mem.PostDaoMem;
+import com.codecool.byteMe.dao.PostRepository;
+import com.codecool.byteMe.dao.UserRepository;
+import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service("postService")
 public class PostService {
-    private PostDao postDao;
-
-    public PostService() {
-        this.postDao = new PostDaoMem();
-    }
+    private PostRepository postRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public void setPostDao(PostDao postDao) {
-        this.postDao = postDao;
+    public PostService(PostRepository postRepository, UserRepository userRepository) {
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
-    public Set<Post> getAll() {
-        return postDao.getAll();
+    public List<Post> getAll() {
+        return postRepository.findAll();
     }
 
     public Post add(Post post) {
-        return postDao.add(post);
+        return postRepository.save(post);
     }
 
-    public Post findById(UUID postId) {
-        return postDao.findById(postId);
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("No post with ginven id"));
     }
 
-    public Set<Post> findByUserId(UUID userId) {
-        return postDao.findByUserId(userId);
+    public List<Post> findByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
     }
 
     public Post edit(Post post) {
-        return postDao.edit(post);
+        return postRepository.save(post);
     }
 
-    public Post delete(UUID postId) {
-        return postDao.delete(postId);
+    public void delete(Long postId) {
+        postRepository.deleteById(postId);
     }
 
-    public Set<Post> getFeedPosts(UUID userId) {
-        return postDao.getFeedPosts(userId);
+    public List<Post> getFeedPosts(Long userId) {
+        List<Long> userIdsForFeed = new ArrayList<>(
+                userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
+                        .getFriendList()
+                        .stream()
+                        .map(User::getId).toList());
+        userIdsForFeed.add(userId);
+        System.out.println(postRepository.findByUser_IdIn(userIdsForFeed));
+        return postRepository.findByUser_IdIn(userIdsForFeed);
     }
 }

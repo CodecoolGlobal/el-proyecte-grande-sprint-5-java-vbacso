@@ -1,84 +1,40 @@
 package com.codecool.byteMe.model.postable;
 
+import com.codecool.byteMe.model.User;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@MappedSuperclass
+@SuperBuilder
 public abstract class Postable {
-
-    protected UUID id;
-    protected UUID userId;
-    protected String username;
+    @Id
+    @GeneratedValue
+    protected Long id;
+    @JsonIncludeProperties({"id", "name"})
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    protected User user;
     protected String body;
-    protected int vote;
-    protected LocalDateTime created;
+    protected int vote = 0;
+    @Builder.Default
+    protected LocalDateTime created = LocalDateTime.now();
 
-    public Postable(UUID userId, String body, int vote, String username) {
-        this.id = UUID.randomUUID();
-        this.userId = userId;
-        this.body = body;
-        this.vote = vote;
-        this.username = username;
-        this.created = LocalDateTime.now();
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void increaseVote() {
-        vote++;
-    }
-
-    public void decreaseVote() {
-        vote--;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
+    public Postable(User user, String body) {
+        this.user = user;
         this.body = body;
     }
 
-    public int getVote() {
-        return vote;
-    }
-
-    public void setVote(int vote) {
-        this.vote = vote;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String toString() {
-        return "PostAbles{" +
-                "id=" + id +
-                ", body='" + body + '\'' +
-                ", vote=" + vote +
-                '}';
+    public Postable(User user, String body, LocalDateTime created) {
+        this.user = user;
+        this.body = body;
+        this.created = created;
     }
 }

@@ -13,12 +13,8 @@ public class LoginController {
 
     UserService userService;
 
-    public LoginController() {
-        this.userService = new UserService();
-    }
-
     @Autowired
-    public void setUserService(UserService userService) {
+    public LoginController(UserService userService) {
         this.userService = userService;
     }
 
