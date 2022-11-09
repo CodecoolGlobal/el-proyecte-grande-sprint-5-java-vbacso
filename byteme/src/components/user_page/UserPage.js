@@ -57,11 +57,15 @@ const UserPage = ({loadEditProfile}) => {
     if (!posts || !user) {
         return (<div>Loading...</div>)
     } else {
-        return (<div className="user-page-container">
-            <CreatePost onAdd={createPostEvent}/>
-            {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
-            <EditProfileButton loadEditProfile={loadEditProfile}/>
-            <ProfilePicture profilePictureId={user.profilePictureId}/>
+        return (<div>
+            <div className="user-page-left-container">
+                <ProfilePicture profilePictureId={user.profilePictureId}/>
+                <EditProfileButton loadEditProfile={loadEditProfile}/>
+            </div>
+            <div className="user-page-right-container">
+                <CreatePost onAdd={createPostEvent}/>
+                {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
+            </div>
         </div>)
     }
 }

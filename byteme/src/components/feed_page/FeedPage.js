@@ -26,7 +26,7 @@ const FeedPage = ({loggedInUserId}) => {
         await deletePost(id);
         setPosts(posts.filter((p) => p.id !== id))
     }
-    return (<div>
+    return (<div className="post-container">
         <CreatePost onAdd={createPostEvent}/>
         {posts?.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
     </div>);
