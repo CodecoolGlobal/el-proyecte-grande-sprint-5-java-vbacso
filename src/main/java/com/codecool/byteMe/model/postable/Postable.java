@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public abstract class Postable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "postable_sequence")
+    @SequenceGenerator(name = "postable_sequence",allocationSize = 1)
     protected Long id;
     @JsonIncludeProperties({"id", "name"})
     @ManyToOne

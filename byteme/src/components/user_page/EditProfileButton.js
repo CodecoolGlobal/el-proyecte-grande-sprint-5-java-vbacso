@@ -8,11 +8,10 @@ const EditProfileButton = () => {
     }
 
     return (
-        <div>
+        <div className="edit-profile-btn-container">
             <button className="button button-light" id="myBtn" onClick={openModal}>Edit Profile</button>
             <EditProfileModal/>
         </div>
-
     );
 };
 

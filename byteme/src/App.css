@@ -14,6 +14,7 @@ html {
 .navbar-container {
     background-color: var(--primary);
     position: sticky;
+    margin-bottom: 1em;
     top: 0;
     z-index: 10;
 }
@@ -23,8 +24,7 @@ html {
 }
 
 .main-container {
-    position: relative;
-    min-height: 100vh;
+    min-height: 120vh;
     background-color: var(--secondary);
     color: var(--grey);
     padding-bottom: 1em;
@@ -36,14 +36,48 @@ html {
 }
 
 .user-page-container {
-    position: relative;
+    overflow: hidden;
+}
+
+.user-page-left-container {
+    width: 33%;
+    min-height: 100vh;
+    float: left;
+    text-align: center;
+}
+
+.profile-pic-user-page img {
+    width: 200px;
+}
+
+.profile-pic-user-page {
+    margin: 1em;
+}
+
+.edit-profile-btn-container {
+   margin: 1em;
+}
+
+.user-page-user-data-container {
+
+}
+
+.user-page-right-container {
+    min-width: 66%;
+    overflow: hidden;
+    float: right;
+    min-height: 100vh;
 }
 
 .create-new-post-container {
     margin: auto;
     width: 50%;
     text-align: center;
-    padding: 30px;
+    padding: 1em;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    border-radius: 10px;
+    background-color: var(--primary);
 }
 
 .post-card {
@@ -57,7 +91,7 @@ html {
 }
 
 .post-title {
-    padding: 0.5em 0em;
+    padding: 0.5em 0;
 }
 
 .post-header {
@@ -252,18 +286,52 @@ textarea {
     background-color: var(--secondary) !important;
     color: var(--primary);
     border-radius: 0.5rem;
+    float: left;
 }
 
-img {
-    width: 50px;
+.datas-to-edit {
+    text-align: left;
+}
+
+#user-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-age {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.user-data-name {
+    font-size: x-large ;
+}
+
+.user-data-age {
+    font-size: x-large;
+}
+
+.user-data-email {
+    font-size: x-large;
 }
 
 .edit-btn {
-    padding: 0 !important;
+    padding: 1em !important;
     color: black;
     border-radius: 0.3rem;
 }
 
 .modal-header {
     justify-content: center !important;
+    border: 0 !important;
 }
