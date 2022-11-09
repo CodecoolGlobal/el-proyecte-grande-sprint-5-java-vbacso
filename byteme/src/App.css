@@ -132,6 +132,7 @@ textarea {
     border-radius: 2em 0 0 2em!important;
     padding-left: 2em!important;
     margin: 0!important;
+    border-right: none!important;
 }
 
 .searchbar input:focus {
