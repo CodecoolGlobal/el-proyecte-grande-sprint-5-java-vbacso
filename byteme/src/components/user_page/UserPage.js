@@ -5,7 +5,7 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 
-const UserPage = ({loadEditProfile}) => {
+const UserPage = () => {
 
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState(null);
@@ -55,12 +55,12 @@ const UserPage = ({loadEditProfile}) => {
     }
 
     if (!posts || !user) {
-        return (<div>Loading...</div>)
+        console.log("loading...")
     } else {
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={user.profilePictureId}/>
-                <EditProfileButton loadEditProfile={loadEditProfile}/>
+                <EditProfileButton />
             </div>
             <div className="user-page-right-container">
                 <CreatePost onAdd={createPostEvent}/>
