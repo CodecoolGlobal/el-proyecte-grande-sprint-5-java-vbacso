@@ -5,8 +5,9 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 
-const UserPage = () => {
+const UserPage = ({userId}) => {
 
+    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState(null);
 
@@ -21,7 +22,7 @@ const UserPage = () => {
 
     // Fetch user
     const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`);
+        const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
         return (await res.json());
     }
 
@@ -32,13 +33,11 @@ const UserPage = () => {
             setPosts(postsFromServer);
         }
         getUserPosts().catch(console.error);
-    }, [])
-
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+    }, [userId])
 
     // Fetch user posts
     const fetchUserPosts = async () => {
-        const res = await fetch(`http://localhost:8080/post/user/${loggedInUserId}`)
+        const res = await fetch(`http://localhost:8080/post/user/${userId}`)
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 
@@ -60,7 +59,7 @@ const UserPage = () => {
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
-            <EditProfileButton/>
+            {loggedInUserId===userId?<EditProfileButton/>:""}
             <ProfilePicture image={user.profilePic}/>
         </div>)
     }
