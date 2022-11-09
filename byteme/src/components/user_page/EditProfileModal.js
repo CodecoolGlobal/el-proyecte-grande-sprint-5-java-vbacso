@@ -64,21 +64,21 @@ const EditProfileModal = () => {
                     </div>
                     <div className="modal-body">
                         <div id="user-profile-picture">
-                            <p>Profile Picture</p>
-                            <ProfilePicture image={user.profilePic}/>
+                            <p className="datas-to-edit">Profile Picture</p>
+                            <ProfilePicture profilePictureId={user.profilePictureId}/>
                         </div>
                         <div id="user-name">
-                            <p>Name</p>
+                            <p className="datas-to-edit">Name</p>
                             <p className="user-data-name">{user.name}</p>
                             <EditButton/>
                         </div>
                         <div id="user-age">
-                            <p>Age</p>
+                            <p className="datas-to-edit">Age</p>
                             <p className="user-data-age">{user.age}</p>
                             <EditButton/>
                         </div>
                         <div id="user-email">
-                            <p>E-mail</p>
+                            <p className="datas-to-edit">E-mail</p>
                             <p className="user-data-email">{user.email}</p>
                             <EditButton/>
                         </div>

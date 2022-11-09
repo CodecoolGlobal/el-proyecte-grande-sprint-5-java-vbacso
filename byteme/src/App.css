@@ -211,18 +211,52 @@ html {
     background-color: var(--secondary) !important;
     color: var(--primary);
     border-radius: 0.5rem;
+    float: left;
 }
 
-img {
-    width: 50px;
+.datas-to-edit {
+    text-align: left;
+}
+
+#user-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-age {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.user-data-name {
+    font-size: x-large ;
+}
+
+.user-data-age {
+    font-size: x-large;
+}
+
+.user-data-email {
+    font-size: x-large;
 }
 
 .edit-btn {
-    padding: 0 !important;
+    padding: 1em !important;
     color: black;
     border-radius: 0.3rem;
 }
 
 .modal-header {
     justify-content: center !important;
+    border: 0 !important;
 }
