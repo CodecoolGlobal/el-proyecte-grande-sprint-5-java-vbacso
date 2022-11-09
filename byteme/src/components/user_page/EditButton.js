@@ -3,11 +3,12 @@ function clickEditBtn(event) {
 }
 
 function editField(event) {
-    const currentContainer = event.target.parentNode.parentNode.childNodes[1];
+    // const currentContainer = event.target.parentNode.parentNode.childNodes[1];
+    const currentContainer = document.querySelector(".user-data-"+event.target.dataset.container)
     const currentTextContent = currentContainer.textContent;
 
-    const editBtnContainer = document.querySelector(".edit");
-    const editButton = document.querySelector(".edit-btn");
+    const editBtnContainer = event.target.parentNode;
+    const editButton = event.target;
     const input = document.createElement('input');
     const saveButton = document.createElement('button');
     saveButton.classList.add("edit-btn");
@@ -33,10 +34,10 @@ function editField(event) {
     });
 }
 
-const EditButton = () => {
+const EditButton = ({dataset}) => {
     return (
         <div className="edit">
-            <button className="edit-btn button button-light" onClick={clickEditBtn}>Edit</button>
+            <button className="edit-btn button button-light" data-container={dataset} onClick={clickEditBtn}>Edit</button>
         </div>
     );
 };

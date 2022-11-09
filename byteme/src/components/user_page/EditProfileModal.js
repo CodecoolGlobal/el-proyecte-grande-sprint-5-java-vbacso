@@ -67,20 +67,20 @@ const EditProfileModal = () => {
                             <p className="datas-to-edit">Profile Picture</p>
                             <ProfilePicture profilePictureId={user.profilePictureId}/>
                         </div>
-                        <div id="user-name">
+                        <div id="user-name" className="edit-user-details">
                             <p className="datas-to-edit">Name</p>
                             <p className="user-data-name">{user.name}</p>
-                            <EditButton/>
+                            <EditButton dataset="name"/>
                         </div>
-                        <div id="user-age">
+                        <div id="user-age" className="edit-user-details">
                             <p className="datas-to-edit">Age</p>
                             <p className="user-data-age">{user.age}</p>
-                            <EditButton/>
+                            <EditButton dataset="age"/>
                         </div>
-                        <div id="user-email">
+                        <div id="user-email" className="edit-user-details">
                             <p className="datas-to-edit">E-mail</p>
                             <p className="user-data-email">{user.email}</p>
-                            <EditButton/>
+                            <EditButton dataset="email"/>
                         </div>
                     </div>
                     <div className="modal-footer">
