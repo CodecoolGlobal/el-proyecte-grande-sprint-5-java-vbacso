@@ -1,8 +1,10 @@
 :root {
     --primary: #ffb0b0;
+    --primary-dark: #523939;
     --secondary: #050505;
     --secondary-opacity: #05050590;
-    --white: #dad0d0;
+    --grey: #dad0d0;
+    --white: #ffffff;
 }
 
 html {
@@ -24,7 +26,7 @@ html {
 .main-container {
     min-height: 120vh;
     background-color: var(--secondary);
-    color: var(--white);
+    color: var(--grey);
     padding-bottom: 1em;
 }
 
@@ -101,7 +103,7 @@ html {
     padding: 5px;
     font-weight: 500;
     font-size: large;
-    color: var(--white) !important;
+    color: var(--grey) !important;
 }
 
 .username-in-post {
@@ -148,13 +150,86 @@ html {
 }
 
 .button-dark {
-    background-color: var(--secondary);
-    color: var(--white);
+    background-color: var(--secondary) !important;
+    color: var(--grey) !important;
 }
 
 .button-light {
+    background-color: var(--primary) !important;
+    color: var(--secondary-opacity) !important;
+}
+
+input,
+textarea {
+    box-shadow: none !important;
+}
+
+.searchbar-input {
+    flex-wrap: nowrap!important;
+}
+
+.searchbar-input input {
+    border-radius: 2em 0 0 2em!important;
+    padding-left: 2em!important;
+    margin: 0!important;
+    border-right: none!important;
+    min-width: 15em!important;
+}
+.searchbar-input input:focus {
+    border: 1px solid #ced4da !important;
+    border-right: none !important;
+}
+
+.button-search {
+    background-color: var(--white) !important;
+    color: var(--secondary-opacity) !important;
+    border: 1px solid #ced4da !important;
+    border-left: none !important;
+    border-radius: 0 2em 2em 0!important;
+    padding-right: 1em!important;
+}
+.searchbar-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 1em;
     background-color: var(--primary);
-    color: var(--secondary-opacity);
+    border-radius: 1em;
+}
+.searchbar-position-fixer {
+    position: relative;
+}
+
+.searchbar-container:has(.searchbar-results-item) {
+    /*border: 1px solid var(--secondary);*/
+    box-shadow: 1px 0px 1px var(--primary-dark), -1px 0px 1px var(--primary-dark) ;
+}
+
+.searchbar-results-container{
+}
+
+.searchbar-results-list {
+    display: none;
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    color: var(--secondary);
+}
+
+.searchbar-results-list:has(li){
+    display: block;
+}
+.searchbar-results-list:target{
+    display: block;
+}
+
+.searchbar-results-item {
+    padding: 0.5em;
+    border-bottom: 1px solid var(--secondary-opacity) ;
+}
+.searchbar-results-item:last-child {
+    border-bottom: none;
 }
 
 .form-control {
