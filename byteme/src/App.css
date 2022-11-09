@@ -164,7 +164,7 @@ textarea {
     position: relative;
 }
 
-.searchbar-container:focus-within:has(.searchbar-results-item) {
+.searchbar-container:has(.searchbar-results-item) {
     border: 1px solid var(--secondary);
     box-shadow: 2px 0px 2px var(--primary-dark), -2px 0px 2px var(--primary-dark) ;
 }
@@ -181,7 +181,10 @@ textarea {
     color: var(--secondary);
 }
 
-.searchbar-container:focus-within .searchbar-results-list{
+.searchbar-results-list:has(li){
+    display: block;
+}
+.searchbar-results-list:target{
     display: block;
 }
 

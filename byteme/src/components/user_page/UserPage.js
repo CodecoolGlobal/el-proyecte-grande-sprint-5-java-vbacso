@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
 
-const UserPage = () => {
+const UserPage = ({userId}) => {
 
     const [posts, setPosts] = useState([])
 
@@ -14,13 +14,13 @@ const UserPage = () => {
             setPosts(postsFromServer);
         }
         getUserPosts().catch(console.error);
-    }, [])
+    }, [userId])
 
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
+    // const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
 
     // Fetch user
     const fetchUserPosts = async () => {
-        const res = await fetch(`http://localhost:8080/post/user/${loggedInUserId}`)
+        const res = await fetch(`http://localhost:8080/post/user/${userId}`)
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 

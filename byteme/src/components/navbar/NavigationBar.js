@@ -4,18 +4,18 @@ import LinkFeedPage from "./LinkFeedPage";
 import LinkUserPage from "./LinkUserPage";
 import SearchBar from "./searchbar/SearchBar";
 
-const NavigationBar = ({loadFeedPage, loadUserPage, onLogout}) => {
+const NavigationBar = ({loadFeedPage, loadUserPage, onLogout, onSetUserId}) => {
     return (
         <div className="navbar-container">
             <nav className="navbar justify-content-between px-3">
                 <div className="d-flex">
                     <a className="navbar-brand" href="http://localhost:3000"><img id="logo" src={logo} alt="logo"/></a>
-                    <SearchBar/>
+                    <SearchBar onSetUserId={onSetUserId}/>
                 </div>
                 <div className="" id="navbarSupportedContent">
                     <ul className="navbar-nav flex-row mr-auto">
                         <li className="nav-item mx-2">
-                            <LinkUserPage loadUserPage={loadUserPage}/>
+                            <LinkUserPage loadUserPage={loadUserPage} onSetUserId={onSetUserId}/>
                         </li>
                         <li className="nav-item mx-2">
                             <LinkFeedPage loadFeedPage={loadFeedPage}/>
