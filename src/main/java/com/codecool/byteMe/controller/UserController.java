@@ -1,6 +1,7 @@
 package com.codecool.byteMe.controller;
 
 
+import com.codecool.byteMe.dao.UserInfo;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ public class UserController {
     }
 
     @GetMapping("/findById/{userId}")
-    @CrossOrigin(origins = "*")
     public User findUserById(@PathVariable Long userId) {
         return userService.findById(userId);
     }
@@ -49,5 +49,10 @@ public class UserController {
     @DeleteMapping("/delete")
     public User deleteUser(@RequestBody User user) {
         return deleteUser(user);
+    }
+
+    @GetMapping("search/{userName}")
+    List<UserInfo> FindByNameLike(@PathVariable String userName) {
+        return userService.findByNameLike(userName);
     }
 }

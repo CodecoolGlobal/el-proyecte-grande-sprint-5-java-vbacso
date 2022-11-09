@@ -4,14 +4,15 @@ import {useEffect, useState} from "react";
 const SearchBar = () => {
 
     const [searchResultUsers, setSearchResultUsers] = useState();
-    useEffect(() => {
-    });
+
     const fetchSearchResult = async (param) => {
         console.log("search: " + param);
-        setSearchResultUsers([
-            {"id": 1, "name": "result1"},
-            {"id": 2, "name": "result2"}
-        ]);
+        const resp =await fetch(`http://localhost:8080/user/search/${param}`)
+        if (resp.ok) {
+            const results = await resp.json()
+            console.log(await results)
+            setSearchResultUsers(results);
+        }
     };
 
     const onChangeEvent = (e) => {

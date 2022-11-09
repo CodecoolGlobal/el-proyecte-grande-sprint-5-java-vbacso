@@ -1,5 +1,6 @@
 package com.codecool.byteMe.service;
 
+import com.codecool.byteMe.dao.UserInfo;
 import com.codecool.byteMe.dao.UserRepository;
 import com.codecool.byteMe.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class UserService {
 
     public User edit(User user) {
         return userRepository.save(user);
+    }
+
+    public List<UserInfo> findByNameLike(String userName) {
+        return userRepository.findByNameIsContainingAllIgnoreCase(userName);
     }
 
 //    public User findByIdAdd(UUID userId, Post post) {
