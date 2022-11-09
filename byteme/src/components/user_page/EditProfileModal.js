@@ -58,29 +58,36 @@ const EditProfileModal = () => {
         return (
             <div id="myModal" className="modal" data-id={user.id}>
                 <div className="modal-content">
-                    <span className="close" onClick={closeModal}>&times;</span>
+                    <div className="modal-header">
+                        <span className="close" onClick={closeModal}>&times;</span>
+                        <h3 id="modal-title">Edit your profile</h3>
+                    </div>
                     <div className="modal-body">
                         <div id="user-profile-picture">
+                            <p>Profile Picture</p>
                             <ProfilePicture image={user.profilePic}/>
                         </div>
                         <div id="user-name">
+                            <p>Name</p>
                             <p className="user-data-name">{user.name}</p>
                             <EditButton/>
                         </div>
                         <div id="user-age">
+                            <p>Age</p>
                             <p className="user-data-age">{user.age}</p>
                             <EditButton/>
                         </div>
                         <div id="user-email">
+                            <p>E-mail</p>
                             <p className="user-data-email">{user.email}</p>
                             <EditButton/>
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal"
+                        <button type="button" className="button button-dark" data-dismiss="modal"
                                 onClick={closeModal}>Close
                         </button>
-                        <button type="button" className="btn btn-primary" onClick={saveProfileChanges}>Save changes
+                        <button type="button" className="button button-light" onClick={saveProfileChanges}>Save changes
                         </button>
                     </div>
                 </div>

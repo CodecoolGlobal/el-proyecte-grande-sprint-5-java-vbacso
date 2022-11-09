@@ -110,6 +110,7 @@ html {
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
+    border-radius: 0.5rem;
 }
 
 .button-dark {
@@ -147,17 +148,20 @@ html {
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
+    /*background-color: #fefefe;*/
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80% !important; /* Could be more or less, depending on screen size */
+    width: 50% !important; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
     color: #aaa;
-    float: right;
+    position: absolute;
+    left: 1em;
     font-size: 28px;
     font-weight: bold;
 }
@@ -169,6 +173,22 @@ html {
     cursor: pointer;
 }
 
+.modal-body {
+    background-color: var(--secondary) !important;
+    color: var(--primary);
+    border-radius: 0.5rem;
+}
+
 img {
     width: 50px;
+}
+
+.edit-btn {
+    padding: 0 !important;
+    color: black;
+    border-radius: 0.3rem;
+}
+
+.modal-header {
+    justify-content: center !important;
 }

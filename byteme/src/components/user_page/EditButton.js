@@ -3,7 +3,8 @@ function clickEditBtn(event) {
 }
 
 function editField(event) {
-    const currentContainer = event.target.parentNode.parentNode.firstChild;
+    const currentContainer = event.target.parentNode.parentNode.childNodes[1];
+    console.log(currentContainer);
     const currentTextContent = currentContainer.textContent;
 
     const input = document.createElement('input');
@@ -26,7 +27,7 @@ function editField(event) {
 const EditButton = () => {
     return (
         <div className="edit">
-            <button className="edit-btn" onClick={clickEditBtn}>Edit</button>
+            <button className="edit-btn button button-light" onClick={clickEditBtn}>Edit</button>
         </div>
     );
 };

@@ -9,7 +9,7 @@ const EditProfileButton = () => {
 
     return (
         <div>
-            <button className="btn-primary btn" id="myBtn" onClick={openModal}>Edit Profile</button>
+            <button className="button button-light" id="myBtn" onClick={openModal}>Edit Profile</button>
             <EditProfileModal/>
         </div>
 
