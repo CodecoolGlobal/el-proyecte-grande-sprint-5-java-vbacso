@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import ProfilePicture from "./ProfilePicture";
-import {FaRegEdit} from "react-icons/fa";
+import EditButton from "./EditButton";
 
 const EditProfileModal = () => {
 
@@ -30,24 +30,51 @@ const EditProfileModal = () => {
 
     // Save changes
     function saveProfileChanges() {
+        const modal = document.querySelector(".modal");
+        const userId = modal.dataset.id;
 
+        const savedUserName = document.querySelector(".user-data-name").textContent;
+        const savedUserAge = document.querySelector(".user-data-age").textContent;
+        const savedUserEmail = document.querySelector(".user-data-email").textContent;
+        const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail};
+
+        const saveUserData = async (user) => {
+            const resp = fetch('http://localhost:8080/user/update', {
+                method: "PUT",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            return (await resp).json();
+        };
+        saveUserData(updateUser).catch(console.error);
+        closeModal();
     }
 
     if (!user) {
         console.log("loading...");
     } else {
         return (
-            <div id="myModal" className="modal">
+            <div id="myModal" className="modal" data-id={user.id}>
                 <div className="modal-content">
                     <span className="close" onClick={closeModal}>&times;</span>
                     <div className="modal-body">
-                        <p id="user-profile-picture">
+                        <div id="user-profile-picture">
                             <ProfilePicture image={user.profilePic}/>
-                            <FaRegEdit/>
-                        </p>
-                        <p id="user-name">{user.name}</p>
-                        <p id="user-age">{user.age}</p>
-                        <p id="user-email">{user.email}</p>
+                        </div>
+                        <div id="user-name">
+                            <p className="user-data-name">{user.name}</p>
+                            <EditButton/>
+                        </div>
+                        <div id="user-age">
+                            <p className="user-data-age">{user.age}</p>
+                            <EditButton/>
+                        </div>
+                        <div id="user-email">
+                            <p className="user-data-email">{user.email}</p>
+                            <EditButton/>
+                        </div>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal"
