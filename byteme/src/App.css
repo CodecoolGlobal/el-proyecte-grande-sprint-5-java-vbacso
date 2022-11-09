@@ -12,6 +12,7 @@ html {
 .navbar-container {
     background-color: var(--primary);
     position: sticky;
+    margin-bottom: 1em;
     top: 0;
     z-index: 10;
 }
@@ -21,8 +22,7 @@ html {
 }
 
 .main-container {
-    position: relative;
-    min-height: 100vh;
+    min-height: 120vh;
     background-color: var(--secondary);
     color: var(--white);
     padding-bottom: 1em;
@@ -34,14 +34,48 @@ html {
 }
 
 .user-page-container {
-    position: relative;
+    overflow: hidden;
+}
+
+.user-page-left-container {
+    width: 33%;
+    min-height: 100vh;
+    float: left;
+    text-align: center;
+}
+
+.profile-pic-user-page img {
+    width: 200px;
+}
+
+.profile-pic-user-page {
+    margin: 1em;
+}
+
+.edit-profile-btn-container {
+   margin: 1em;
+}
+
+.user-page-user-data-container {
+
+}
+
+.user-page-right-container {
+    min-width: 66%;
+    overflow: hidden;
+    float: right;
+    min-height: 100vh;
 }
 
 .create-new-post-container {
     margin: auto;
     width: 50%;
     text-align: center;
-    padding: 30px;
+    padding: 1em;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    border-radius: 10px;
+    background-color: var(--primary);
 }
 
 .post-card {
@@ -55,7 +89,7 @@ html {
 }
 
 .post-title {
-    padding: 0.5em 0em;
+    padding: 0.5em 0;
 }
 
 .post-header {
