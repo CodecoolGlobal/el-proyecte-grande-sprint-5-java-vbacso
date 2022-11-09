@@ -7,6 +7,7 @@ import ProfilePicture from "./ProfilePicture";
 
 const UserPage = ({userId}) => {
 
+    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState(null);
 
@@ -21,7 +22,7 @@ const UserPage = ({userId}) => {
 
     // Fetch user
     const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`);
+        const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
         return (await res.json());
     }
 
@@ -33,8 +34,6 @@ const UserPage = ({userId}) => {
         }
         getUserPosts().catch(console.error);
     }, [userId])
-
-    // const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
 
     // Fetch user posts
     const fetchUserPosts = async () => {
@@ -60,7 +59,7 @@ const UserPage = ({userId}) => {
         return (<div className="user-page-container">
             <CreatePost onAdd={createPostEvent}/>
             {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
-            <EditProfileButton/>
+            {loggedInUserId===userId?<EditProfileButton/>:""}
             <ProfilePicture image={user.profilePic}/>
         </div>)
     }

@@ -160,14 +160,15 @@ textarea {
     flex-direction: column;
     padding: 0.5em 1em;
     background-color: var(--primary);
+    border-radius: 1em;
 }
 .searchbar-position-fixer {
     position: relative;
 }
 
 .searchbar-container:has(.searchbar-results-item) {
-    border: 1px solid var(--secondary);
-    box-shadow: 2px 0px 2px var(--primary-dark), -2px 0px 2px var(--primary-dark) ;
+    /*border: 1px solid var(--secondary);*/
+    box-shadow: 1px 0px 1px var(--primary-dark), -1px 0px 1px var(--primary-dark) ;
 }
 
 .searchbar-results-container{
