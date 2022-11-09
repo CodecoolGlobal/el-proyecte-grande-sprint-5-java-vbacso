@@ -36,7 +36,11 @@ public class UserService {
     }
 
     public User edit(User user) {
-        return userRepository.save(user);
+        User updatableUser = userRepository.findById(user.getId()).get();
+        updatableUser.setName(user.getName());
+        updatableUser.setAge(user.getAge());
+        updatableUser.setEmail(user.getEmail());
+        return userRepository.save(updatableUser);
     }
 
     public List<UserInfo> findByNameLike(String userName) {
