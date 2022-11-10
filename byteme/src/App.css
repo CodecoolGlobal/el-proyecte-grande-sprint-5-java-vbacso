@@ -241,6 +241,15 @@ textarea {
     height: 35px;
 }
 
+p {
+    margin: 0!important;
+}
+
+.edit-user-details {
+    margin: 0.5em 0;
+    font-size: large;
+}
+
 
 /* The Modal (background) */
 .modal {
@@ -312,19 +321,6 @@ textarea {
     align-items: center;
 }
 
-
-
-.user-data-name {
-    font-size: x-large ;
-}
-
-.user-data-age {
-    font-size: x-large;
-}
-
-.user-data-email {
-    font-size: x-large;
-}
 
 .edit-btn {
     padding: 1em !important;

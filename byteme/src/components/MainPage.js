@@ -25,7 +25,6 @@ const MainPage = ({loggedInUserId, onLogout}) => {
     };
 
     const onSetUserId = (userId) => {
-        console.log("redirect main "+userId)
         setUserId(userId);
         setShowContent("userPage")
     };

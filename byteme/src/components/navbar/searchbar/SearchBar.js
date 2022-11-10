@@ -6,11 +6,9 @@ const SearchBar = ({onSetUserId}) => {
     const [searchResultUsers, setSearchResultUsers] = useState();
 
     const fetchSearchResult = async (param) => {
-        console.log("search: " + param);
         const resp = await fetch(`http://localhost:8080/user/search/${param}`)
         if (resp.ok) {
             const results = await resp.json()
-            console.log(await results)
             setSearchResultUsers(results);
         }
     };

@@ -11,7 +11,7 @@ const ProfilePicture = ({profilePictureId}) => {
             setImage(imageObjectURL);
         };
         fetchImage().catch(console.error);
-    },[]);
+    },[profilePictureId]);
     return (
         image ?
             <div className="profile-pic-user-page">

@@ -19,7 +19,7 @@ const UserPage = ({userId}) => {
             setUser(res);
         }
         getUser().catch(console.error);
-    }, [])
+    }, [userId])
 
     // Fetch user
     const fetchUser = async () => {
@@ -55,7 +55,7 @@ const UserPage = ({userId}) => {
     }
 
     if (!posts || !user) {
-        console.log("loading...")
+        return(<div>Loading...</div>)
     } else {
         return (<div>
             <div className="user-page-left-container">
