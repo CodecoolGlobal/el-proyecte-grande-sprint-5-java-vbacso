@@ -1,8 +1,10 @@
 :root {
     --primary: #ffb0b0;
+    --primary-dark: #523939;
     --secondary: #050505;
     --secondary-opacity: #05050590;
-    --white: #dad0d0;
+    --grey: #dad0d0;
+    --white: #ffffff;
 }
 
 html {
@@ -12,6 +14,7 @@ html {
 .navbar-container {
     background-color: var(--primary);
     position: sticky;
+    margin-bottom: 1em;
     top: 0;
     z-index: 10;
 }
@@ -21,10 +24,9 @@ html {
 }
 
 .main-container {
-    position: relative;
-    min-height: 100vh;
+    min-height: 120vh;
     background-color: var(--secondary);
-    color: var(--white);
+    color: var(--grey);
     padding-bottom: 1em;
 }
 
@@ -34,14 +36,52 @@ html {
 }
 
 .user-page-container {
-    position: relative;
+    overflow: hidden;
+}
+
+.user-page-left-container {
+    width: 33%;
+    min-height: 100vh;
+    float: left;
+    text-align: center;
+}
+
+.profile-pic-user-page img {
+    max-height: 220px;
+    max-width: 220px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-pic-user-page {
+    margin: 1em;
+}
+
+.user-details-container {
+    margin: 1em;
+    text-align: center;
+}
+
+.edit-profile-btn-container {
+   margin: 1em;
+}
+
+.user-page-right-container {
+    min-width: 66%;
+    overflow: hidden;
+    float: right;
+    min-height: 100vh;
 }
 
 .create-new-post-container {
-    margin: auto;
+    margin: 1em auto;
     width: 50%;
     text-align: center;
-    padding: 30px;
+    padding: 1em;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    border-radius: 10px;
+    background-color: var(--primary);
 }
 
 .post-card {
@@ -55,7 +95,7 @@ html {
 }
 
 .post-title {
-    padding: 0.5em 0em;
+    padding: 0.5em 0;
 }
 
 .post-header {
@@ -69,7 +109,7 @@ html {
     padding: 5px;
     font-weight: 500;
     font-size: large;
-    color: var(--white) !important;
+    color: var(--grey) !important;
 }
 
 
@@ -148,16 +188,90 @@ html {
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
+    border-radius: 0.5rem;
 }
 
 .button-dark {
-    background-color: var(--secondary);
-    color: var(--white);
+    background-color: var(--secondary) !important;
+    color: var(--grey) !important;
 }
 
 .button-light {
+    background-color: var(--primary) !important;
+    color: var(--secondary-opacity) !important;
+}
+
+input,
+textarea {
+    box-shadow: none !important;
+}
+
+.searchbar-input {
+    flex-wrap: nowrap!important;
+}
+
+.searchbar-input input {
+    border-radius: 2em 0 0 2em!important;
+    padding-left: 2em!important;
+    margin: 0!important;
+    border-right: none!important;
+    min-width: 15em!important;
+}
+.searchbar-input input:focus {
+    border: 1px solid #ced4da !important;
+    border-right: none !important;
+}
+
+.button-search {
+    background-color: var(--white) !important;
+    color: var(--secondary-opacity) !important;
+    border: 1px solid #ced4da !important;
+    border-left: none !important;
+    border-radius: 0 2em 2em 0!important;
+    padding-right: 1em!important;
+}
+.searchbar-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 1em;
     background-color: var(--primary);
-    color: var(--secondary-opacity);
+    border-radius: 1em;
+}
+.searchbar-position-fixer {
+    position: relative;
+}
+
+.searchbar-container:has(.searchbar-results-item) {
+    /*border: 1px solid var(--secondary);*/
+    box-shadow: 1px 0px 1px var(--primary-dark), -1px 0px 1px var(--primary-dark) ;
+}
+
+.searchbar-results-container{
+}
+
+.searchbar-results-list {
+    display: none;
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    color: var(--secondary);
+}
+
+.searchbar-results-list:has(li){
+    display: block;
+}
+.searchbar-results-list:target{
+    display: block;
+}
+
+.searchbar-results-item {
+    padding: 0.5em;
+    border-bottom: 1px solid var(--secondary-opacity) ;
+}
+.searchbar-results-item:last-child {
+    border-bottom: none;
 }
 
 .form-control {
@@ -166,4 +280,102 @@ html {
 
 #logo {
     height: 35px;
+}
+
+p {
+    margin: 0!important;
+}
+
+.edit-user-details {
+    margin: 0.5em 0;
+    font-weight: 500;
+    font-size: large;
+    color: var(--grey) !important;
+}
+
+.details {
+    padding: 10px;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    /*background-color: #fefefe;*/
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50% !important; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    position: absolute;
+    left: 1em;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body {
+    background-color: var(--secondary) !important;
+    color: var(--primary);
+    border-radius: 0.5rem;
+    float: left;
+}
+
+.datas-to-edit {
+    text-align: left;
+}
+
+#user-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-age {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.edit-btn {
+    padding: 1em !important;
+    color: black;
+    border-radius: 0.3rem;
+}
+
+.modal-header {
+    justify-content: center !important;
+    border: 0 !important;
 }

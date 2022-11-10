@@ -1,15 +1,21 @@
 package com.codecool.byteMe.config;
 
 import com.codecool.byteMe.dao.CommentRepository;
+import com.codecool.byteMe.dao.ImageRepository;
 import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.dao.UserRepository;
+import com.codecool.byteMe.model.Image;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Example;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -118,14 +124,85 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Image zenoProfilePicture() {
+        try {
+            return Image.builder()
+                    .content(Files.readAllBytes(new File("src/main/resources/static/zeno.jpg").toPath()))
+                    .user(zeno())
+                    .build();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            return null;
+        }
+    }
+    @Bean
+    public Image vandaProfilePicture() {
+        try {
+            return Image.builder()
+                    .content(Files.readAllBytes(new File("src/main/resources/static/vanda.jpg").toPath()))
+                    .user(vanda())
+                    .build();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            return null;
+        }
+    }
+    @Bean
+    public Image erikProfilePicture() {
+        try {
+            return Image.builder()
+                    .content(Files.readAllBytes(new File("src/main/resources/static/erik.jpg").toPath()))
+                    .user(erik())
+                    .build();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            return null;
+        }
+    }
+    @Bean
+    public Image daniProfilePicture() {
+        try {
+            return Image.builder()
+                    .content(Files.readAllBytes(new File("src/main/resources/static/dani.jpg").toPath()))
+                    .user(dani())
+                    .build();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            return null;
+        }
+    }
+
+    @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository,
                                         PostRepository postRepository,
-                                        CommentRepository commentRepository) {
+                                        CommentRepository commentRepository,
+                                        ImageRepository imageRepository) {
         return args -> {
             userRepository.save(vanda());
             userRepository.save(zeno());
             userRepository.save(erik());
             userRepository.save(dani());
+
+            imageRepository.save(zenoProfilePicture());
+            imageRepository.save(vandaProfilePicture());
+            imageRepository.save(erikProfilePicture());
+            imageRepository.save(daniProfilePicture());
+
+            User updateZeno = userRepository.findById(zeno().getId()).get();
+            updateZeno.setProfilePictureId(zenoProfilePicture().getId());
+            userRepository.save(updateZeno);
+
+            User updateVanda = userRepository.findById(vanda().getId()).get();
+            updateVanda.setProfilePictureId(vandaProfilePicture().getId());
+            userRepository.save(updateVanda);
+
+            User updateErik = userRepository.findById(erik().getId()).get();
+            updateErik.setProfilePictureId(erikProfilePicture().getId());
+            userRepository.save(updateErik);
+
+            User updateDani = userRepository.findById(dani().getId()).get();
+            updateDani.setProfilePictureId(daniProfilePicture().getId());
+            userRepository.save(updateDani);
 
             postRepository.save(zenoFirstPost());
             postRepository.save(zenoSecondPost());

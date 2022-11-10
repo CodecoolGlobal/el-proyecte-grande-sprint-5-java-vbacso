@@ -1,5 +1,6 @@
 package com.codecool.byteMe.service;
 
+import com.codecool.byteMe.dao.UserInfo;
 import com.codecool.byteMe.dao.UserRepository;
 import com.codecool.byteMe.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        System.out.println(userRepository.findByEmail(email));
         return userRepository.findByEmail(email);
     }
 
@@ -35,7 +35,15 @@ public class UserService {
     }
 
     public User edit(User user) {
-        return userRepository.save(user);
+        User updatableUser = userRepository.findById(user.getId()).get();
+        updatableUser.setName(user.getName());
+        updatableUser.setAge(user.getAge());
+        updatableUser.setEmail(user.getEmail());
+        return userRepository.save(updatableUser);
+    }
+
+    public List<UserInfo> findByNameLike(String userName) {
+        return userRepository.findByNameIsContainingAllIgnoreCase(userName);
     }
 
 //    public User findByIdAdd(UUID userId, Post post) {

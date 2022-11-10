@@ -5,6 +5,7 @@ import UserPage from "./user_page/UserPage";
 
 const MainPage = ({loggedInUserId, onLogout}) => {
     const [showContent, setShowContent] = useState("feedPage")
+    const [userId,setUserId] = useState(loggedInUserId)
 
     const loadFeedPage = (e) => {
         e.preventDefault();
@@ -19,13 +20,18 @@ const MainPage = ({loggedInUserId, onLogout}) => {
         if (showContent === "feedPage") {
             return <FeedPage loggedInUserId={loggedInUserId}/>
         } else if (showContent === "userPage") {
-            return <UserPage/>
+            return <UserPage userId={userId}/>
         }
+    };
+
+    const onSetUserId = (userId) => {
+        setUserId(userId);
+        setShowContent("userPage")
     };
 
     return (
         <div className="main-container">
-            <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout}/>
+            <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout} onSetUserId={onSetUserId}/>
             {routeController()}
         </div>
     );
