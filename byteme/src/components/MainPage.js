@@ -3,9 +3,9 @@ import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 
-const MainPage = ({loggedInUserId, onLogout}) => {
+const MainPage = ({loggedInUserId, setUser}) => {
     const [showContent, setShowContent] = useState("feedPage")
-    const [userId,setUserId] = useState(loggedInUserId)
+    const [userPageUserId,setUserPageUserId] = useState(loggedInUserId)
 
     const loadFeedPage = (e) => {
         e.preventDefault();
@@ -20,18 +20,18 @@ const MainPage = ({loggedInUserId, onLogout}) => {
         if (showContent === "feedPage") {
             return <FeedPage loggedInUserId={loggedInUserId}/>
         } else if (showContent === "userPage") {
-            return <UserPage userId={userId}/>
+            return <UserPage userId={userPageUserId}/>
         }
     };
 
     const onSetUserId = (userId) => {
-        setUserId(userId);
+        setUserPageUserId(userId);
         setShowContent("userPage")
     };
 
     return (
         <div className="main-container">
-            <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout} onSetUserId={onSetUserId}/>
+            <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} setUser={setUser} onSetUserId={onSetUserId}/>
             {routeController()}
         </div>
     );

@@ -4,7 +4,7 @@ import LinkFeedPage from "./LinkFeedPage";
 import LinkUserPage from "./LinkUserPage";
 import SearchBar from "./searchbar/SearchBar";
 
-const NavigationBar = ({loadFeedPage, loadUserPage, onLogout, onSetUserId}) => {
+const NavigationBar = ({loadFeedPage, loadUserPage, setUser, onSetUserId}) => {
     return (
         <div className="navbar-container">
             <nav className="navbar justify-content-between px-3">
@@ -25,7 +25,7 @@ const NavigationBar = ({loadFeedPage, loadUserPage, onLogout, onSetUserId}) => {
                         </li>
                     </ul>
                 </div>
-                <Logout onLogout={onLogout}/>
+                <Logout setUser={setUser}/>
             </nav>
 
         </div>
