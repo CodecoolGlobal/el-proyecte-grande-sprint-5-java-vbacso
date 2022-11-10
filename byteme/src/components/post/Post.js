@@ -47,7 +47,7 @@ const Post = ({post, onDelete}) => {
 
             <InteractionBar
                 toggle={()=>setShowComments(!showComments)}
-                status={post.comments.length < 1 ? false : showComments}
+                status={post.comments == null ? null : showComments}
             />
             {showComments && post.comments?.map((comment,index) => (
                 <Comment key={index}
