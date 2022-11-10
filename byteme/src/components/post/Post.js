@@ -1,5 +1,9 @@
 import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
+import InteractionBar from "./post-components/InteractionBar";
+import {useState} from "react";
+import Comment from "./post-components/Comment";
+import CreateComment from "./CreateComment";
 
 
 export const deletePost = async (id) => {
@@ -25,6 +29,9 @@ export const createPost = async (input) => {
 
 
 const Post = ({post, onDelete}) => {
+
+    const [showComments, setShowComments] = useState(false);
+
     return (
         <div className="post-card">
             <PostHeader userName={post.user.name}
@@ -37,9 +44,20 @@ const Post = ({post, onDelete}) => {
             <PostBody
                 postBody={post.body}
             />
-            {post.comments?.map((comment) => (
-                <div className="comment-container" key={comment.id}>{comment.user.name + ": " + comment.body}</div>
+
+            <InteractionBar
+                toggle={()=>setShowComments(!showComments)}
+                status={post.comments.length < 1 ? false : showComments}
+            />
+            {showComments && post.comments?.map((comment,index) => (
+                <Comment key={index}
+                         name={comment.user.name}
+                         body={comment.body}
+                         last={post.comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
+
+                />
             ))}
+            <CreateComment />
         </div>
     )
 }

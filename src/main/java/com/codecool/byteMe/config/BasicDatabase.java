@@ -91,6 +91,24 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Comment daniFirstComment2() {
+        return Comment.builder()
+                .body("Test2 Test2 Test2 Test2 Test2 Test2 Test2 Test2 Test2 ")
+                .user(dani())
+                .post(vandaFirstPost())
+                .build();
+    }
+
+    @Bean
+    public Comment daniFirstComment3() {
+        return Comment.builder()
+                .body("Test3 Test3 Test3 Test3 Test3 Test3 Test3 Test3 Test3 ")
+                .user(dani())
+                .post(vandaFirstPost())
+                .build();
+    }
+
+    @Bean
     public Comment erikFirstComment() {
         return Comment.builder()
                 .body("Blue Mountain State")
@@ -114,6 +132,8 @@ public class BasicDatabase {
             postRepository.save(vandaFirstPost());
 
             commentRepository.save(daniFirstComment());
+            commentRepository.save(daniFirstComment2());
+            commentRepository.save(daniFirstComment3());
             commentRepository.save(erikFirstComment());
         };
     }

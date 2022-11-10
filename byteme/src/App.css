@@ -61,8 +61,10 @@ html {
 .post-header {
     background-color: var(--primary);
     padding: 1em 1em 0 1em;
+    margin: 1.5px 2px 0 2px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
-
 .post-body {
     padding: 5px;
     font-weight: 500;
@@ -70,13 +72,49 @@ html {
     color: var(--white) !important;
 }
 
+
 .username-in-post {
 }
 
-.comment-container {
-    padding: 0.5em 1em;
+.int-container {
+    padding: 0.5em 1em 0.5em 1em;
     background-color: var(--primary);
     color: var(--secondary);
+    margin: 0 2px 2px 2px;
+}
+
+
+
+.comment-box {
+    border: 3px solid #dad0d0;
+    height:35px;
+    width: 100px;
+    text-align: center;
+    border-radius: 20%;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding-top: 5px;
+    margin-left: 400px;
+    color:white;
+}
+
+.comment-box:hover {
+    color:black;
+    background-color: white;
+    border-color: black;
+    cursor: pointer;
+}
+
+.comments-container {
+    border: 3px solid lightpink;
+    margin: 2px 2px 2px 2px;
+    background-color: #ffb0b0;
+}
+
+.last {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 .delete-icon {
