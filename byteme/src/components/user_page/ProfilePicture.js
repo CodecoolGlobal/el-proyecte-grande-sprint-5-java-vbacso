@@ -15,7 +15,7 @@ const ProfilePicture = ({profilePictureId}) => {
     return (
         image ?
             <div className="profile-pic-user-page">
-                <img src={image} alt="Profile Picture"/>
+                <img className="rounded-circle ratio" src={image} alt="Profile Picture"/>
             </div>
             :
             <div>Load image...</div>
