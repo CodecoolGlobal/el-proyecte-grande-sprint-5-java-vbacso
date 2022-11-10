@@ -60,7 +60,7 @@ const UserPage = ({userId}) => {
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={user.profilePictureId}/>
-                <UserDetails />
+                <UserDetails userId={userId}/>
                 {loggedInUserId===userId?<EditProfileButton/>:""}
             </div>
             <div className="user-page-right-container">
