@@ -47,7 +47,10 @@ html {
 }
 
 .profile-pic-user-page img {
-    width: 200px;
+    max-height: 220px;
+    max-width: 220px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .profile-pic-user-page {
@@ -71,7 +74,7 @@ html {
 }
 
 .create-new-post-container {
-    margin: auto;
+    margin: 1em auto;
     width: 50%;
     text-align: center;
     padding: 1em;
@@ -247,7 +250,13 @@ p {
 
 .edit-user-details {
     margin: 0.5em 0;
+    font-weight: 500;
     font-size: large;
+    color: var(--grey) !important;
+}
+
+.details {
+    padding: 10px;
 }
 
 

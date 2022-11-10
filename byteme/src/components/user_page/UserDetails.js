@@ -24,8 +24,8 @@ const UserDetails = ({userId}) => {
     } else {
         return (
             <div className="user-details-container">
-                <div>Name: {user.name}</div>
-                <div>Age: {user.age}</div>
+                <div className="details">Name: {user.name}</div>
+                <div className="details">Age: {user.age}</div>
             </div>
         )
     }
