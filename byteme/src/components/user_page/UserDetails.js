@@ -20,7 +20,7 @@ const UserDetails = ({userId}) => {
     }
 
     if (!user) {
-        console.log("loading...");
+        return (<div className="main-container">Loading...</div>)
     } else {
         return (
             <div className="user-details-container">

@@ -55,7 +55,7 @@ const UserPage = ({userId}) => {
     }
 
     if (!posts || !user) {
-        return(<div>Loading...</div>)
+        return(<div className="main-container">Loading...</div>)
     } else {
         return (<div>
             <div className="user-page-left-container">

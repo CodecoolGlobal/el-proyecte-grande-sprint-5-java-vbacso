@@ -53,7 +53,7 @@ const EditProfileModal = () => {
     }
 
     if (!user) {
-        return (<div>Loading...</div>)
+        return (<div className="main-container">Loading...</div>)
     } else {
         return (
             <div id="myModal" className="modal" data-id={user.id}>
