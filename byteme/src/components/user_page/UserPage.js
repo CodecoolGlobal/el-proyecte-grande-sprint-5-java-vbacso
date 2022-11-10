@@ -4,6 +4,7 @@ import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
+import UserDetails from "./UserDetails";
 
 const UserPage = ({userId}) => {
 
@@ -59,6 +60,7 @@ const UserPage = ({userId}) => {
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={user.profilePictureId}/>
+                <UserDetails />
                 {loggedInUserId===userId?<EditProfileButton/>:""}
             </div>
             <div className="user-page-right-container">
