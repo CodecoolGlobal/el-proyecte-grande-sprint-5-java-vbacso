@@ -94,6 +94,10 @@ html {
     border-radius: 10px;
 }
 
+.open {
+    margin: 3em auto 170px;
+}
+
 .post-title {
     padding: 0.5em 0;
 }
@@ -111,6 +115,23 @@ html {
     font-weight: 500;
     font-size: large;
     color: var(--grey) !important;
+}
+
+.createComment-container {
+    padding: 0.5em 1em 0.5em 1em;
+    position: absolute;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    margin: 6px 2px 2px 2px;
+}
+
+.text {
+    width: 570px;
+    border-radius: 10px;
+    font-family: Cambria;
+    color:white;
+    background-color: black;
 }
 
 
