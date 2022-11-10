@@ -7,8 +7,9 @@
     --white: #ffffff;
 }
 
-html {
+html ,body {
     height: 100%;
+    background-color: var(--secondary)!important;
 }
 
 .navbar-container {
@@ -24,8 +25,6 @@ html {
 }
 
 .main-container {
-    min-height: 120vh;
-    background-color: var(--secondary);
     color: var(--grey);
     padding-bottom: 1em;
 }
@@ -88,7 +87,6 @@ html {
     margin: 3em auto 20px;
     position: relative;
     width: 40%;
-    /*padding: 1em;*/
     border: 2px solid var(--primary);
     color: var(--secondary);
     border-radius: 10px;
