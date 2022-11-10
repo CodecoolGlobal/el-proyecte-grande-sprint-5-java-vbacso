@@ -33,7 +33,7 @@ const Post = ({post, onDelete}) => {
     const [showComments, setShowComments] = useState(false);
 
     return (
-        <div className="post-card">
+        <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
                         created={post.created}
                         title={post.title}
@@ -47,7 +47,7 @@ const Post = ({post, onDelete}) => {
 
             <InteractionBar
                 toggle={()=>setShowComments(!showComments)}
-                status={post.comments.length < 1 ? false : showComments}
+                status={post.comments == null ? null : showComments}
             />
             {showComments && post.comments?.map((comment,index) => (
                 <Comment key={index}
@@ -57,7 +57,10 @@ const Post = ({post, onDelete}) => {
 
                 />
             ))}
-            <CreateComment />
+            {showComments ? (
+                <CreateComment />
+            ):null}
+
         </div>
     )
 }
