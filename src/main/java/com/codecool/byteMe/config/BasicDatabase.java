@@ -145,7 +145,7 @@ public class BasicDatabase {
     public Image daniProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/img.png").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/dani.jpg").toPath()))
                     .user(dani())
                     .build();
         } catch (IOException e) {
