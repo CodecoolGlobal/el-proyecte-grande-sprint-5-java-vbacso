@@ -150,6 +150,7 @@ html ,body {
 }
 
 .comments-container {
+    color: var(--secondary)!important;
     border: 3px solid lightpink;
     margin: 2px 2px 2px 2px;
     background-color: #ffb0b0;

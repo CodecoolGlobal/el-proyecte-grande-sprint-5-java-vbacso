@@ -99,7 +99,7 @@ public class BasicDatabase {
     @Bean
     public Comment daniFirstComment2() {
         return Comment.builder()
-                .body("Test2 Test2 Test2 Test2 Test2 Test2 Test2 Test2 Test2 ")
+                .body("The Boys")
                 .user(dani())
                 .post(vandaFirstPost())
                 .build();
@@ -108,7 +108,7 @@ public class BasicDatabase {
     @Bean
     public Comment daniFirstComment3() {
         return Comment.builder()
-                .body("Test3 Test3 Test3 Test3 Test3 Test3 Test3 Test3 Test3 ")
+                .body("I  you into anime: Sword Art Online")
                 .user(dani())
                 .post(vandaFirstPost())
                 .build();
