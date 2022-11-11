@@ -25,7 +25,7 @@ const MainPage = ({loggedInUserId, onLogout}) => {
     };
 
     const onSetUserId = (userId) => {
-        setUserId(userId);
+        setUserId(parseInt(userId));
         setShowContent("userPage")
     };
 
