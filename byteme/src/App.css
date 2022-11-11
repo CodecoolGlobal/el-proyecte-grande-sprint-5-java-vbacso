@@ -117,7 +117,6 @@ html ,body {
 
 .createComment-container {
     padding: 0.5em 1em 0.5em 1em;
-    position: absolute;
     border-radius: 10px;
     background-color: var(--primary);
     color: var(--secondary);
@@ -125,7 +124,7 @@ html ,body {
 }
 
 .text {
-    width: 570px;
+    width: 100%;
     border-radius: 10px;
     font-family: Cambria;
     color:white;
