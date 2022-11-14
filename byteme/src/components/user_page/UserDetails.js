@@ -2,6 +2,10 @@ import {useEffect, useState} from "react";
 
 const UserDetails = ({showedUser}) => {
 
+    useEffect(() => {
+
+    },[JSON.stringify(showedUser)]);
+
     if (!showedUser) {
         return (<div className="main-container">Loading...</div>)
     } else {

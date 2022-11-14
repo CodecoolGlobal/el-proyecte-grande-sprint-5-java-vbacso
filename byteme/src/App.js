@@ -6,16 +6,15 @@ import MainPage from "./components/MainPage";
 
 function App() {
 
-    const [loggedInUser, setloggedInUser] = useState();
+    const [loggedInUser, setLoggedInUser] = useState();
 
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("loggedInUser")
-        if (loggedInUser) {
-            setloggedInUser(JSON.parse(loggedInUser));
+        if (localStorage.getItem("loggedInUser")) {
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
         } else {
-            setloggedInUser(null)
+            setLoggedInUser(null)
         }
-    }, [])
+    }, [JSON.stringify(loggedInUser)])
 
 
     const onLogin = async (email) => {
@@ -27,20 +26,20 @@ function App() {
             body: JSON.stringify({"email": email})
         })
         if (resp.ok) {
-            const userDetails = await resp.json();
-            setloggedInUser(userDetails);
-            localStorage.setItem("loggedInUser", JSON.stringify(userDetails))
+            const user = await resp.json();
+            setLoggedInUser(user);
+            localStorage.setItem("loggedInUser", JSON.stringify(user))
         } else {
             alert("Invalid email!")
         }
     }
     const onLogout = () => {
         localStorage.setItem("loggedInUser", "");
-        setloggedInUser(null);
+        setLoggedInUser(null);
     };
     return (
         loggedInUser === undefined ? <div className="main-container">"loading..."</div> :
-            loggedInUser === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUser={loggedInUser} onLogout={onLogout}/>
+            loggedInUser === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/>
     );
 }
 

@@ -6,7 +6,7 @@ import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
 
-const UserPage = ({loggedInUser,showedUser}) => {
+const UserPage = ({loggedInUser, setLoggedInUser,showedUser}) => {
 
     const [posts, setPosts] = useState([]);
 
@@ -44,7 +44,7 @@ const UserPage = ({loggedInUser,showedUser}) => {
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
                 <UserDetails showedUser={showedUser}/>
-                {loggedInUser.id===showedUser.id?<EditProfileButton/>:""}
+                {loggedInUser.id===showedUser.id?<EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>:""}
             </div>
             <div className="user-page-right-container">
                 {loggedInUser.id===showedUser.id?<CreatePost onAdd={createPostEvent}/>:""}
