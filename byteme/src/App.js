@@ -6,14 +6,14 @@ import MainPage from "./components/MainPage";
 
 function App() {
 
-    const [user, setUser] = useState();
+    const [loggedInUser, setloggedInUser] = useState();
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem("loggedInUser")
         if (loggedInUser) {
-            setUser(JSON.parse(loggedInUser));
+            setloggedInUser(JSON.parse(loggedInUser));
         } else {
-            setUser(null)
+            setloggedInUser(null)
         }
     }, [])
 
@@ -28,7 +28,7 @@ function App() {
         })
         if (resp.ok) {
             const userDetails = await resp.json();
-            setUser(userDetails);
+            setloggedInUser(userDetails);
             localStorage.setItem("loggedInUser", JSON.stringify(userDetails))
         } else {
             alert("Invalid email!")
@@ -36,11 +36,11 @@ function App() {
     }
     const onLogout = () => {
         localStorage.setItem("loggedInUser", "");
-        setUser(null);
+        setloggedInUser(null);
     };
     return (
-        user === undefined ? <div className="main-container">"loading..."</div> :
-            user === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUserId={user.id} onLogout={onLogout}/>
+        loggedInUser === undefined ? <div className="main-container">"loading..."</div> :
+            loggedInUser === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUser={loggedInUser} onLogout={onLogout}/>
     );
 }
 

@@ -2,6 +2,7 @@ package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,7 +30,7 @@ public class User {
     private int age;
     private String email;
 
-    @JsonIgnore
+    @JsonIncludeProperties({"id"})
     @ManyToMany
     @JoinTable(
             name = "user_friend",
