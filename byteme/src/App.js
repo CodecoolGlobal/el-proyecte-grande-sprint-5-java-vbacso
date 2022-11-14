@@ -6,7 +6,7 @@ import MainPage from "./components/MainPage";
 
 function App() {
 
-    const [loggedInUser, setLoggedInUser] = useState();
+    const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
 
     useEffect(() => {
         if (localStorage.getItem("loggedInUser")) {
@@ -34,7 +34,7 @@ function App() {
         }
     }
     const onLogout = () => {
-        localStorage.setItem("loggedInUser", "");
+        localStorage.clear();
         setLoggedInUser(null);
     };
     return (
