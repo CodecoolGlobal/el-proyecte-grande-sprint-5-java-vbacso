@@ -1,6 +1,6 @@
 import EditProfileModal from "./EditProfileModal";
 
-const EditProfileButton = () => {
+const EditProfileButton = ({loggedInUser, setLoggedInUser}) => {
 
     function openModal() {
         const modal = document.querySelector("#myModal")
@@ -10,7 +10,7 @@ const EditProfileButton = () => {
     return (
         <div className="edit-profile-btn-container">
             <button className="button button-light" id="myBtn" onClick={openModal}>Edit Profile</button>
-            <EditProfileModal/>
+            <EditProfileModal loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>
         </div>
     );
 };

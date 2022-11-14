@@ -1,31 +1,18 @@
 import {useEffect, useState} from "react";
 
-const UserDetails = ({userId}) => {
+const UserDetails = ({showedUser}) => {
 
-    const [user, setUser] = useState();
-
-    // Get user
     useEffect(() => {
-        const getUser = async () => {
-            const res = await fetchUser();
-            setUser(res);
-        }
-        getUser().catch(console.error);
-    }, [userId])
 
-    // Fetch user
-    const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
-        return (await res.json());
-    }
+    },[JSON.stringify(showedUser)]);
 
-    if (!user) {
+    if (!showedUser) {
         return (<div className="main-container">Loading...</div>)
     } else {
         return (
             <div className="user-details-container">
-                <div className="details">Name: {user.name}</div>
-                <div className="details">Age: {user.age}</div>
+                <div className="details">Name: {showedUser.name}</div>
+                <div className="details">Age: {showedUser.age}</div>
             </div>
         )
     }

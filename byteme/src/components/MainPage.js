@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 
-const MainPage = ({loggedInUserId, onLogout}) => {
+const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showContent, setShowContent] = useState("feedPage")
-    const [userId,setUserId] = useState(loggedInUserId)
+    const [showedUser,setShowedUser] = useState()
+
+    useEffect(() => {
+        setShowedUser(loggedInUser)
+    },[JSON.stringify(loggedInUser)]);
 
     const loadFeedPage = (e) => {
         e.preventDefault();
@@ -18,20 +22,19 @@ const MainPage = ({loggedInUserId, onLogout}) => {
 
     const routeController = () => {
         if (showContent === "feedPage") {
-            return <FeedPage loggedInUserId={loggedInUserId}/>
+            return <FeedPage loggedInUser={loggedInUser}/>
         } else if (showContent === "userPage") {
-            return <UserPage userId={userId}/>
+            return <UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}/>
         }
     };
 
-    const onSetUserId = (userId) => {
-        setUserId(parseInt(userId));
+    const onSetShowedUser = (user) => {
+        setShowedUser(user);
         setShowContent("userPage")
     };
-
     return (
         <div className="main-container">
-            <NavigationBar loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout} onSetUserId={onSetUserId}/>
+            <NavigationBar loggedInUser={loggedInUser} loadFeedPage={loadFeedPage} loadUserPage={loadUserPage} onLogout={onLogout} onSetShowedUser={onSetShowedUser}/>
             {routeController()}
         </div>
     );
