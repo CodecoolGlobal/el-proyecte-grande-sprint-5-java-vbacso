@@ -5,6 +5,7 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
+import Loading from "../common/Loading";
 
 const UserPage = ({userId}) => {
 
@@ -55,7 +56,7 @@ const UserPage = ({userId}) => {
     }
 
     if (!posts || !user) {
-        return(<div className="main-container">Loading...</div>)
+        return(<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">

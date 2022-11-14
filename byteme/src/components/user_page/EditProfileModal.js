@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import ProfilePicture from "./ProfilePicture";
 import EditButton from "./EditButton";
+import Loading from "../common/Loading";
 
 const EditProfileModal = () => {
 
@@ -53,7 +54,7 @@ const EditProfileModal = () => {
     }
 
     if (!user) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
         return (
             <div id="myModal" className="modal" data-id={user.id}>

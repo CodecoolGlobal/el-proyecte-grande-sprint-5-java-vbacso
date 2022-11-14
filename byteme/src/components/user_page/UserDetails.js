@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import Loading from "../common/Loading";
 
 const UserDetails = ({userId}) => {
 
@@ -18,9 +19,8 @@ const UserDetails = ({userId}) => {
         const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
         return (await res.json());
     }
-
     if (!user) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
         return (
             <div className="user-details-container">
