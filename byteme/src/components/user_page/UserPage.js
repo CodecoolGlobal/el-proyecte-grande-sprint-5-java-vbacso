@@ -6,7 +6,7 @@ import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
 
-const UserPage = ({loggedInUser, setLoggedInUser,showedUser}) => {
+const UserPage = ({loggedInUser, setLoggedInUser, showedUser}) => {
 
     const [posts, setPosts] = useState([]);
 
@@ -38,16 +38,17 @@ const UserPage = ({loggedInUser, setLoggedInUser,showedUser}) => {
     }
 
     if (!posts || !showedUser) {
-        return(<div className="main-container">Loading...</div>)
+        return (<div className="main-container">Loading...</div>)
     } else {
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
                 <UserDetails showedUser={showedUser}/>
-                {loggedInUser.id===showedUser.id?<EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/>:""}
+                {loggedInUser.id === showedUser.id ?
+                    <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
             </div>
             <div className="user-page-right-container">
-                {loggedInUser.id===showedUser.id?<CreatePost onAdd={createPostEvent}/>:""}
+                {loggedInUser.id === showedUser.id ? <CreatePost onAdd={createPostEvent}/> : ""}
                 {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
             </div>
         </div>)

@@ -27,11 +27,9 @@ export const createPost = async (input) => {
     return await res.json();
 }
 
-
 const Post = ({post, onDelete}) => {
 
     const [showComments, setShowComments] = useState(false);
-
     return (
         <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
@@ -40,26 +38,28 @@ const Post = ({post, onDelete}) => {
                         postId={post.id}
                         userId={post.user.id}
                         onDelete={onDelete}
+                        profilePictureId={post.user.profilePictureId}
             />
             <PostBody
                 postBody={post.body}
             />
 
             <InteractionBar
-                toggle={()=>setShowComments(!showComments)}
+                toggle={() => setShowComments(!showComments)}
                 status={post.comments == null ? null : showComments}
             />
-            {showComments && post.comments?.map((comment,index) => (
+            {showComments && post.comments?.map((comment, index) => (
                 <Comment key={index}
                          name={comment.user.name}
                          body={comment.body}
+                         profilePictureID={comment.user.profilePictureId}
                          last={post.comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
 
                 />
             ))}
             {showComments ? (
-                <CreateComment />
-            ):null}
+                <CreateComment/>
+            ) : null}
 
         </div>
     )

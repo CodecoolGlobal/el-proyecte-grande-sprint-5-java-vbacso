@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 public abstract class Postable {
     @Id
     @GeneratedValue(generator = "postable_sequence")
-    @SequenceGenerator(name = "postable_sequence",allocationSize = 1)
+    @SequenceGenerator(name = "postable_sequence", allocationSize = 1)
     protected Long id;
-    @JsonIncludeProperties({"id", "name"})
+    @JsonIncludeProperties({"id", "name", "profilePictureId"})
     @ManyToOne
     @JoinColumn(name = "user_id")
     protected User user;
