@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import ProfilePicture from "./ProfilePicture";
 import EditButton from "./EditButton";
 
@@ -20,7 +19,6 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
         const savedUserEmail = document.querySelector(".user-data-email").textContent;
         const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail};
         setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail});
-        console.log(loggedInUser)
 
         const saveUserData = async (user) => {
             const resp = fetch('http://localhost:8080/user/update', {

@@ -11,7 +11,6 @@ import com.codecool.byteMe.model.postable.Post;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Example;
 
 import java.io.File;
 import java.io.IOException;
@@ -135,6 +134,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image vandaProfilePicture() {
         try {
@@ -147,6 +147,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image erikProfilePicture() {
         try {
@@ -159,6 +160,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image daniProfilePicture() {
         try {

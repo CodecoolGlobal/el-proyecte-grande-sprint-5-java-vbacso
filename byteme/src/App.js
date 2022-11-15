@@ -39,7 +39,8 @@ function App() {
     };
     return (
         loggedInUser === undefined ? <div className="main-container">"loading..."</div> :
-            loggedInUser === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/>
+            loggedInUser === null ? <LoginPage onLogin={onLogin}/> :
+                <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/>
     );
 }
 

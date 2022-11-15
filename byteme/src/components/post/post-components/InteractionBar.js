@@ -1,6 +1,4 @@
-import Comments from './Comments'
-
-const InteractionBar = ({ toggle, status }) => {
+const InteractionBar = ({toggle, status}) => {
 
     return (
         <div className={status ? 'int-container d-flex' : 'int-container d-flex last'}>
@@ -8,7 +6,7 @@ const InteractionBar = ({ toggle, status }) => {
                 <p onClick={toggle}>Comments</p>
             </button>
         </div>
-            )
+    )
 }
 
 export default InteractionBar
