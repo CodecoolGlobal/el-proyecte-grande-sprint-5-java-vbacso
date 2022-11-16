@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private UserService userService;
@@ -52,7 +52,12 @@ public class UserController {
     }
 
     @GetMapping("search/{userName}")
-    List<UserInfo> FindByNameLike(@PathVariable String userName) {
+    public List<UserInfo> findByNameLike(@PathVariable String userName) {
         return userService.findByNameLike(userName);
+    }
+
+    @PutMapping("{user1Id}/{user2Id}")
+    public void addFriend(@PathVariable Long user1Id, @PathVariable Long user2Id) {
+        userService.addFriend(user1Id, user2Id);
     }
 }
