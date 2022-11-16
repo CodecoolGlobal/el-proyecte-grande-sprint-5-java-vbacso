@@ -1,7 +1,6 @@
 const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
     const loggedInUserId = loggedInUser.id;
     const showedUserId = showedUser.id;
-
     const addFriend = async () => {
         const resp = await fetch(`http://localhost:8080/user/${loggedInUserId}/${showedUserId}`, {
             method: "PUT",
@@ -10,17 +9,13 @@ const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUs
             }
         });
         if (resp.ok) {
-            console.log(loggedInUser);
-            console.log(showedUser);
             const updatedLoggedInUserFriendList = loggedInUser.friendList;
-            updatedLoggedInUserFriendList.push(showedUser.id);
+            updatedLoggedInUserFriendList.push({"id": showedUser.id});
             setLoggedInUser({...loggedInUser, "friendList": updatedLoggedInUserFriendList});
-            console.log(loggedInUser);
 
             const updatedShowedUserFriendList = showedUser.friendList;
-            updatedShowedUserFriendList.push(loggedInUser.id);
+            updatedShowedUserFriendList.push({"id": loggedInUser.id});
             setShowedUser({...showedUser, "friendList": updatedShowedUserFriendList});
-            console.log(showedUser);
         }
     };
 
