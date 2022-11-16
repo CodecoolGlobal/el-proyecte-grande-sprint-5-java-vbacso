@@ -52,7 +52,6 @@ public class PostController {
 
     @GetMapping("feed/{userId}")
     public List<Post> getFeedPosts(@PathVariable Long userId) {
-        System.out.println(postService.getFeedPosts(userId));
         return postService.getFeedPosts(userId);
     }
 }
