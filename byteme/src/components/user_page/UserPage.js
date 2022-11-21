@@ -5,8 +5,9 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
+import Friend from "./Friend";
 
-const UserPage = ({loggedInUser, setLoggedInUser, showedUser}) => {
+const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
     const [posts, setPosts] = useState([]);
 
@@ -46,6 +47,8 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser}) => {
                 <UserDetails showedUser={showedUser}/>
                 {loggedInUser.id === showedUser.id ?
                     <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
+                <Friend loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
+                        setShowedUser={setShowedUser}/>
             </div>
             <div className="user-page-right-container">
                 {loggedInUser.id === showedUser.id ? <CreatePost onAdd={createPostEvent}/> : ""}

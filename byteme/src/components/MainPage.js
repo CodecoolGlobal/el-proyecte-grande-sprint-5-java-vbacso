@@ -4,12 +4,8 @@ import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 
 const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
-    const [showContent, setShowContent] = useState("feedPage")
-    const [showedUser, setShowedUser] = useState()
-
-    useEffect(() => {
-        setShowedUser(loggedInUser)
-    }, [JSON.stringify(loggedInUser)]);
+    const [showContent, setShowContent] = useState("feedPage");
+    const [showedUser, setShowedUser] = useState(loggedInUser);
 
     const loadFeedPage = (e) => {
         e.preventDefault();
@@ -24,7 +20,8 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         if (showContent === "feedPage") {
             return <FeedPage loggedInUser={loggedInUser}/>
         } else if (showContent === "userPage") {
-            return <UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}/>
+            return <UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
+                             setShowedUser={setShowedUser}/>
         }
     };
 

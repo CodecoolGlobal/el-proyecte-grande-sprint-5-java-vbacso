@@ -35,7 +35,6 @@ public class BasicDatabase {
                 .age(12)
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
-                .friendList(List.of(vanda()))
                 .build();
     }
 
@@ -184,6 +183,12 @@ public class BasicDatabase {
             userRepository.save(zeno());
             userRepository.save(erik());
             userRepository.save(dani());
+
+            vanda().setFriendList(List.of(zeno()));
+            zeno().setFriendList(List.of(vanda()));
+
+            userRepository.save(vanda());
+            userRepository.save(zeno());
 
             imageRepository.save(zenoProfilePicture());
             imageRepository.save(vandaProfilePicture());
