@@ -26,7 +26,8 @@ const Friend = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
                 : (loggedInUserId !== showedUserId && isFriend() === false) ?
                     <AddFriendButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
                                      showedUser={showedUser} setShowedUser={setShowedUser}/>
-                    : <DeleteFriendButton/>}
+                    : <DeleteFriendButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                          showedUser={showedUser} setShowedUser={setShowedUser}/>}
         </div>
     );
 };

@@ -60,4 +60,9 @@ public class UserController {
     public void addFriend(@PathVariable Long user1Id, @PathVariable Long user2Id) {
         userService.addFriend(user1Id, user2Id);
     }
+
+    @DeleteMapping("/{user1Id}/{user2Id}")
+    public void deleteFriend(@PathVariable Long user1Id, @PathVariable Long user2Id) {
+        userService.deleteFriend(user1Id, user2Id);
+    }
 }
