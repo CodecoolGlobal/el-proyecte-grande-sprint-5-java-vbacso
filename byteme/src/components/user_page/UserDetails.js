@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 const UserDetails = ({showedUser}) => {
 
     useEffect(() => {
 
-    },[JSON.stringify(showedUser)]);
+    }, [JSON.stringify(showedUser)]);
 
     if (!showedUser) {
         return (<div className="main-container">Loading...</div>)
