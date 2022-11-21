@@ -7,6 +7,10 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showContent, setShowContent] = useState("feedPage");
     const [showedUser, setShowedUser] = useState(loggedInUser);
 
+    useEffect(() => {
+        setShowedUser(loggedInUser);
+    },[loggedInUser]);
+
     const loadFeedPage = (e) => {
         e.preventDefault();
         setShowContent("feedPage")
