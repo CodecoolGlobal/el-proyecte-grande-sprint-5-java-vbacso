@@ -8,8 +8,10 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showedUser, setShowedUser] = useState(loggedInUser);
 
     useEffect(() => {
-        setShowedUser(loggedInUser);
-    },[loggedInUser]);
+        if (loggedInUser.id === showedUser.id) {
+            setShowedUser(loggedInUser);
+        }
+    }, [loggedInUser]);
 
     const loadFeedPage = (e) => {
         e.preventDefault();
