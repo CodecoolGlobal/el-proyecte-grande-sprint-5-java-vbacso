@@ -405,3 +405,7 @@ p {
     justify-content: center !important;
     border: 0 !important;
 }
+
+.friend-list{
+    display: flex;
+}

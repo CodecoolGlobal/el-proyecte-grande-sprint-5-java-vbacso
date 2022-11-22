@@ -5,6 +5,7 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
+import Loading from "../common/Loading";
 import Friend from "./Friend";
 import {useParams} from "react-router-dom";
 
@@ -49,12 +50,12 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     }
 
     if (!posts || !showedUser) {
-        return (<div className="main-container">Loading...</div>)
+        return(<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
-                <UserDetails showedUser={showedUser}/>
+                <UserDetails showedUser={showedUser} setShowedUser={setShowedUser}/>
                 {loggedInUser.id === showedUser.id ?
                     <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
                 <Friend loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}

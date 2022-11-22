@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
+import Loading from "../common/Loading";
 
-const ProfilePicture = ({profilePictureId, placement}) => {
+const ProfilePicture = ({userId, profilePictureId, placement, setShowedUser}) => {
     const [image, setImage] = useState();
-
     useEffect(() => {
         const fetchImage = async () => {
             const resp = await fetch(`http://localhost:8080/image/${profilePictureId}`)
@@ -13,11 +13,21 @@ const ProfilePicture = ({profilePictureId, placement}) => {
         fetchImage().catch(console.error);
     }, [profilePictureId]);
 
+    const onLoadUserPage = async (e) => {
+        e.preventDefault();
+        const showedUserId = e.target.dataset.userId;
+        if (showedUserId !== undefined) {
+            const res = await fetch(`http://localhost:8080/user/findById/${showedUserId}`);
+            setShowedUser(await res.json());
+        }
+    }
+
     if (!image) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
-        return (<div className={(placement === "post") ? "profile-pic-in-post" : "profile-pic-user-page"}>
-            <img className="rounded-circle ratio" src={image} alt="Profile Picture"/>
+        return (<div onClick={onLoadUserPage}
+                     className={(placement === "post") ? "profile-pic-in-post" : "profile-pic-user-page"}>
+            <img className="rounded-circle ratio" data-user-id={userId} src={image} alt="Profile Picture"/>
         </div>)
     }
 }
