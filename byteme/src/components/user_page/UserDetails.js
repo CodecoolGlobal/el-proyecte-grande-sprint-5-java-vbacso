@@ -1,6 +1,7 @@
 import {useEffect} from "react";
+import DisplayFriends from "./DisplayFriends";
 
-const UserDetails = ({showedUser}) => {
+const UserDetails = ({showedUser, setShowedUser}) => {
 
     useEffect(() => {
 
@@ -13,6 +14,7 @@ const UserDetails = ({showedUser}) => {
             <div className="user-details-container">
                 <div className="details">Name: {showedUser.name}</div>
                 <div className="details">Age: {showedUser.age}</div>
+                <DisplayFriends showedUser={showedUser} setShowedUser={setShowedUser}/>
             </div>
         )
     }
