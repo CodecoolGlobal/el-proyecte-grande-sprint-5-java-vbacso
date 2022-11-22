@@ -30,7 +30,7 @@ public class User {
     private int age;
     private String email;
 
-    @JsonIncludeProperties({"id"})
+    @JsonIncludeProperties({"id", "profilePictureId"})
     @ManyToMany
     @JoinTable(
             name = "user_friend",

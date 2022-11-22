@@ -44,7 +44,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
         return (<div>
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
-                <UserDetails showedUser={showedUser}/>
+                <UserDetails showedUser={showedUser} setShowedUser={setShowedUser}/>
                 {loggedInUser.id === showedUser.id ?
                     <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
                 <Friend loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
