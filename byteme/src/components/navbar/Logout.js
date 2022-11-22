@@ -1,13 +1,6 @@
 import React from 'react';
-import {redirect} from "react-router-dom";
 
-const Logout = ({setUser}) => {
-
-    const onLogout = () => {
-        localStorage.clear();
-        setUser(null);
-        redirect("/")
-    };
+const Logout = ({onLogout}) => {
 
     return (
         <div>

@@ -40,15 +40,12 @@ function App() {
     };
     return (
         <Routes>
-            <Route exact path='/'
-                   element={loggedInUser ? <Navigate replace to={"user/" + loggedInUser.id}/> :
+            <Route path='/*'
+                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/> :
                             loggedInUser === undefined ? <div>Loading...</div> :
                            <Navigate replace to={"/login"}/>}/>
             <Route exact path='/login'
                    element={<LoginPage onLogin={onLogin}/>}/>
-            <Route exact path='user/:userId'
-                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/> :
-                                            <Navigate replace to={"/login"}/>}/>
         </Routes>
     );
 }

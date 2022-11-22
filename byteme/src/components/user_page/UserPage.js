@@ -6,18 +6,28 @@ import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
 import Friend from "./Friend";
+import {useParams} from "react-router-dom";
 
 const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
     const [posts, setPosts] = useState([]);
+    const params = useParams();
 
     // Get user posts
     useEffect(() => {
+
+        const getShowedUser = async () => {
+            const res = await fetch(`http://localhost:8080/user/findById/${params.userId}`);
+            setShowedUser(await res.json())
+        }
+
         const getUserPosts = async () => {
             const postsFromServer = await fetchUserPosts();
             setPosts(postsFromServer);
         }
-        getUserPosts().catch(console.error);
+        getShowedUser().catch(console.error).then(() => {
+            getUserPosts().catch(console.error);
+        });
     }, [showedUser.id])
 
     // Fetch user posts
