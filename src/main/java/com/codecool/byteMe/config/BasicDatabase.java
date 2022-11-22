@@ -11,7 +11,6 @@ import com.codecool.byteMe.model.postable.Post;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Example;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +35,6 @@ public class BasicDatabase {
                 .age(12)
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
-                .friendList(List.of(vanda()))
                 .build();
     }
 
@@ -135,6 +133,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image vandaProfilePicture() {
         try {
@@ -147,6 +146,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image erikProfilePicture() {
         try {
@@ -159,6 +159,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image daniProfilePicture() {
         try {
@@ -182,6 +183,12 @@ public class BasicDatabase {
             userRepository.save(zeno());
             userRepository.save(erik());
             userRepository.save(dani());
+
+            vanda().setFriendList(List.of(zeno()));
+            zeno().setFriendList(List.of(vanda()));
+
+            userRepository.save(vanda());
+            userRepository.save(zeno());
 
             imageRepository.save(zenoProfilePicture());
             imageRepository.save(vandaProfilePicture());

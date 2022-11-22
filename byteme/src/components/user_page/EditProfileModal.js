@@ -1,27 +1,8 @@
-import {useEffect, useState} from "react";
 import ProfilePicture from "./ProfilePicture";
 import EditButton from "./EditButton";
 import Loading from "../common/Loading";
 
-const EditProfileModal = () => {
-
-    const [user, setUser] = useState();
-
-    useEffect(() => {
-        const getUser = async () => {
-            const getUserFromServer = await fetchUser();
-            setUser(getUserFromServer);
-        }
-        getUser().catch(console.error);
-    }, []);
-
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
-
-    // Fetch user
-    const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${loggedInUserId}`);
-        return (await res.json());
-    }
+const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
 
     // Close Modal
     function closeModal() {
@@ -38,6 +19,7 @@ const EditProfileModal = () => {
         const savedUserAge = document.querySelector(".user-data-age").textContent;
         const savedUserEmail = document.querySelector(".user-data-email").textContent;
         const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail};
+        setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail});
 
         const saveUserData = async (user) => {
             const resp = fetch('http://localhost:8080/user/update', {
@@ -53,11 +35,11 @@ const EditProfileModal = () => {
         closeModal();
     }
 
-    if (!user) {
+    if (!loggedInUser) {
         return (<Loading/>)
     } else {
         return (
-            <div id="myModal" className="modal" data-id={user.id}>
+            <div id="myModal" className="modal" data-id={loggedInUser.id}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <span className="close" onClick={closeModal}>&times;</span>
@@ -66,21 +48,21 @@ const EditProfileModal = () => {
                     <div className="modal-body">
                         <div id="user-profile-picture">
                             <p className="datas-to-edit">Profile Picture</p>
-                            <ProfilePicture profilePictureId={user.profilePictureId}/>
+                            <ProfilePicture profilePictureId={loggedInUser.profilePictureId}/>
                         </div>
                         <div id="user-name" className="edit-user-details">
                             <p className="datas-to-edit">Name</p>
-                            <p className="user-data-name">{user.name}</p>
+                            <p className="user-data-name">{loggedInUser.name}</p>
                             <EditButton dataset="name"/>
                         </div>
                         <div id="user-age" className="edit-user-details">
                             <p className="datas-to-edit">Age</p>
-                            <p className="user-data-age">{user.age}</p>
+                            <p className="user-data-age">{loggedInUser.age}</p>
                             <EditButton dataset="age"/>
                         </div>
                         <div id="user-email" className="edit-user-details">
                             <p className="datas-to-edit">E-mail</p>
-                            <p className="user-data-email">{user.email}</p>
+                            <p className="user-data-email">{loggedInUser.email}</p>
                             <EditButton dataset="email"/>
                         </div>
                     </div>

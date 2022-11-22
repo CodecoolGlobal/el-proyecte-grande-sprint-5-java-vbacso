@@ -1,7 +1,7 @@
 import {BiSearchAlt2} from "react-icons/bi";
 import {useState} from "react";
 
-const SearchBar = ({onSetUserId}) => {
+const SearchBar = ({onSetShowedUser}) => {
 
     const [searchResultUsers, setSearchResultUsers] = useState();
 
@@ -23,9 +23,11 @@ const SearchBar = ({onSetUserId}) => {
         }
     };
 
-    const onClickSearchResult = (e) => {
+    const onClickSearchResult = async (e) => {
         e.preventDefault();
-        onSetUserId(e.target.dataset.userId)
+        const showedUserId = e.target.dataset.userId;
+        const res = await fetch(`http://localhost:8080/user/findById/${showedUserId}`);
+        onSetShowedUser(await res.json())
         setSearchResultUsers();
         document.querySelector("#search-text").value = "";
     };

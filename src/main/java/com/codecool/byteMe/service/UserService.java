@@ -46,6 +46,38 @@ public class UserService {
         return userRepository.findByNameIsContainingAllIgnoreCase(userName);
     }
 
+    public void addFriend(Long user1Id, Long user2Id) {
+        User updatableUser1 = userRepository.findById(user1Id).get();
+        User updatableUser2 = userRepository.findById(user2Id).get();
+        List<User> updatableUser1FriendList = updatableUser1.getFriendList();
+        List<User> updatableUser2FriendList = updatableUser2.getFriendList();
+
+        updatableUser1FriendList.add(updatableUser2);
+        updatableUser2FriendList.add(updatableUser1);
+
+        updatableUser1.setFriendList(updatableUser1FriendList);
+        updatableUser2.setFriendList(updatableUser2FriendList);
+
+        userRepository.save(updatableUser1);
+        userRepository.save(updatableUser2);
+    }
+
+    public void deleteFriend(Long user1Id, Long user2Id) {
+        User updatableUser1 = userRepository.findById(user1Id).get();
+        User updatableUser2 = userRepository.findById(user2Id).get();
+        List<User> updatableUser1FriendList = updatableUser1.getFriendList();
+        List<User> updatableUser2FriendList = updatableUser2.getFriendList();
+
+        updatableUser1FriendList.remove(updatableUser2);
+        updatableUser2FriendList.remove(updatableUser1);
+
+        updatableUser1.setFriendList(updatableUser1FriendList);
+        updatableUser2.setFriendList(updatableUser2FriendList);
+
+        userRepository.save(updatableUser1);
+        userRepository.save(updatableUser2);
+    }
+
 //    public User findByIdAdd(UUID userId, Post post) {
 //        return userRepository.findByIdAdd(userId, post);
 //    }

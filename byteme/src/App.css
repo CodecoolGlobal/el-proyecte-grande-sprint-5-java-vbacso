@@ -7,9 +7,9 @@
     --white: #ffffff;
 }
 
-html ,body {
+html, body {
     height: 100%;
-    background-color: var(--secondary)!important;
+    background-color: var(--secondary) !important;
 }
 
 .navbar-container {
@@ -54,6 +54,14 @@ html ,body {
 
 .profile-pic-user-page {
     margin: 1em;
+}
+
+.profile-pic-in-post img {
+    max-height: 50px;
+    max-width: 50px;
+    object-fit: cover;
+    object-position: center;
+    float: right;
 }
 
 .user-details-container {
@@ -127,7 +135,7 @@ html ,body {
     width: 100%;
     border-radius: 10px;
     font-family: Cambria;
-    color:white;
+    color: white;
     background-color: black;
 }
 
@@ -150,10 +158,11 @@ html ,body {
 }
 
 .comments-container {
-    color: var(--secondary)!important;
+    color: var(--secondary) !important;
     border: 3px solid lightpink;
-    margin: 2px 2px 2px 2px;
+    margin: 2px;
     background-color: #ffb0b0;
+    padding: 0.5em;
 }
 
 .last {
@@ -395,4 +404,8 @@ p {
 .modal-header {
     justify-content: center !important;
     border: 0 !important;
+}
+
+.friend-list{
+    display: flex;
 }

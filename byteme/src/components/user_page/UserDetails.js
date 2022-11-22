@@ -1,31 +1,21 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import DisplayFriends from "./DisplayFriends";
 import Loading from "../common/Loading";
 
-const UserDetails = ({userId}) => {
+const UserDetails = ({showedUser, setShowedUser}) => {
 
-    const [user, setUser] = useState();
-
-    // Get user
     useEffect(() => {
-        const getUser = async () => {
-            const res = await fetchUser();
-            setUser(res);
-        }
-        getUser().catch(console.error);
-    }, [userId])
 
-    // Fetch user
-    const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
-        return (await res.json());
-    }
-    if (!user) {
+    }, [JSON.stringify(showedUser)]);
+
+    if (!showedUser) {
         return (<Loading/>)
     } else {
         return (
             <div className="user-details-container">
-                <div className="details">Name: {user.name}</div>
-                <div className="details">Age: {user.age}</div>
+                <div className="details">Name: {showedUser.name}</div>
+                <div className="details">Age: {showedUser.age}</div>
+                <DisplayFriends showedUser={showedUser} setShowedUser={setShowedUser}/>
             </div>
         )
     }
