@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import Loading from "../common/Loading";
 
 const ProfilePicture = ({userId, profilePictureId, placement, setShowedUser}) => {
     const [image, setImage] = useState();
@@ -22,7 +23,7 @@ const ProfilePicture = ({userId, profilePictureId, placement, setShowedUser}) =>
     }
 
     if (!image) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
         return (<div onClick={onLoadUserPage}
                      className={(placement === "post") ? "profile-pic-in-post" : "profile-pic-user-page"}>
