@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import DisplayFriends from "./DisplayFriends";
+import Loading from "../common/Loading";
 
 const UserDetails = ({showedUser, setShowedUser}) => {
 
@@ -8,7 +9,7 @@ const UserDetails = ({showedUser, setShowedUser}) => {
     }, [JSON.stringify(showedUser)]);
 
     if (!showedUser) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
         return (
             <div className="user-details-container">

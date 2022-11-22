@@ -1,5 +1,6 @@
 import ProfilePicture from "./ProfilePicture";
 import EditButton from "./EditButton";
+import Loading from "../common/Loading";
 
 const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
 
@@ -35,7 +36,7 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
     }
 
     if (!loggedInUser) {
-        return (<div className="main-container">Loading...</div>)
+        return (<Loading/>)
     } else {
         return (
             <div id="myModal" className="modal" data-id={loggedInUser.id}>

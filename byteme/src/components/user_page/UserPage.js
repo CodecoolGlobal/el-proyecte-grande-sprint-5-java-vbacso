@@ -5,6 +5,7 @@ import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
+import Loading from "../common/Loading";
 import Friend from "./Friend";
 
 const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
@@ -39,7 +40,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     }
 
     if (!posts || !showedUser) {
-        return (<div className="main-container">Loading...</div>)
+        return(<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">
