@@ -7,8 +7,9 @@
     --white: #ffffff;
 }
 
-html {
+html, body {
     height: 100%;
+    background-color: var(--secondary) !important;
 }
 
 .navbar-container {
@@ -24,8 +25,6 @@ html {
 }
 
 .main-container {
-    min-height: 120vh;
-    background-color: var(--secondary);
     color: var(--grey);
     padding-bottom: 1em;
 }
@@ -47,19 +46,31 @@ html {
 }
 
 .profile-pic-user-page img {
-    width: 200px;
+    max-height: 220px;
+    max-width: 220px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .profile-pic-user-page {
     margin: 1em;
 }
 
-.edit-profile-btn-container {
-   margin: 1em;
+.profile-pic-in-post img {
+    max-height: 50px;
+    max-width: 50px;
+    object-fit: cover;
+    object-position: center;
+    float: right;
 }
 
-.user-page-user-data-container {
+.user-details-container {
+    margin: 1em;
+    text-align: center;
+}
 
+.edit-profile-btn-container {
+    margin: 1em;
 }
 
 .user-page-right-container {
@@ -70,7 +81,7 @@ html {
 }
 
 .create-new-post-container {
-    margin: auto;
+    margin: 1em auto;
     width: 50%;
     text-align: center;
     padding: 1em;
@@ -84,10 +95,13 @@ html {
     margin: 3em auto 20px;
     position: relative;
     width: 40%;
-    /*padding: 1em;*/
     border: 2px solid var(--primary);
     color: var(--secondary);
     border-radius: 10px;
+}
+
+.open {
+    margin: 3em auto 150px;
 }
 
 .post-title {
@@ -97,6 +111,9 @@ html {
 .post-header {
     background-color: var(--primary);
     padding: 1em 1em 0 1em;
+    margin: 1.5px 2px 0 2px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
 
 .post-body {
@@ -106,13 +123,51 @@ html {
     color: var(--grey) !important;
 }
 
+.createComment-container {
+    padding: 0.5em 1em 0.5em 1em;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    margin: 6px 2px 2px 2px;
+}
+
+.text {
+    width: 100%;
+    border-radius: 10px;
+    font-family: Cambria;
+    color: white;
+    background-color: black;
+}
+
+
 .username-in-post {
 }
 
-.comment-container {
-    padding: 0.5em 1em;
+.int-container {
+    padding: 0.5em 1em 0.5em 1em;
     background-color: var(--primary);
     color: var(--secondary);
+    margin: 0 2px 2px 2px;
+}
+
+.comment-box:hover {
+    color: black;
+    background-color: white;
+    border-color: black;
+    cursor: pointer;
+}
+
+.comments-container {
+    color: var(--secondary) !important;
+    border: 3px solid lightpink;
+    margin: 2px;
+    background-color: #ffb0b0;
+    padding: 0.5em;
+}
+
+.last {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 .delete-icon {
@@ -149,6 +204,14 @@ html {
     border-radius: 0.5rem;
 }
 
+.button-sm {
+    font-size: 0.8em;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+}
+
 .button-dark {
     background-color: var(--secondary) !important;
     color: var(--grey) !important;
@@ -165,16 +228,17 @@ textarea {
 }
 
 .searchbar-input {
-    flex-wrap: nowrap!important;
+    flex-wrap: nowrap !important;
 }
 
 .searchbar-input input {
-    border-radius: 2em 0 0 2em!important;
-    padding-left: 2em!important;
-    margin: 0!important;
-    border-right: none!important;
-    min-width: 15em!important;
+    border-radius: 2em 0 0 2em !important;
+    padding-left: 2em !important;
+    margin: 0 !important;
+    border-right: none !important;
+    min-width: 15em !important;
 }
+
 .searchbar-input input:focus {
     border: 1px solid #ced4da !important;
     border-right: none !important;
@@ -185,9 +249,10 @@ textarea {
     color: var(--secondary-opacity) !important;
     border: 1px solid #ced4da !important;
     border-left: none !important;
-    border-radius: 0 2em 2em 0!important;
-    padding-right: 1em!important;
+    border-radius: 0 2em 2em 0 !important;
+    padding-right: 1em !important;
 }
+
 .searchbar-container {
     position: absolute;
     display: flex;
@@ -196,16 +261,17 @@ textarea {
     background-color: var(--primary);
     border-radius: 1em;
 }
+
 .searchbar-position-fixer {
     position: relative;
 }
 
 .searchbar-container:has(.searchbar-results-item) {
     /*border: 1px solid var(--secondary);*/
-    box-shadow: 1px 0px 1px var(--primary-dark), -1px 0px 1px var(--primary-dark) ;
+    box-shadow: 1px 0px 1px var(--primary-dark), -1px 0px 1px var(--primary-dark);
 }
 
-.searchbar-results-container{
+.searchbar-results-container {
 }
 
 .searchbar-results-list {
@@ -217,17 +283,19 @@ textarea {
     color: var(--secondary);
 }
 
-.searchbar-results-list:has(li){
+.searchbar-results-list:has(li) {
     display: block;
 }
-.searchbar-results-list:target{
+
+.searchbar-results-list:target {
     display: block;
 }
 
 .searchbar-results-item {
     padding: 0.5em;
-    border-bottom: 1px solid var(--secondary-opacity) ;
+    border-bottom: 1px solid var(--secondary-opacity);
 }
+
 .searchbar-results-item:last-child {
     border-bottom: none;
 }
@@ -241,12 +309,18 @@ textarea {
 }
 
 p {
-    margin: 0!important;
+    margin: 0 !important;
 }
 
 .edit-user-details {
     margin: 0.5em 0;
+    font-weight: 500;
     font-size: large;
+    color: var(--grey) !important;
+}
+
+.details {
+    padding: 10px;
 }
 
 

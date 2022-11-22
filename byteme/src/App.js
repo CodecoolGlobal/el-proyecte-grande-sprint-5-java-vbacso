@@ -7,41 +7,50 @@ import MainPage from "./components/MainPage";
 
 function App() {
 
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
-    const [user, setUser] = useState();
+    const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
     const navigate = useNavigate();
-
     useEffect(() => {
-        if (loggedInUser) {
-            setUser(loggedInUser);
+        if (localStorage.getItem("loggedInUser")) {
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
         } else {
-            setUser(null)
+            setLoggedInUser(null)
         }
-    }, [])
+    }, [JSON.stringify(loggedInUser)])
+
+
+    const onLogin = async (email) => {
+        const resp = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"email": email})
+        })
+        if (resp.ok) {
+            const user = await resp.json();
+            setLoggedInUser(user);
+            localStorage.setItem("loggedInUser", JSON.stringify(user))
+        } else {
+            alert("Invalid email!")
+        }
+    }
+    const onLogout = () => {
+        localStorage.clear();
+        setLoggedInUser(null);
+    };
     return (
         <Routes>
             <Route exact path='/'
-                   element={user ? <Navigate replace to={"user/" + user.id}/> :
-                       user === undefined ? <div>Loading...</div> :
+                   element={loggedInUser ? <Navigate replace to={"user/" + loggedInUser.id}/> :
+                            loggedInUser === undefined ? <div>Loading...</div> :
                            <Navigate replace to={"/login"}/>}/>
             <Route exact path='/login'
-                   element={<LoginPage setUser={setUser}/>}/>
+                   element={<LoginPage onLogin={onLogin}/>}/>
             <Route exact path='user/:userId'
-                   element={user ? <MainPage loggedInUserId={loggedInUser.id} setUser={setUser}/> :
-                       <Navigate replace to={"/login"}/>}/>
+                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/> :
+                                            <Navigate replace to={"/login"}/>}/>
         </Routes>
-    )
-    // if (user === undefined) {
-    //      return <div>"loading..."</div>
-    // } else if (user === null) {
-    //     return <LoginPage onLogin={onLogin}/>;
-    // } else {
-    //     return <MainPage loggedInUserId={user.id} onLogout={onLogout}/>
-    // }
-
-
-    // user === undefined ? <div>"loading..."</div> :
-    //     user === null ? <LoginPage onLogin={onLogin}/> : <MainPage loggedInUserId={user.id} onLogout={onLogout}/>;
+    );
 }
 
 export default App;

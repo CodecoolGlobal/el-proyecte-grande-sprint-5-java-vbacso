@@ -11,7 +11,6 @@ import com.codecool.byteMe.model.postable.Post;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Example;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +35,6 @@ public class BasicDatabase {
                 .age(12)
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
-                .friendList(List.of(vanda()))
                 .build();
     }
 
@@ -97,6 +95,24 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Comment daniFirstComment2() {
+        return Comment.builder()
+                .body("The Boys")
+                .user(dani())
+                .post(vandaFirstPost())
+                .build();
+    }
+
+    @Bean
+    public Comment daniFirstComment3() {
+        return Comment.builder()
+                .body("I  you into anime: Sword Art Online")
+                .user(dani())
+                .post(vandaFirstPost())
+                .build();
+    }
+
+    @Bean
     public Comment erikFirstComment() {
         return Comment.builder()
                 .body("Blue Mountain State")
@@ -109,7 +125,7 @@ public class BasicDatabase {
     public Image zenoProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/img.png").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/zeno.jpg").toPath()))
                     .user(zeno())
                     .build();
         } catch (IOException e) {
@@ -117,11 +133,12 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image vandaProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/img.png").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/vanda.jpg").toPath()))
                     .user(vanda())
                     .build();
         } catch (IOException e) {
@@ -129,11 +146,12 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image erikProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/img.png").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/erik.jpg").toPath()))
                     .user(erik())
                     .build();
         } catch (IOException e) {
@@ -141,6 +159,7 @@ public class BasicDatabase {
             return null;
         }
     }
+
     @Bean
     public Image daniProfilePicture() {
         try {
@@ -164,6 +183,12 @@ public class BasicDatabase {
             userRepository.save(zeno());
             userRepository.save(erik());
             userRepository.save(dani());
+
+            vanda().setFriendList(List.of(zeno()));
+            zeno().setFriendList(List.of(vanda()));
+
+            userRepository.save(vanda());
+            userRepository.save(zeno());
 
             imageRepository.save(zenoProfilePicture());
             imageRepository.save(vandaProfilePicture());
@@ -191,6 +216,8 @@ public class BasicDatabase {
             postRepository.save(vandaFirstPost());
 
             commentRepository.save(daniFirstComment());
+            commentRepository.save(daniFirstComment2());
+            commentRepository.save(daniFirstComment3());
             commentRepository.save(erikFirstComment());
         };
     }

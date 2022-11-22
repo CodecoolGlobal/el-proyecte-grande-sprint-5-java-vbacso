@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(generator = "image_sequence")
-    @SequenceGenerator(name = "image_sequence",allocationSize = 1)
+    @SequenceGenerator(name = "image_sequence", allocationSize = 1)
     protected Long id;
     @JsonIncludeProperties({"id", "name"})
     @ManyToOne

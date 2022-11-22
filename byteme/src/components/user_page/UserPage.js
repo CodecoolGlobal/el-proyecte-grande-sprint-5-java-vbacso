@@ -4,27 +4,12 @@ import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
 import EditProfileButton from "./EditProfileButton";
 import ProfilePicture from "./ProfilePicture";
+import UserDetails from "./UserDetails";
+import Friend from "./Friend";
 
-const UserPage = ({userId}) => {
+const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
-    const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
     const [posts, setPosts] = useState([]);
-    const [user, setUser] = useState(null);
-
-    // Get user
-    useEffect(() => {
-        const getUser = async () => {
-            const res = await fetchUser();
-            setUser(res);
-        }
-        getUser().catch(console.error);
-    }, [userId])
-
-    // Fetch user
-    const fetchUser = async () => {
-        const res = await fetch(`http://localhost:8080/user/findById/${userId}`);
-        return (await res.json());
-    }
 
     // Get user posts
     useEffect(() => {
@@ -33,11 +18,11 @@ const UserPage = ({userId}) => {
             setPosts(postsFromServer);
         }
         getUserPosts().catch(console.error);
-    }, [userId])
+    }, [showedUser.id])
 
     // Fetch user posts
     const fetchUserPosts = async () => {
-        const res = await fetch(`http://localhost:8080/post/user/${userId}`)
+        const res = await fetch(`http://localhost:8080/post/user/${showedUser.id}`)
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 
@@ -53,16 +38,20 @@ const UserPage = ({userId}) => {
         setPosts([newPost, ...posts]);
     }
 
-    if (!posts || !user) {
-        return(<div>Loading...</div>)
+    if (!posts || !showedUser) {
+        return (<div className="main-container">Loading...</div>)
     } else {
         return (<div>
             <div className="user-page-left-container">
-                <ProfilePicture profilePictureId={user.profilePictureId}/>
-                {loggedInUserId===userId?<EditProfileButton/>:""}
+                <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
+                <UserDetails showedUser={showedUser}/>
+                {loggedInUser.id === showedUser.id ?
+                    <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
+                <Friend loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
+                        setShowedUser={setShowedUser}/>
             </div>
             <div className="user-page-right-container">
-                <CreatePost onAdd={createPostEvent}/>
+                {loggedInUser.id === showedUser.id ? <CreatePost onAdd={createPostEvent}/> : ""}
                 {posts.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
             </div>
         </div>)

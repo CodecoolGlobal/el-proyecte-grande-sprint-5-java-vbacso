@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const ProfilePicture = ({profilePictureId}) => {
+const ProfilePicture = ({profilePictureId, placement}) => {
     const [image, setImage] = useState();
 
     useEffect(() => {
@@ -11,15 +11,16 @@ const ProfilePicture = ({profilePictureId}) => {
             setImage(imageObjectURL);
         };
         fetchImage().catch(console.error);
-    },[profilePictureId]);
-    return (
-        image ?
-            <div className="profile-pic-user-page">
-                <img src={image} alt="Profile Picture"/>
-            </div>
-            :
-            <div>Load image...</div>
-    );
-};
+    }, [profilePictureId]);
+
+    if (!image) {
+        return (<div className="main-container">Loading...</div>)
+    } else {
+        return (<div className={(placement === "post") ? "profile-pic-in-post" : "profile-pic-user-page"}>
+            <img className="rounded-circle ratio" src={image} alt="Profile Picture"/>
+        </div>)
+    }
+}
+
 
 export default ProfilePicture;
