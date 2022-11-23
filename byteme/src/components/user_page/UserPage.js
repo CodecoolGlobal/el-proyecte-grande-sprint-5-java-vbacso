@@ -29,7 +29,8 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
         getShowedUser().catch(console.error).then(() => {
             getUserPosts().catch(console.error);
         });
-    }, [showedUser.id,params.userId])
+        console.log("reload")
+    }, [showedUser.id,params.userId,JSON.stringify(loggedInUser)])
 
     // Fetch user posts
     const fetchUserPosts = async () => {
