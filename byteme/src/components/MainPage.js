@@ -25,6 +25,11 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         navigate("/user/" + loggedInUser.id)
     };
 
+    const loadArrayPage = (e) => {
+        e.preventDefault();
+        navigate("/arrays");
+    };
+
     const onSetShowedUser = (user) => {
         setShowedUser(user);
     };
@@ -43,6 +48,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
                                           showedUser={showedUser}
                                           setShowedUser={setShowedUser}/>}
                 />
+                <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser} showedUser={showedUser}/>}/>
             </Routes>
         </div>
     );
