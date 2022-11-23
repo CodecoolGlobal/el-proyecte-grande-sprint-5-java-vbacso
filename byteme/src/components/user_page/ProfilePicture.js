@@ -12,13 +12,17 @@ const ProfilePicture = ({userId, profilePictureId, placement}) => {
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImage(imageObjectURL);
         };
-        fetchImage().catch(console.error);
+        if (profilePictureId) {
+            fetchImage().catch(console.error);
+        } else {
+            setImage("/img.png")
+        }
     }, [profilePictureId]);
 
     const onLoadUserPage = async (e) => {
         e.preventDefault();
         const userId = e.target.dataset.userId;
-        navigate("/user/"+userId)
+        navigate("/user/" + userId)
     }
 
     if (!image) {
