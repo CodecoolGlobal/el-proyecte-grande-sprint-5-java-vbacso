@@ -29,6 +29,7 @@ public class User {
     private String name;
     private int age;
     private String email;
+    private String password;
 
     @JsonIncludeProperties({"id", "profilePictureId"})
     @ManyToMany
