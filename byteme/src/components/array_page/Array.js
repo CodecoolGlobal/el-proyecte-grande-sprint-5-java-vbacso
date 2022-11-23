@@ -21,11 +21,16 @@ const Array = ({group, showedUser, placement}) => {
         return false;
     };
 
+    const onShowGroupDetails = () => {
+        console.log(group);
+    };
+
     return (
-        <li className="nav-item array">
-            {isOwnerPlacement() ? <p className="owner-array">{group.name}</p> : isMemberPlacement() ?
-                <p className="member-array">{group.name}</p> : <div></div>}
-        </li>
+        <div className="nav-item array">
+            {isOwnerPlacement() ?
+                <p onClick={onShowGroupDetails} className="owner-array">{group.name}</p> : isMemberPlacement() ?
+                    <p className="member-array">{group.name}</p> : <div></div>}
+        </div>
     );
 };
 
