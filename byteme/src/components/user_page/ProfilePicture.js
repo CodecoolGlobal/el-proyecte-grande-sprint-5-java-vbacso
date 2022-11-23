@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import Loading from "../common/Loading";
+import {useNavigate} from "react-router-dom";
 
-const ProfilePicture = ({userId, profilePictureId, placement, setShowedUser}) => {
+const ProfilePicture = ({userId, profilePictureId, placement}) => {
     const [image, setImage] = useState();
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchImage = async () => {
             const resp = await fetch(`http://localhost:8080/image/${profilePictureId}`)
@@ -10,16 +12,17 @@ const ProfilePicture = ({userId, profilePictureId, placement, setShowedUser}) =>
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImage(imageObjectURL);
         };
-        fetchImage().catch(console.error);
+        if (profilePictureId) {
+            fetchImage().catch(console.error);
+        } else {
+            setImage("/img.png")
+        }
     }, [profilePictureId]);
 
     const onLoadUserPage = async (e) => {
         e.preventDefault();
-        const showedUserId = e.target.dataset.userId;
-        if (showedUserId !== undefined) {
-            const res = await fetch(`http://localhost:8080/user/findById/${showedUserId}`);
-            setShowedUser(await res.json());
-        }
+        const userId = e.target.dataset.userId;
+        navigate("/user/" + userId)
     }
 
     if (!image) {

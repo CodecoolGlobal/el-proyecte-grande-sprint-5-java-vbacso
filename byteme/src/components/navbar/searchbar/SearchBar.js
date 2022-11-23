@@ -1,9 +1,11 @@
 import {BiSearchAlt2} from "react-icons/bi";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const SearchBar = ({onSetShowedUser}) => {
 
     const [searchResultUsers, setSearchResultUsers] = useState();
+    const navigate = useNavigate();
 
     const fetchSearchResult = async (param) => {
         const resp = await fetch(`http://localhost:8080/user/search/${param}`)
@@ -30,6 +32,7 @@ const SearchBar = ({onSetShowedUser}) => {
         onSetShowedUser(await res.json())
         setSearchResultUsers();
         document.querySelector("#search-text").value = "";
+        navigate("/user/" + showedUserId)
     };
 
     return (

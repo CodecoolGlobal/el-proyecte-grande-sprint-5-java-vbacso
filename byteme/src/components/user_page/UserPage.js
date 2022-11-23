@@ -7,19 +7,29 @@ import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
 import Loading from "../common/Loading";
 import Friend from "./Friend";
+import {useParams} from "react-router-dom";
 
 const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
     const [posts, setPosts] = useState([]);
+    const params = useParams();
 
     // Get user posts
     useEffect(() => {
+
+        const getShowedUser = async () => {
+            const res = await fetch(`http://localhost:8080/user/findById/${params.userId}`);
+            setShowedUser(await res.json())
+        }
+
         const getUserPosts = async () => {
             const postsFromServer = await fetchUserPosts();
             setPosts(postsFromServer);
         }
-        getUserPosts().catch(console.error);
-    }, [showedUser.id])
+        getShowedUser().catch(console.error).then(() => {
+            getUserPosts().catch(console.error);
+        });
+    }, [showedUser.id,params.userId,JSON.stringify(loggedInUser)])
 
     // Fetch user posts
     const fetchUserPosts = async () => {
@@ -40,11 +50,11 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     }
 
     if (!posts || !showedUser) {
-        return(<Loading/>)
+        return (<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">
-                <ProfilePicture profilePictureId={showedUser.profilePictureId}/>
+                <ProfilePicture profilePictureId={showedUser.profilePictureId} userId={showedUser.id}/>
                 <UserDetails showedUser={showedUser} setShowedUser={setShowedUser}/>
                 {loggedInUser.id === showedUser.id ?
                     <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}

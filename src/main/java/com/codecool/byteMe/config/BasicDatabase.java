@@ -24,6 +24,7 @@ public class BasicDatabase {
                 .age(18)
                 .email("vanda@byte.me")
                 .name("Bacso Vanda")
+                .password("password")
                 .build();
     }
 
