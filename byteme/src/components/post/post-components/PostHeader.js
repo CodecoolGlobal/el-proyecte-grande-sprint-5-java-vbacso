@@ -6,7 +6,7 @@ const PostHeader = ({postId, userName, created, title, userId, onDelete, profile
     const loggedInUserId = JSON.parse(localStorage.getItem("loggedInUser")).id;
     return (
         <div className='post-header'>
-            <ProfilePicture placement={"post"} profilePictureId={profilePictureId}/>
+            <ProfilePicture placement={"post"} profilePictureId={profilePictureId} userId={userId}/>
             <h6 className='username-in-post'>
                 {userName + ' - '
                     + new Date(created).toLocaleTimeString('en', {

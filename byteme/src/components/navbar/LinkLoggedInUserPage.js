@@ -7,7 +7,7 @@ const LinkLoggedInUserPage = ({loggedInUser, loadUserPage, onSetShowedUser}) => 
         loadUserPage(e);
     };
     return (
-        <a className="nav-link" onClick={navigateSelfUserPage}>byte.Me</a>
+        <a className="nav-link" id="user-page" onClick={navigateSelfUserPage}>byte.Me</a>
     );
 };
 

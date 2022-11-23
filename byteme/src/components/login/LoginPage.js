@@ -3,13 +3,13 @@ import logo from '../../images/byteMe-logo.png';
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
-const LoginPage = ({onLogin}) => {
+const LoginPage = ({loggedInUser, onLogin}) => {
     const navigate = useNavigate();
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
-    useEffect(() => {
-        if(loggedInUser)navigate("/")
 
-    },[loggedInUser]);
+    useEffect(() => {
+        if (loggedInUser) navigate("/")
+
+    }, [loggedInUser]);
 
     return (
         <div className="login-container">

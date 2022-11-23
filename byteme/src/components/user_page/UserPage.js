@@ -29,7 +29,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
         getShowedUser().catch(console.error).then(() => {
             getUserPosts().catch(console.error);
         });
-    }, [showedUser.id,params.userId])
+    }, [showedUser.id, params.userId])
 
     // Fetch user posts
     const fetchUserPosts = async () => {
@@ -50,7 +50,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     }
 
     if (!posts || !showedUser) {
-        return(<Loading/>)
+        return (<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">

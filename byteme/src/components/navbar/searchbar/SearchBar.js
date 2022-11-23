@@ -32,7 +32,7 @@ const SearchBar = ({onSetShowedUser}) => {
         onSetShowedUser(await res.json())
         setSearchResultUsers();
         document.querySelector("#search-text").value = "";
-        navigate("/user/"+showedUserId)
+        navigate("/user/" + showedUserId)
     };
 
     return (
