@@ -45,8 +45,9 @@ function App() {
         })
         if (resp.ok) {
             const user = await resp.json();
-        } else {
-            alert("Invalid email!")
+            if (user === null) {
+                alert("This email is already assigned to one of our users, please register with an other email address!")
+            }
         }
     }
 
