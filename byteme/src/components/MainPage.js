@@ -9,7 +9,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (showedUser===undefined) {
+        if (showedUser === undefined) {
             setShowedUser(loggedInUser);
         }
     }, [loggedInUser]);
@@ -38,8 +38,8 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
                        element={<FeedPage loggedInUser={loggedInUser}/>}/>
                 <Route path='/user/:userId'
                        element={<UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
-                           showedUser={showedUser}
-                           setShowedUser={setShowedUser}/>}
+                                          showedUser={showedUser}
+                                          setShowedUser={setShowedUser}/>}
                 />
             </Routes>
         </div>

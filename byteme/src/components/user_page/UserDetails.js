@@ -12,9 +12,11 @@ const UserDetails = ({showedUser, setShowedUser}) => {
         return (<Loading/>)
     } else {
         return (
-            <div className="user-details-container">
-                <div className="details">Name: {showedUser.name}</div>
-                <div className="details">Age: {showedUser.age}</div>
+            <div>
+                <div className="user-details-container">
+                    <div className="details">Name: {showedUser.name}</div>
+                    <div className="details">Age: {showedUser.age}</div>
+                </div>
                 <DisplayFriends showedUser={showedUser} setShowedUser={setShowedUser}/>
             </div>
         )
