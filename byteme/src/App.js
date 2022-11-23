@@ -45,7 +45,6 @@ function App() {
         })
         if (resp.ok) {
             const user = await resp.json();
-            console.log(user);
         } else {
             alert("Invalid email!")
         }
