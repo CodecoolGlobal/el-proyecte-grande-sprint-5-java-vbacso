@@ -406,6 +406,10 @@ p {
     border: 0 !important;
 }
 
-.friend-list{
+.friend-list {
     display: flex;
+}
+
+.side-bar {
+    width: 280px;
 }
