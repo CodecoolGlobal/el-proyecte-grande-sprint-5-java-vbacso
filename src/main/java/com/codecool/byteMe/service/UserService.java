@@ -77,12 +77,4 @@ public class UserService {
         userRepository.save(updatableUser1);
         userRepository.save(updatableUser2);
     }
-
-//    public User findByIdAdd(UUID userId, Post post) {
-//        return userRepository.findByIdAdd(userId, post);
-//    }
-//
-//    public User findByIdDelete(UUID userId, UUID postId) {
-//        return userRepository.findByIdDelete(userId, postId);
-//    }
 }
