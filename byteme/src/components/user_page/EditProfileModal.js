@@ -17,9 +17,8 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
 
         const savedUserName = document.querySelector(".user-data-name").textContent;
         const savedUserAge = document.querySelector(".user-data-age").textContent;
-        const savedUserEmail = document.querySelector(".user-data-email").textContent;
-        const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail};
-        setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge, "email": savedUserEmail});
+        const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge};
+        setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge});
 
         const saveUserData = async (user) => {
             const resp = fetch('http://localhost:8080/user/update', {
@@ -59,11 +58,6 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
                             <p className="datas-to-edit">Age</p>
                             <p className="user-data-age">{loggedInUser.age}</p>
                             <EditButton dataset="age"/>
-                        </div>
-                        <div id="user-email" className="edit-user-details">
-                            <p className="datas-to-edit">E-mail</p>
-                            <p className="user-data-email">{loggedInUser.email}</p>
-                            <EditButton dataset="email"/>
                         </div>
                     </div>
                     <div className="modal-footer">
