@@ -6,9 +6,9 @@ const DisplayFriends = ({showedUser, setShowedUser}) => {
 
     if (friendList.length > 0) {
         return (
-            <div>
-                <p>Friends</p>
-                <div className="flex-box friend-list">
+            <div className="friend-list-container">
+                <p>FriendBytes</p>
+                <div className="friend-pics-container flex-box">
                     {friendList.map(friend =>
                         <ProfilePicture userId={friend.id} key={friend.id} profilePictureId={friend.profilePictureId}
                                         placement="post" setShowedUser={setShowedUser}/>

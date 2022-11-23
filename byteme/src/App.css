@@ -46,8 +46,8 @@ html, body {
 }
 
 .profile-pic-user-page img {
-    max-height: 220px;
-    max-width: 220px;
+    height: 220px;
+    width: 220px;
     object-fit: cover;
     object-position: center;
 }
@@ -57,8 +57,8 @@ html, body {
 }
 
 .profile-pic-in-post img {
-    max-height: 50px;
-    max-width: 50px;
+    height: 50px;
+    width: 50px;
     object-fit: cover;
     object-position: center;
     float: right;
@@ -70,6 +70,19 @@ html, body {
 }
 
 .edit-profile-btn-container {
+    margin: 1em;
+}
+
+.friend-list-container {
+    width: 100%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.friend-pics-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 1em;
 }
 
@@ -192,6 +205,11 @@ html, body {
     left: 30%;
     top: 50%;
     transform: translate(-60%, -50%);
+}
+
+#not-register-yet-text {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 .button {
@@ -406,6 +424,3 @@ p {
     border: 0 !important;
 }
 
-.friend-list{
-    display: flex;
-}

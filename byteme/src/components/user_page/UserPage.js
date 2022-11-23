@@ -29,7 +29,6 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
         getShowedUser().catch(console.error).then(() => {
             getUserPosts().catch(console.error);
         });
-        console.log("reload")
     }, [showedUser.id,params.userId,JSON.stringify(loggedInUser)])
 
     // Fetch user posts
@@ -51,7 +50,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     }
 
     if (!posts || !showedUser) {
-        return(<Loading/>)
+        return (<Loading/>)
     } else {
         return (<div>
             <div className="user-page-left-container">
