@@ -1,13 +1,14 @@
 import './App.css';
 import {useEffect, useState} from "react";
 import LoginPage from "./components/login/LoginPage";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import MainPage from "./components/MainPage";
 
 
 function App() {
 
     const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (localStorage.getItem("loggedInUser")) {
             localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
@@ -38,9 +39,14 @@ function App() {
         setLoggedInUser(null);
     };
     return (
-        loggedInUser === undefined ? <div className="main-container">"loading..."</div> :
-            loggedInUser === null ? <LoginPage onLogin={onLogin}/> :
-                <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/>
+        <Routes>
+            <Route path='/*'
+                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/> :
+                            loggedInUser === undefined ? <div>Loading...</div> :
+                           <Navigate replace to={"/login"}/>}/>
+            <Route exact path='/login'
+                   element={<LoginPage onLogin={onLogin}/>}/>
+        </Routes>
     );
 }
 
