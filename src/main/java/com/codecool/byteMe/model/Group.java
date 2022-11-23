@@ -32,9 +32,8 @@ public class Group {
     @JoinColumn(name = "user_id")
     private List<Image> images;
 
-    @JsonIgnore
     @OneToMany
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "group_id")
     private List<Post> posts;
 
     @JsonIncludeProperties({"id", "profilePictureId"})
