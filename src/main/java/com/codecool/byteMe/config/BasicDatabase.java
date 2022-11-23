@@ -85,6 +85,15 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Post zenoFishingGroupFirstPostByZeno() {
+        return Post.builder()
+                .title("I caught a 20 kg carp")
+                .body("I spent a week fishing at lake Balaton")
+                .user(zeno())
+                .build();
+    }
+
+    @Bean
     public Comment daniFirstComment() {
         return Comment.builder()
                 .body("Who believes it ? Where's the picture of it buddy?")
@@ -108,6 +117,15 @@ public class BasicDatabase {
                 .body("I  you into anime: Sword Art Online")
                 .user(dani())
                 .post(vandaFirstPost())
+                .build();
+    }
+
+    @Bean
+    public Comment zenoFishingGroupFirstCommentByDani(){
+        return Comment.builder()
+                .body("Which area have you been fishing?")
+                .user(dani())
+                .post(zenoFishingGroupFirstPostByZeno())
                 .build();
     }
 
@@ -232,13 +250,21 @@ public class BasicDatabase {
             postRepository.save(zenoFirstPost());
             postRepository.save(zenoSecondPost());
             postRepository.save(vandaFirstPost());
+            postRepository.save(zenoFishingGroupFirstPostByZeno());
 
             commentRepository.save(daniFirstComment());
             commentRepository.save(daniFirstComment2());
             commentRepository.save(daniFirstComment3());
             commentRepository.save(erikFirstComment());
+            commentRepository.save(zenoFishingGroupFirstCommentByDani());
 
-            groupRepository.save(zenoFishingGroup());
+            Group zenoFishingGroup = zenoFishingGroup();
+            groupRepository.save(zenoFishingGroup);
+
+            Group updatedGroup = groupRepository.findById(zenoFishingGroup.getId()).get();
+            updatedGroup.setPosts(List.of(zenoFishingGroupFirstPostByZeno()));
+            groupRepository.save(updatedGroup);
+
             groupRepository.save(daniWitcherGroup());
         };
     }
