@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
+import ArrayPage from "./array_page/ArrayPage";
 
 const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showContent, setShowContent] = useState("feedPage");
@@ -17,9 +18,15 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         e.preventDefault();
         setShowContent("feedPage")
     };
+
     const loadUserPage = (e) => {
         e.preventDefault();
         setShowContent("userPage")
+    };
+
+    const loadArrayPage = (e) => {
+        e.preventDefault();
+        setShowContent("arrayPage");
     };
 
     const routeController = () => {
@@ -28,6 +35,8 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         } else if (showContent === "userPage") {
             return <UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
                              setShowedUser={setShowedUser}/>
+        } else if (showContent === "arrayPage") {
+            return <ArrayPage loggedInUser={loggedInUser} showedUser={showedUser}/>
         }
     };
 
@@ -38,7 +47,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     return (
         <div className="main-container">
             <NavigationBar loggedInUser={loggedInUser} loadFeedPage={loadFeedPage} loadUserPage={loadUserPage}
-                           onLogout={onLogout} onSetShowedUser={onSetShowedUser}/>
+                           loadArrayPage={loadArrayPage} onLogout={onLogout} onSetShowedUser={onSetShowedUser}/>
             {routeController()}
         </div>
     );
