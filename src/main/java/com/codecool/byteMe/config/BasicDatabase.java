@@ -1,9 +1,7 @@
 package com.codecool.byteMe.config;
 
-import com.codecool.byteMe.dao.CommentRepository;
-import com.codecool.byteMe.dao.ImageRepository;
-import com.codecool.byteMe.dao.PostRepository;
-import com.codecool.byteMe.dao.UserRepository;
+import com.codecool.byteMe.dao.*;
+import com.codecool.byteMe.model.Group;
 import com.codecool.byteMe.model.Image;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Comment;
@@ -174,10 +172,29 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Group zenoFishingGroup() {
+        return Group.builder()
+                .owner(zeno())
+                .name("Zeno fishing group")
+                .members(List.of(zeno(), vanda(), dani()))
+                .build();
+    }
+
+    @Bean
+    public Group daniWitcherGroup() {
+        return Group.builder()
+                .owner(dani())
+                .name("Dani Witcher group")
+                .members(List.of(dani(), zeno(), vanda()))
+                .build();
+    }
+
+    @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository,
                                         PostRepository postRepository,
                                         CommentRepository commentRepository,
-                                        ImageRepository imageRepository) {
+                                        ImageRepository imageRepository,
+                                        GroupRepository groupRepository) {
         return args -> {
             userRepository.save(vanda());
             userRepository.save(zeno());
@@ -219,6 +236,9 @@ public class BasicDatabase {
             commentRepository.save(daniFirstComment2());
             commentRepository.save(daniFirstComment3());
             commentRepository.save(erikFirstComment());
+
+            groupRepository.save(zenoFishingGroup());
+            groupRepository.save(daniWitcherGroup());
         };
     }
 }
