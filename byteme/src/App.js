@@ -4,34 +4,44 @@ import LoginPage from "./components/login/LoginPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import MainPage from "./components/MainPage";
 import RegistrationPage from "./components/registration/RegistrationPage";
+import {parseJwt} from "./util";
 
 function App() {
 
-    const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
+    const [loggedInUser, setLoggedInUser] = useState();
+    const [token, setToken] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem("loggedInUser")) {
-            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
+        if (localStorage.getItem("token")) {
+            const fetchUser = async () => {
+                const JSONToken = JSON.parse(localStorage.getItem("token"))
+                const resp = await fetch(`http://localhost:8080/user/findByEmail/${JSONToken.sub}`);
+                if (resp.ok) {
+                    setLoggedInUser(await resp.json())
+                }
+            }
+            fetchUser().catch(console.error)
         } else {
             setLoggedInUser(null)
         }
-    }, [JSON.stringify(loggedInUser)])
+    }, [JSON.stringify(token)])
 
 
     const onLogin = async (email, password) => {
         const resp = await fetch("http://localhost:8080/login", {
             method: "POST",
             headers: {
-                'Accept': 'application/json', 'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({"email": email, "password": password})
-        })
+        });
         if (resp.ok) {
-            const user = await resp.json();
-            setLoggedInUser(user);
-            localStorage.setItem("loggedInUser", JSON.stringify(user))
+            const userToken = resp.headers.get("Authorization");
+            const JSONToken = parseJwt(userToken)
+            localStorage.setItem("token", JSON.stringify(JSONToken));
+            setToken(JSONToken)
         } else {
-            alert("Invalid email!")
+            alert(resp.status);
         }
     }
 
