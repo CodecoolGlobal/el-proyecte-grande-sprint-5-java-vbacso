@@ -30,7 +30,7 @@ const FeedPage = ({loggedInUser}) => {
     }
     if (loggedInUser && posts) {
         return (<div className="post-container">
-            <CreatePost onAdd={createPostEvent}/>
+            <CreatePost onAdd={createPostEvent} loggedInUser={loggedInUser}/>
             {posts?.map((post) => (
                 <Post key={post.id} post={post} loggedInUser={loggedInUser} onDelete={deletePostEvent}/>))}
         </div>);

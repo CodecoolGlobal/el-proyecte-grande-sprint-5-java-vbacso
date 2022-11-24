@@ -36,6 +36,10 @@ public class BasicDatabase {
                 .email("vanda@byte.me")
                 .name("Bacso Vanda")
                 .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
@@ -46,6 +50,10 @@ public class BasicDatabase {
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
                 .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
@@ -56,6 +64,10 @@ public class BasicDatabase {
                 .email("erik@byte.me")
                 .name("Izeli Erik")
                 .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
@@ -66,6 +78,10 @@ public class BasicDatabase {
                 .email("dani@byte.me")
                 .name("Fekete Daniel")
                 .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
