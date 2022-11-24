@@ -1,4 +1,4 @@
-const Array = ({group, showedUser, placement}) => {
+const Array = ({group, showedUser, placement, setShowGroup}) => {
 
     const isOwnerPlacement = () => {
         if (group.owner.id === showedUser.id && placement === "owner") {
@@ -22,14 +22,14 @@ const Array = ({group, showedUser, placement}) => {
     };
 
     const onShowGroupDetails = () => {
-        console.log(group);
+        setShowGroup(group);
     };
 
     return (
         <div className="nav-item array">
             {isOwnerPlacement() ?
                 <p onClick={onShowGroupDetails} className="owner-array">{group.name}</p> : isMemberPlacement() ?
-                    <p className="member-array">{group.name}</p> : <div></div>}
+                    <p onClick={onShowGroupDetails} className="member-array">{group.name}</p> : <div></div>}
         </div>
     );
 };
