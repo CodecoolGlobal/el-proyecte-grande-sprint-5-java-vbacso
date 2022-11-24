@@ -3,8 +3,12 @@ import CreatePost from "../post/CreatePost";
 import ProfilePicture from "../user_page/ProfilePicture";
 
 const ArrayPageRightContainer = ({showGroup}) => {
-    const image = showGroup.image;
     const posts = showGroup.posts;
+
+    const image = showGroup.image;
+    posts !== undefined && image !== null ? console.log(image.id) : console.log(null);
+
+
     return (
         <div className="user-page-right-container">
             {Object.keys(showGroup).length > 0 ? <div>
