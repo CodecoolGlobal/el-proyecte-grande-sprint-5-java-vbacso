@@ -35,7 +35,7 @@ public class PostService {
     }
 
     public List<Post> findByUserId(Long userId) {
-        return postRepository.findByUserId(userId);
+        return postRepository.findByUserIdAndGroupIdIsNull(userId);
     }
 
     public Post edit(Post post) {
@@ -53,7 +53,7 @@ public class PostService {
                         .stream()
                         .map(User::getId).toList());
         userIdsForFeed.add(userId);
-        System.out.println(postRepository.findByUser_IdIn(userIdsForFeed));
-        return postRepository.findByUser_IdIn(userIdsForFeed);
+        System.out.println(postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed));
+        return postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed);
     }
 }
