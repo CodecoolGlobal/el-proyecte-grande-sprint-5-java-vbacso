@@ -6,7 +6,7 @@ const ArrayPage = ({loggedInUser, showedUser}) => {
 
     const [groups, setGroups] = useState([]);
 
-    const [rightContainer, setRightContainer] = useState([]);
+    const [showGroup, setShowGroup] = useState([]);
 
     useEffect(() => {
         const getGroups = async () => {
@@ -20,8 +20,8 @@ const ArrayPage = ({loggedInUser, showedUser}) => {
 
     return (
         <div className="group-main-container">
-            <ArrayPageLeftContainer groups={groups} showedUser={showedUser}/>
-            <ArrayPageRightContainer rightContainer={rightContainer}/>
+            <ArrayPageLeftContainer groups={groups} showedUser={showedUser} setShowGroup={setShowGroup}/>
+            {showGroup ? <ArrayPageRightContainer showGroup={showGroup}/> : ""}
         </div>
     );
 }
