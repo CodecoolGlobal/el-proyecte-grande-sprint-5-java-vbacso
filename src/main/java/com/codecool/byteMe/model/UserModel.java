@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @Table(name = "users")
-public class User {
+public class UserModel {
 
     private final LocalDate regDate = LocalDate.now();
     @Id
@@ -32,6 +32,10 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    private boolean isAccountNonExpired = true;
+    private boolean isAccountNonLocked = true;
+    private boolean isCredentialsNonExpired = true;
+    private boolean isEnabled = true;
 
     @JsonIncludeProperties({"id", "profilePictureId"})
     @ManyToMany
@@ -39,7 +43,7 @@ public class User {
             name = "user_friend",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
-    private List<User> friendList;
+    private List<UserModel> friendList;
 
     private Long profilePictureId;
 

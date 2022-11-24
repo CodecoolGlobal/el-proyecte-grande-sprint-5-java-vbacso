@@ -24,9 +24,10 @@ export const createComment = async (input) => {
 
 const Comment = ({postId,name, body, last, profilePictureID,onDeleteCom}) => {
 
+
     return (
         <div className={last ? 'comments-container' : 'comments-container last'} style={{color: 'white'}}>
-
+            <ProfilePicture profilePictureId={profilePictureID} placement={"post"} userId={userId}/>
             <p>{name}</p>
             <p>{body}</p>
             <a onClick={() => onDeleteCom(postId)} >DELETE</a>

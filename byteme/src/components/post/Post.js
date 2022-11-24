@@ -29,7 +29,11 @@ export const createPost = async (input) => {
 
 
 
-const Post = ({post, onDelete}) => {
+
+
+
+const Post = ({loggedInUser, post, onDelete}) => {
+
 
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState([])
@@ -53,6 +57,7 @@ const Post = ({post, onDelete}) => {
                         userId={post.user.id}
                         onDelete={onDelete}
                         profilePictureId={post.user.profilePictureId}
+                        loggedInUser={loggedInUser}
             />
             <PostBody
                 postBody={post.body}
@@ -68,8 +73,13 @@ const Post = ({post, onDelete}) => {
                          name={comment.user.name}
                          body={comment.body}
                          profilePictureID={comment.user.profilePictureId}
+
                          last={null}
                          onDeleteCom={deleteCommentEvent}
+
+
+
+                         userId={comment.user.id}
 
                 />
             ))}

@@ -1,6 +1,6 @@
 package com.codecool.byteMe.model.postable;
 
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class Comment extends Postable {
     private Post post;
 
     @Builder
-    public Comment(User user, String body, Post post) {
+    public Comment(UserModel user, String body, Post post) {
         super(user, body);
         this.post = post;
     }
