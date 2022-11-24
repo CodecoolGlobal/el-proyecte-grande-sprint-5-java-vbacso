@@ -1,7 +1,6 @@
 package com.codecool.byteMe.model;
 
 import com.codecool.byteMe.model.postable.Post;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -27,10 +26,9 @@ public class Group {
     @ManyToOne
     private User owner;
 
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Image> images;
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @OneToMany
     @JoinColumn(name = "group_id")
