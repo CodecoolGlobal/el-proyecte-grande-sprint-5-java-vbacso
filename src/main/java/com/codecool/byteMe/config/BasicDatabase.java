@@ -94,6 +94,15 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Post daniWitcherGroupFirstPostByVanda() {
+        return Post.builder()
+                .title("Are you playing again?")
+                .body("Hm...")
+                .user(vanda())
+                .build();
+    }
+
+    @Bean
     public Comment daniFirstComment() {
         return Comment.builder()
                 .body("Who believes it ? Where's the picture of it buddy?")
@@ -121,11 +130,20 @@ public class BasicDatabase {
     }
 
     @Bean
-    public Comment zenoFishingGroupFirstCommentByDani(){
+    public Comment zenoFishingGroupFirstCommentByDani() {
         return Comment.builder()
                 .body("Which area have you been fishing?")
                 .user(dani())
                 .post(zenoFishingGroupFirstPostByZeno())
+                .build();
+    }
+
+    @Bean
+    public Comment daniWitcherGroupFirstCommentByDani() {
+        return Comment.builder()
+                .body("Yeees")
+                .user(dani())
+                .post(daniWitcherGroupFirstPostByVanda())
                 .build();
     }
 
@@ -251,12 +269,14 @@ public class BasicDatabase {
             postRepository.save(zenoSecondPost());
             postRepository.save(vandaFirstPost());
             postRepository.save(zenoFishingGroupFirstPostByZeno());
+            postRepository.save(daniWitcherGroupFirstPostByVanda());
 
             commentRepository.save(daniFirstComment());
             commentRepository.save(daniFirstComment2());
             commentRepository.save(daniFirstComment3());
             commentRepository.save(erikFirstComment());
             commentRepository.save(zenoFishingGroupFirstCommentByDani());
+            commentRepository.save(daniWitcherGroupFirstCommentByDani());
 
             Group zenoFishingGroup = zenoFishingGroup();
             groupRepository.save(zenoFishingGroup);
@@ -265,7 +285,12 @@ public class BasicDatabase {
             updatedGroup.setPosts(List.of(zenoFishingGroupFirstPostByZeno()));
             groupRepository.save(updatedGroup);
 
-            groupRepository.save(daniWitcherGroup());
+            Group daniGroup = daniWitcherGroup();
+            groupRepository.save(daniGroup);
+
+            Group updatedDaniGroup = groupRepository.findById(daniWitcherGroup().getId()).get();
+            updatedDaniGroup.setPosts(List.of(daniWitcherGroupFirstPostByVanda()));
+            groupRepository.save(updatedDaniGroup);
         };
     }
 }
