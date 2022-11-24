@@ -47,7 +47,7 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
                     <div className="modal-body">
                         <div id="user-profile-picture">
                             <p className="datas-to-edit">Profile Picture</p>
-                            <ProfilePicture profilePictureId={loggedInUser.profilePictureId}/>
+                            <ProfilePicture profilePictureId={loggedInUser.profilePictureId} userId={loggedInUser.id}/>
                         </div>
                         <div id="user-name" className="edit-user-details">
                             <p className="datas-to-edit">Name</p>
@@ -61,10 +61,11 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="button button-dark" data-dismiss="modal"
+                        <button type="button" className="button button-dark" id="close-modal-btn" data-dismiss="modal"
                                 onClick={closeModal}>Close
                         </button>
-                        <button type="button" className="button button-light" onClick={saveProfileChanges}>Save changes
+                        <button type="button" className="button button-light" id="save-changes-btn"
+                                onClick={saveProfileChanges}>Save changes
                         </button>
                     </div>
                 </div>
