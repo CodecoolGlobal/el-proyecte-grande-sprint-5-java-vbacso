@@ -157,6 +157,18 @@ public class BasicDatabase {
     }
 
     @Bean
+    public Image daniGroupCoverPicture() {
+        try {
+            return Image.builder()
+                    .content(Files.readAllBytes(new File("src/main/resources/static/witcher.jpg").toPath()))
+                    .build();
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            return null;
+        }
+    }
+
+    @Bean
     public Image zenoProfilePicture() {
         try {
             return Image.builder()
@@ -248,6 +260,7 @@ public class BasicDatabase {
             imageRepository.save(vandaProfilePicture());
             imageRepository.save(erikProfilePicture());
             imageRepository.save(daniProfilePicture());
+            imageRepository.save(daniGroupCoverPicture());
 
             User updateZeno = userRepository.findById(zeno().getId()).get();
             updateZeno.setProfilePictureId(zenoProfilePicture().getId());
@@ -290,6 +303,7 @@ public class BasicDatabase {
 
             Group updatedDaniGroup = groupRepository.findById(daniWitcherGroup().getId()).get();
             updatedDaniGroup.setPosts(List.of(daniWitcherGroupFirstPostByVanda()));
+            updatedDaniGroup.setImage(daniGroupCoverPicture());
             groupRepository.save(updatedDaniGroup);
         };
     }
