@@ -2,7 +2,7 @@ package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.dao.UserRepository;
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class PostService {
                 userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
                         .getFriendList()
                         .stream()
-                        .map(User::getId).toList());
+                        .map(UserModel::getId).toList());
         userIdsForFeed.add(userId);
         System.out.println(postRepository.findByUser_IdIn(userIdsForFeed));
         return postRepository.findByUser_IdIn(userIdsForFeed);

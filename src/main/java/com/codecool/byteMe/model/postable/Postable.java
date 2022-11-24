@@ -1,6 +1,6 @@
 package com.codecool.byteMe.model.postable;
 
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -22,18 +22,18 @@ public abstract class Postable {
     @JsonIncludeProperties({"id", "name", "profilePictureId"})
     @ManyToOne
     @JoinColumn(name = "user_id")
-    protected User user;
+    protected UserModel user;
     protected String body;
     protected int vote = 0;
     @Builder.Default
     protected LocalDateTime created = LocalDateTime.now();
 
-    public Postable(User user, String body) {
+    public Postable(UserModel user, String body) {
         this.user = user;
         this.body = body;
     }
 
-    public Postable(User user, String body, LocalDateTime created) {
+    public Postable(UserModel user, String body, LocalDateTime created) {
         this.user = user;
         this.body = body;
         this.created = created;

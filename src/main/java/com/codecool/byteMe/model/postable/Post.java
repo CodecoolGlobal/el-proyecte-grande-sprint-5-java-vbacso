@@ -1,6 +1,6 @@
 package com.codecool.byteMe.model.postable;
 
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,12 +27,12 @@ public class Post extends Postable {
     @JoinColumn(name = "post_id")
     private List<Comment> comments;
 
-    public Post(User user, String body, String title, LocalDateTime created) {
+    public Post(UserModel user, String body, String title, LocalDateTime created) {
         super(user, body, created);
         this.title = title;
     }
 
-    public Post(User user, String body, String title) {
+    public Post(UserModel user, String body, String title) {
         super(user, body);
         this.title = title;
     }
