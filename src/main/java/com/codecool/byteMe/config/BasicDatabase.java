@@ -45,6 +45,7 @@ public class BasicDatabase {
                 .age(12)
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
+                .password(passwordEncoder.encode("password"))
                 .build();
     }
 
@@ -54,6 +55,7 @@ public class BasicDatabase {
                 .age(13)
                 .email("erik@byte.me")
                 .name("Izeli Erik")
+                .password(passwordEncoder.encode("password"))
                 .build();
     }
 
@@ -63,6 +65,7 @@ public class BasicDatabase {
                 .age(69420)
                 .email("dani@byte.me")
                 .name("Fekete Daniel")
+                .password(passwordEncoder.encode("password"))
                 .build();
     }
 
