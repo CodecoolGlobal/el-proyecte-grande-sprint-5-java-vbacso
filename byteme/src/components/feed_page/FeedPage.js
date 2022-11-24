@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import CreatePost from "../post/CreatePost";
-import Post, {createPost, deletePost} from "../post/Post";
+import Post, {createPost, deletePost, createCommentEvent} from "../post/Post";
 import Loading from "../common/Loading";
+
 
 const FeedPage = ({loggedInUser}) => {
 

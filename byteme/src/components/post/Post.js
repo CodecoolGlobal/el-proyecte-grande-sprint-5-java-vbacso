@@ -2,7 +2,7 @@ import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
 import InteractionBar from "./post-components/InteractionBar";
 import {useState} from "react";
-import Comment from "./post-components/Comment";
+import Comment, { deleteComment, createComment } from "./post-components/Comment";
 import CreateComment from "./CreateComment";
 
 
@@ -27,9 +27,27 @@ export const createPost = async (input) => {
     return await res.json();
 }
 
+
+
+
+
+
 const Post = ({loggedInUser, post, onDelete}) => {
 
+
     const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState([])
+
+    const deleteCommentEvent = async (id) => {
+        console.log(id)
+        await deleteComment(id);
+    }
+
+    const createCommentEvent = async (input) => {
+        post.comments.push(input)
+        await createComment(post)
+    }
+
     return (
         <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
@@ -47,19 +65,26 @@ const Post = ({loggedInUser, post, onDelete}) => {
 
             <InteractionBar
                 toggle={() => setShowComments(!showComments)}
-                status={post.comments == null ? null : showComments}
+                status={post.comments < 1 ? null : showComments}
             />
             {showComments && post.comments?.map((comment, index) => (
                 <Comment key={index}
+                         postId={comment.id}
                          name={comment.user.name}
                          body={comment.body}
                          profilePictureID={comment.user.profilePictureId}
-                         last={post.comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
+
+                         last={null}
+                         onDeleteCom={deleteCommentEvent}
+
+
+
                          userId={comment.user.id}
+
                 />
             ))}
             {showComments ? (
-                <CreateComment/>
+                <CreateComment onAdd={createCommentEvent}/>
             ) : null}
 
         </div>
