@@ -40,9 +40,8 @@ public class UserService {
 
     public UserModel edit(UserModel user) {
         UserModel updatableUser = userRepository.findById(user.getId()).get();
-        updatableUser.setName(user.getName());
-        updatableUser.setAge(user.getAge());
-        updatableUser.setEmail(user.getEmail());
+        if (Boolean.parseBoolean(user.getName()))updatableUser.setName(user.getName());
+        if (user.getAge() != 0)updatableUser.setAge(user.getAge());
         return userRepository.save(updatableUser);
     }
 
