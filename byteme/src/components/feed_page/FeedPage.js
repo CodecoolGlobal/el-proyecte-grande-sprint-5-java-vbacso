@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import CreatePost from "../post/CreatePost";
 import Post, {createPost, deletePost} from "../post/Post";
+import Loading from "../common/Loading";
 
 const FeedPage = ({loggedInUser}) => {
 
@@ -26,11 +27,15 @@ const FeedPage = ({loggedInUser}) => {
         await deletePost(id);
         setPosts(posts.filter((p) => p.id !== id))
     }
-
-    return (<div className="post-container">
-        <CreatePost onAdd={createPostEvent}/>
-        {posts?.map((post) => (<Post key={post.id} post={post} onDelete={deletePostEvent}/>))}
-    </div>);
+    if (loggedInUser && posts) {
+        return (<div className="post-container">
+            <CreatePost onAdd={createPostEvent}/>
+            {posts?.map((post) => (
+                <Post key={post.id} post={post} loggedInUser={loggedInUser} onDelete={deletePostEvent}/>))}
+        </div>);
+    } else {
+        return <Loading/>
+    }
 };
 
 export default FeedPage;

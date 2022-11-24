@@ -19,6 +19,6 @@ public class Image {
     @JsonIncludeProperties({"id", "name"})
     @ManyToOne
     @JoinColumn(name = "user_id")
-    protected User user;
+    protected UserModel user;
     byte[] content;
 }
