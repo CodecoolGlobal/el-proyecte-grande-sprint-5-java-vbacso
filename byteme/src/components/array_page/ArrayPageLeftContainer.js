@@ -2,7 +2,7 @@ import {TiGroupOutline} from "react-icons/ti";
 import {BiPlus, BiSearchAlt2} from "react-icons/bi";
 import Array from "./Array";
 
-const ArrayPageLeftContainer = ({groups, showedUser}) => {
+const ArrayPageLeftContainer = ({groups, showedUser, setShowGroup}) => {
     return (
         <div className="user-page-left-container">
             <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark side-bar">
@@ -32,7 +32,7 @@ const ArrayPageLeftContainer = ({groups, showedUser}) => {
                             <h5>Groups managed by you</h5>
                         </div>
                         {groups.map(group => <Array key={group.id} group={group} showedUser={showedUser}
-                                                    placement="owner"/>)}
+                                                    placement="owner" setShowGroup={setShowGroup}/>)}
                     </div>
                 </div>
                 <hr/>
@@ -42,7 +42,7 @@ const ArrayPageLeftContainer = ({groups, showedUser}) => {
                             <h5>Groups you have joined</h5>
                         </li>
                         {groups.map(group => <Array key={group.id} group={group} showedUser={showedUser}
-                                                    placement="member"/>)}
+                                                    placement="member" setShowGroup={setShowGroup}/>)}
                     </ul>
                 </div>
             </div>
