@@ -2,7 +2,7 @@ import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
 import InteractionBar from "./post-components/InteractionBar";
 import {useState} from "react";
-import Comment, { deleteComment, createComment } from "./post-components/Comment";
+import Comment, {createComment, deleteComment} from "./post-components/Comment";
 import CreateComment from "./CreateComment";
 
 
@@ -26,10 +26,6 @@ export const createPost = async (input) => {
     })
     return await res.json();
 }
-
-
-
-
 
 
 const Post = ({loggedInUser, post, onDelete}) => {
@@ -73,14 +69,9 @@ const Post = ({loggedInUser, post, onDelete}) => {
                          name={comment.user.name}
                          body={comment.body}
                          profilePictureID={comment.user.profilePictureId}
-
                          last={null}
                          onDeleteCom={deleteCommentEvent}
-
-
-
                          userId={comment.user.id}
-
                 />
             ))}
             {showComments ? (

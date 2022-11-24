@@ -1,5 +1,4 @@
 import ProfilePicture from "../../user_page/ProfilePicture";
-import {FaTimes} from "react-icons/fa";
 
 export const deleteComment = async (id) => {
     await fetch(`http://localhost:8080/comment/delete/${id}`, {
@@ -22,7 +21,7 @@ export const createComment = async (input) => {
     return await res.json();
 }
 
-const Comment = ({postId,name, body, last, profilePictureID,onDeleteCom}) => {
+const Comment = ({postId, name, body, last, profilePictureID, onDeleteCom, userId}) => {
 
 
     return (
@@ -30,7 +29,7 @@ const Comment = ({postId,name, body, last, profilePictureID,onDeleteCom}) => {
             <ProfilePicture profilePictureId={profilePictureID} placement={"post"} userId={userId}/>
             <p>{name}</p>
             <p>{body}</p>
-            <a onClick={() => onDeleteCom(postId)} >DELETE</a>
+            <a onClick={() => onDeleteCom(postId)}>DELETE</a>
 
         </div>
     )
