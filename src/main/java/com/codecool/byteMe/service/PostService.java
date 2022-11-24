@@ -53,7 +53,6 @@ public class PostService {
                         .stream()
                         .map(UserModel::getId).toList());
         userIdsForFeed.add(userId);
-        System.out.println(postRepository.findByUser_IdIn(userIdsForFeed));
         return postRepository.findByUser_IdIn(userIdsForFeed);
     }
 }

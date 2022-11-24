@@ -61,7 +61,8 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
                         setShowedUser={setShowedUser}/>
             </div>
             <div className="user-page-right-container">
-                {loggedInUser.id === showedUser.id ? <CreatePost onAdd={createPostEvent} loggedInUser={loggedInUser}/> : ""}
+                {loggedInUser.id === showedUser.id ?
+                    <CreatePost onAdd={createPostEvent} loggedInUser={loggedInUser}/> : ""}
                 {posts.map((post) => (
                     <Post key={post.id} loggedInUser={loggedInUser} post={post} onDelete={deletePostEvent}/>))}
             </div>

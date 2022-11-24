@@ -38,7 +38,6 @@ public class JwtValidation extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader(jwtConfiguration.getAuthorizationHeader());
 
         if (isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfiguration.getTokenPrefix())) {
-            System.out.println("here");
             filterChain.doFilter(request, response);
             return;
         }
@@ -63,7 +62,6 @@ public class JwtValidation extends OncePerRequestFilter {
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("auth:" + authentication);
 
         } catch (JwtException e) {
             throw new IllegalStateException(String.format("Token %s cannot be trusted", token));

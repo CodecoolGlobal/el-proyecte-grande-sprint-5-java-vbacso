@@ -34,7 +34,6 @@ public class AppUserDetailService implements UserDetailsService {
             System.out.printf("User found in the db %s", email);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        System.out.println(user.getEmail() + user.getPassword());
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 

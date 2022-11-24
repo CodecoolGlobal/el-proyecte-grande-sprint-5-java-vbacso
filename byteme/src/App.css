@@ -171,6 +171,7 @@ html, body {
 }
 
 .comments-container {
+    position: relative;
     color: var(--secondary) !important;
     border: 3px solid lightpink;
     margin: 2px;
@@ -178,9 +179,16 @@ html, body {
     padding: 0.5em;
 }
 
-.last {
+.comments-wrapper div:last-child {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+}
+
+.comments-delete-link {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: black;
 }
 
 .delete-icon {

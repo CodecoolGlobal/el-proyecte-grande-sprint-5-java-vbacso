@@ -1,20 +1,21 @@
 import {useState} from "react";
 
-const CreateComment = ({onAdd}) => {
+const CreateComment = ({loggedInUser, post, onAdd}) => {
 
-    const user = JSON.parse(localStorage.getItem("loggedInUser"))
-    const [body, setCommentBody] = useState('')
+    const [commentBody, setCommentBody] = useState('')
+
     const onSubmit = (e) => {
         e.preventDefault()
-
-        if (!body) {
+        if (!commentBody) {
             alert("hey!")
             return
         }
-        const id = Math.floor(Math.random() * 2000)
-        const key = Math.floor(Math.random() * 2000)
-        console.log(user)
-        onAdd({body, user, id, key})
+        const newComment = {
+            'body': commentBody,
+            'user': loggedInUser,
+            'post': {'id': post.id}
+        }
+        onAdd(newComment)
         setCommentBody('')
     }
 
@@ -23,7 +24,7 @@ const CreateComment = ({onAdd}) => {
             <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor="exampleFormControlTextarea1" className="form-label"></label>
-                    <textarea className="form-control" rows="3" value={body}
+                    <textarea className="form-control" rows="3" value={commentBody}
                               onChange={(e) => setCommentBody(e.target.value)}
                               placeholder="What's in your byte today?"/>
                 </div>

@@ -1,4 +1,6 @@
 import ProfilePicture from "../../user_page/ProfilePicture";
+import {FaTimes} from "react-icons/fa";
+
 
 export const deleteComment = async (id) => {
     await fetch(`http://localhost:8080/comment/delete/${id}`, {
@@ -21,16 +23,16 @@ export const createComment = async (input) => {
     return await res.json();
 }
 
-const Comment = ({postId, name, body, last, profilePictureID, onDeleteCom, userId}) => {
+const Comment = ({commentId, name, body, profilePictureID, onDeleteCom, loggedInUserId, userId}) => {
 
 
     return (
-        <div className={last ? 'comments-container' : 'comments-container last'} style={{color: 'white'}}>
+        <div className={'comments-container'} style={{color: 'white'}}>
             <ProfilePicture profilePictureId={profilePictureID} placement={"post"} userId={userId}/>
             <p>{name}</p>
             <p>{body}</p>
-            <a onClick={() => onDeleteCom(postId)}>DELETE</a>
-
+            {userId === loggedInUserId ?
+                <FaTimes className={'comments-delete-link'} onClick={() => onDeleteCom(commentId)}/> : ""}
         </div>
     )
 }

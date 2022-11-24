@@ -32,18 +32,17 @@ const Post = ({loggedInUser, post, onDelete}) => {
 
 
     const [showComments, setShowComments] = useState(false);
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState(post.comments ? post.comments : [])
 
     const deleteCommentEvent = async (id) => {
-        console.log(id)
         await deleteComment(id);
+        setComments(comments.filter((c) => c.id !== id))
     }
 
     const createCommentEvent = async (input) => {
-        post.comments.push(input)
-        await createComment(post)
+        const newComment = await createComment(input)
+        setComments([...comments, newComment])
     }
-
     return (
         <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
@@ -63,19 +62,21 @@ const Post = ({loggedInUser, post, onDelete}) => {
                 toggle={() => setShowComments(!showComments)}
                 status={post.comments < 1 ? null : showComments}
             />
-            {showComments && post.comments?.map((comment, index) => (
-                <Comment key={index}
-                         postId={comment.id}
-                         name={comment.user.name}
-                         body={comment.body}
-                         profilePictureID={comment.user.profilePictureId}
-                         last={null}
-                         onDeleteCom={deleteCommentEvent}
-                         userId={comment.user.id}
-                />
-            ))}
+            <div className='comments-wrapper'>
+                {showComments && comments?.map((comment, index) => (
+                    <Comment key={index}
+                             commentId={comment.id}
+                             name={comment.user.name}
+                             body={comment.body}
+                             profilePictureID={comment.user.profilePictureId}
+                             onDeleteCom={deleteCommentEvent}
+                             loggedInUserId={loggedInUser.id}
+                             userId={comment.user.id}
+                    />
+                ))}
+            </div>
             {showComments ? (
-                <CreateComment onAdd={createCommentEvent}/>
+                <CreateComment loggedInUser={loggedInUser} post={post} onAdd={createCommentEvent}/>
             ) : null}
 
         </div>
