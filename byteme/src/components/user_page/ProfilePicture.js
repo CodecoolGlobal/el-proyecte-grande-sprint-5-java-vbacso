@@ -7,7 +7,7 @@ const ProfilePicture = ({userId, profilePictureId, placement}) => {
     const navigate = useNavigate();
     useEffect(() => {
         const fetchImage = async () => {
-            const resp = await fetch(`http://localhost:8080/image/${profilePictureId}`)
+            const resp = await fetch(`/image/${profilePictureId}`)
             const imageBlob = await resp.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImage(imageObjectURL);

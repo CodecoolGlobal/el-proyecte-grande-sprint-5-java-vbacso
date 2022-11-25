@@ -10,7 +10,7 @@ const FeedPage = ({loggedInUser}) => {
 
     useEffect(() => {
         const getPosts = async () => {
-            const resp = await fetch(`http://localhost:8080/post/feed/${loggedInUser.id}`);
+            const resp = await fetch(`/post/feed/${loggedInUser.id}`);
             if (resp.ok) {
                 const fetchedPosts = (await resp.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
                 setPosts(fetchedPosts);

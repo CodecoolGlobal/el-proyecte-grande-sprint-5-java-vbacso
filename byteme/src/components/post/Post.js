@@ -7,7 +7,7 @@ import CreateComment from "./CreateComment";
 
 
 export const deletePost = async (id) => {
-    await fetch(`http://localhost:8080/post/delete/${id}`, {
+    await fetch(`/post/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json'
@@ -17,7 +17,7 @@ export const deletePost = async (id) => {
 }
 
 export const createPost = async (input) => {
-    const res = await fetch(`http://localhost:8080/post/add`, {
+    const res = await fetch(`/post/add`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

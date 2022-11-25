@@ -15,7 +15,7 @@ function App() {
         if (localStorage.getItem("token")) {
             const fetchUser = async () => {
                 const JSONToken = JSON.parse(localStorage.getItem("token"))
-                const resp = await fetch(`http://localhost:8080/user/findByEmail/${JSONToken.sub}`);
+                const resp = await fetch(`/user/findByEmail/${JSONToken.sub}`);
                 if (resp.ok) {
                     setLoggedInUser(await resp.json())
                 }
@@ -28,7 +28,7 @@ function App() {
 
 
     const onLogin = async (email, password) => {
-        const resp = await fetch("http://localhost:8080/login", {
+        const resp = await fetch("/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ function App() {
     }
 
     const onRegistration = async (email, password, name, age) => {
-        const resp = await fetch("http://localhost:8080/registration", {
+        const resp = await fetch("/registration", {
             method: "POST",
             headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json',

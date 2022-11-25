@@ -17,7 +17,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     // Get user posts
     useEffect(() => {
         const getShowedUser = async () => {
-            const res = await fetch(`http://localhost:8080/user/findById/${params.userId}`);
+            const res = await fetch(`/user/findById/${params.userId}`);
             setShowedUser(await res.json())
         }
 
@@ -32,7 +32,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
 
     // Fetch user posts
     const fetchUserPosts = async () => {
-        const res = await fetch(`http://localhost:8080/post/user/${showedUser.id}`)
+        const res = await fetch(`/post/user/${showedUser.id}`)
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 

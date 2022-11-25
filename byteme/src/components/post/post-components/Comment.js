@@ -3,7 +3,7 @@ import {FaTimes} from "react-icons/fa";
 
 
 export const deleteComment = async (id) => {
-    await fetch(`http://localhost:8080/comment/delete/${id}`, {
+    await fetch(`/comment/delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json'
@@ -13,7 +13,7 @@ export const deleteComment = async (id) => {
 }
 
 export const createComment = async (input) => {
-    const res = await fetch(`http://localhost:8080/comment/add`, {
+    const res = await fetch(`/comment/add`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

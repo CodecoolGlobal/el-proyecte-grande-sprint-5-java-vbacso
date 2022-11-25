@@ -2,7 +2,7 @@ const DeleteFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowe
     const loggedInUserId = loggedInUser.id;
     const showedUserId = showedUser.id;
     const deleteFriend = async () => {
-        const resp = await fetch(`http://localhost:8080/user/${loggedInUserId}/${showedUserId}`, {
+        const resp = await fetch(`/user/${loggedInUserId}/${showedUserId}`, {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json'

@@ -8,7 +8,7 @@ const SearchBar = ({onSetShowedUser}) => {
     const navigate = useNavigate();
 
     const fetchSearchResult = async (param) => {
-        const resp = await fetch(`http://localhost:8080/user/search/${param}`)
+        const resp = await fetch(`/user/search/${param}`)
         if (resp.ok) {
             const results = await resp.json()
             setSearchResultUsers(results);
@@ -28,7 +28,7 @@ const SearchBar = ({onSetShowedUser}) => {
     const onClickSearchResult = async (e) => {
         e.preventDefault();
         const showedUserId = e.target.dataset.userId;
-        const res = await fetch(`http://localhost:8080/user/findById/${showedUserId}`);
+        const res = await fetch(`/user/findById/${showedUserId}`);
         onSetShowedUser(await res.json())
         setSearchResultUsers();
         document.querySelector("#search-text").value = "";
