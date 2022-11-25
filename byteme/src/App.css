@@ -436,10 +436,16 @@ p {
     border: 0 !important;
 }
 
+#age-input-registration::-webkit-outer-spin-button,
+#age-input-registration::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+
 @media screen and (max-width: 1000px) {
     .navbar {
         flex-direction: column;
     }
+
     .searchbar-position-fixer {
         width: 300px;
     }

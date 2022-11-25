@@ -33,7 +33,7 @@ const RegistrationForm = ({onSubmitForm}) => {
                        className="form-control"
                        required/>
                 <input id="age-input-registration" value={age} onChange={(e) => setAge(e.target.value)}
-                       type="text"
+                       type="number"
                        placeholder="Enter your age"
                        className="form-control"
                        required/>
