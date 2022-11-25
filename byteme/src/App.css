@@ -436,3 +436,12 @@ p {
     border: 0 !important;
 }
 
+@media screen and (max-width: 1000px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .searchbar-position-fixer {
+        width: 300px;
+    }
+}
+
