@@ -16,3 +16,7 @@ instead of
 ```
 GET http://localhost:8080/api/example
 ```
+
+# Frontend
+
+Add authorization header to authorized requests.

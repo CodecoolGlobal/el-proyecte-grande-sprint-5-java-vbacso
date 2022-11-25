@@ -4,7 +4,7 @@ import LoginPage from "./components/login/LoginPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import MainPage from "./components/MainPage";
 import RegistrationPage from "./components/registration/RegistrationPage";
-import {parseJwt} from "./util";
+import {getJwt, parseJwt} from "./util";
 
 function App() {
 
@@ -14,8 +14,11 @@ function App() {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             const fetchUser = async () => {
-                const JSONToken = JSON.parse(localStorage.getItem("token"))
-                const resp = await fetch(`/user/findByEmail/${JSONToken.sub}`);
+                const JSONToken = localStorage.getItem("token");
+                const tokenData = parseJwt(JSONToken);
+                const resp = await fetch(`/user/findByEmail/${tokenData.sub}`, {headers: {
+                    "Authorization": JSONToken
+                }});
                 if (resp.ok) {
                     setLoggedInUser(await resp.json())
                 }
@@ -37,8 +40,8 @@ function App() {
         });
         if (resp.ok) {
             const userToken = resp.headers.get("Authorization");
-            const JSONToken = parseJwt(userToken)
-            localStorage.setItem("token", JSON.stringify(JSONToken));
+            const JSONToken = getJwt(userToken);
+            localStorage.setItem("token", JSONToken);
             setToken(JSONToken)
         } else {
             alert(resp.status);
