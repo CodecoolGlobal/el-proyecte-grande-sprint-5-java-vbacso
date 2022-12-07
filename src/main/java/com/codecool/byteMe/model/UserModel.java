@@ -31,10 +31,15 @@ public class UserModel {
 
     @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private boolean isAccountNonExpired = true;
+    @JsonIgnore
     private boolean isAccountNonLocked = true;
+    @JsonIgnore
     private boolean isCredentialsNonExpired = true;
+    @JsonIgnore
     private boolean isEnabled = true;
 
     @JsonIncludeProperties({"id", "profilePictureId"})

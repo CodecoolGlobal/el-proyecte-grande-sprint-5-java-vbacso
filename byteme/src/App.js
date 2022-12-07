@@ -15,19 +15,18 @@ function App() {
         if (token) {
             const fetchUser = async () => {
                 const userEmail = extractEmailFromToken(token);
-                const resp = await fetch(`/user/findByEmail/${userEmail}`,
-                    {
-                        headers: {
-                            "Authorization": getAuthenticationToken()
-                        }
-                    });
+                const resp = await fetch(`/user/findByEmail/${userEmail}`, {
+                    headers: {
+                        "Authorization": getAuthenticationToken()
+                    }
+                });
                 if (resp.ok) {
                     setLoggedInUser(await resp.json());
                 } else {
                     navigate("/login")
                 }
             }
-            fetchUser().catch(console.error)
+            fetchUser().catch(console.error);
         } else {
             navigate("/login")
         }
@@ -36,11 +35,9 @@ function App() {
 
     const onLogin = async (email, password) => {
         const resp = await fetch("/login", {
-            method: "POST",
-            headers: {
+            method: "POST", headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({"email": email, "password": password})
+            }, body: JSON.stringify({"email": email, "password": password})
         });
         if (resp.ok) {
             const userTokenString = resp.headers.get("Authorization");
@@ -53,11 +50,9 @@ function App() {
 
     const onRegistration = async (email, password, name, age) => {
         const resp = await fetch("/registration", {
-            method: "POST",
-            headers: {
+            method: "POST", headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({"email": email, "password": password, "name": name, "age": age})
+            }, body: JSON.stringify({"email": email, "password": password, "name": name, "age": age})
         })
         if (resp.ok) {
             const user = await resp.json();
@@ -72,19 +67,16 @@ function App() {
         setLoggedInUser(null);
     };
 
-    return (
-        <Routes>
+    return (<Routes>
             <Route path='/*'
-                   element={loggedInUser ?
-                       <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} onLogout={onLogout}/> :
-                       loggedInUser === undefined ? <div>Loading...</div> :
-                           <Navigate replace to={"/login"}/>}/>
+                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                                     onLogout={onLogout}/> : loggedInUser === undefined ?
+                       <div>Loading...</div> : <Navigate replace to={"/login"}/>}/>
             <Route exact path='/login'
                    element={<LoginPage loggedInUser={loggedInUser} onLogin={onLogin}/>}/>
             <Route exact path='/registration'
                    element={<RegistrationPage loggedInUser={loggedInUser} onRegistration={onRegistration}/>}/>
-        </Routes>
-    );
+        </Routes>);
 }
 
 export default App;
