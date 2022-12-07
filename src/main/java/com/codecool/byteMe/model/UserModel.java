@@ -62,6 +62,12 @@ public class UserModel {
     @JoinColumn(name = "user_id")
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "sender")
+    private List<Message> sendedMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receivedMessages;
+
     public UserModel(RegistrationUserModel user) {
         this.name = user.getName();
         this.password = user.getPassword();
