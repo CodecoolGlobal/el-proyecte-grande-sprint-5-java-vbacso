@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import CreatePost from "../post/CreatePost";
 import Post, {createPost, deletePost} from "../post/Post";
 import Loading from "../common/Loading";
+import {getAuthenticationToken} from "../../util";
 
 
 const FeedPage = ({loggedInUser}) => {
@@ -10,7 +11,12 @@ const FeedPage = ({loggedInUser}) => {
 
     useEffect(() => {
         const getPosts = async () => {
-            const resp = await fetch(`/post/feed/${loggedInUser.id}`);
+            const resp = await fetch(`/post/feed/${loggedInUser.id}`,
+                {
+                    headers: {
+                        "Authorization": getAuthenticationToken()
+                    }
+                });
             if (resp.ok) {
                 const fetchedPosts = (await resp.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
                 setPosts(fetchedPosts);

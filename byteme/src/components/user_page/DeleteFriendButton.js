@@ -1,3 +1,5 @@
+import {getAuthenticationToken} from "../../util";
+
 const DeleteFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
     const loggedInUserId = loggedInUser.id;
     const showedUserId = showedUser.id;
@@ -5,6 +7,7 @@ const DeleteFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowe
         const resp = await fetch(`/user/${loggedInUserId}/${showedUserId}`, {
             method: "DELETE",
             headers: {
+                "Authorization": getAuthenticationToken(),
                 'Content-type': 'application/json'
             }
         });

@@ -7,6 +7,7 @@
 ## CrossOrigin
 
 Make the **frontend** send same-origin requests:
+
 ```
 GET /api/example
 ```

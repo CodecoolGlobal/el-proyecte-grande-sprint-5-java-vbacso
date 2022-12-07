@@ -1,6 +1,7 @@
 import ProfilePicture from "./ProfilePicture";
 import EditButton from "./EditButton";
 import Loading from "../common/Loading";
+import {getAuthenticationToken} from "../../util";
 
 const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
 
@@ -24,6 +25,7 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
             const resp = fetch('/user/update', {
                 method: "PUT",
                 headers: {
+                    "Authorization": getAuthenticationToken(),
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(user)

@@ -4,30 +4,34 @@ import LoginPage from "./components/login/LoginPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import MainPage from "./components/MainPage";
 import RegistrationPage from "./components/registration/RegistrationPage";
-import {getJwt, parseJwt} from "./util";
+import {extractEmailFromToken, getAuthenticationToken} from "./util";
 
 function App() {
 
     const [loggedInUser, setLoggedInUser] = useState();
-    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [token, setToken] = useState(getAuthenticationToken);
     const navigate = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (token) {
             const fetchUser = async () => {
-                const JSONToken = localStorage.getItem("token");
-                const tokenData = parseJwt(JSONToken);
-                const resp = await fetch(`/user/findByEmail/${tokenData.sub}`, {headers: {
-                    "Authorization": JSONToken
-                }});
+                const userEmail = extractEmailFromToken(token);
+                const resp = await fetch(`/user/findByEmail/${userEmail}`,
+                    {
+                        headers: {
+                            "Authorization": getAuthenticationToken()
+                        }
+                    });
                 if (resp.ok) {
-                    setLoggedInUser(await resp.json())
+                    setLoggedInUser(await resp.json());
+                } else {
+                    navigate("/login")
                 }
             }
             fetchUser().catch(console.error)
         } else {
-            setLoggedInUser(null)
+            navigate("/login")
         }
-    }, [JSON.stringify(token)])
+    }, [token])
 
 
     const onLogin = async (email, password) => {
@@ -39,10 +43,9 @@ function App() {
             body: JSON.stringify({"email": email, "password": password})
         });
         if (resp.ok) {
-            const userToken = resp.headers.get("Authorization");
-            const JSONToken = getJwt(userToken);
-            localStorage.setItem("token", JSONToken);
-            setToken(JSONToken)
+            const userTokenString = resp.headers.get("Authorization");
+            localStorage.setItem("token", userTokenString);
+            setToken(userTokenString)
         } else {
             alert(resp.status);
         }

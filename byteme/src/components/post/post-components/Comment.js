@@ -1,11 +1,13 @@
 import ProfilePicture from "../../user_page/ProfilePicture";
 import {FaTimes} from "react-icons/fa";
+import {getAuthenticationToken} from "../../../util";
 
 
 export const deleteComment = async (id) => {
     await fetch(`/comment/delete/${id}`, {
         method: 'DELETE',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(id)
@@ -16,6 +18,7 @@ export const createComment = async (input) => {
     const res = await fetch(`/comment/add`, {
         method: 'POST',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(input)

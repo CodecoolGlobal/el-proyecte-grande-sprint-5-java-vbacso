@@ -1,13 +1,18 @@
 import {useEffect, useState} from "react";
 import Loading from "../common/Loading";
 import {useNavigate} from "react-router-dom";
+import {getAuthenticationToken} from "../../util";
 
 const ProfilePicture = ({userId, profilePictureId, placement}) => {
     const [image, setImage] = useState();
     const navigate = useNavigate();
     useEffect(() => {
         const fetchImage = async () => {
-            const resp = await fetch(`/image/${profilePictureId}`)
+            const resp = await fetch(`/image/${profilePictureId}`, {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            })
             const imageBlob = await resp.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImage(imageObjectURL);

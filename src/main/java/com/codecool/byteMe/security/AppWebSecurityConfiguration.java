@@ -12,12 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import javax.crypto.SecretKey;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -49,7 +45,6 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtEmailAndPasswordAuthenticationFilter(authenticationManager(), jwtConfiguration, secretKey))
                 .addFilterAfter(new JwtValidation(secretKey, jwtConfiguration), JwtEmailAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                // .antMatchers("/**").permitAll()
                 .antMatchers("/css/**", "/js/**", "/login", "/registration").permitAll()
                 .anyRequest()
                 .authenticated();
@@ -66,19 +61,5 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(userDetailService);
         return provider;
-    }
-
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.setExposedHeaders(List.of("Authorization"));
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
     }
 }

@@ -1,3 +1,5 @@
+import {getAuthenticationToken} from "../../util";
+
 const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
     const loggedInUserId = loggedInUser.id;
     const showedUserId = showedUser.id;
@@ -5,6 +7,7 @@ const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUs
         const resp = await fetch(`/user/${loggedInUserId}/${showedUserId}`, {
             method: "PUT",
             headers: {
+                "Authorization": getAuthenticationToken(),
                 'Content-type': 'application/json'
             }
         });

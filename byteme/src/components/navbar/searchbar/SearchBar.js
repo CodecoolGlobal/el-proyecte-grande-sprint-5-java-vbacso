@@ -1,6 +1,7 @@
 import {BiSearchAlt2} from "react-icons/bi";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {getAuthenticationToken} from "../../../util";
 
 const SearchBar = ({onSetShowedUser}) => {
 
@@ -8,7 +9,12 @@ const SearchBar = ({onSetShowedUser}) => {
     const navigate = useNavigate();
 
     const fetchSearchResult = async (param) => {
-        const resp = await fetch(`/user/search/${param}`)
+        const resp = await fetch(`/user/search/${param}`,
+            {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            })
         if (resp.ok) {
             const results = await resp.json()
             setSearchResultUsers(results);
@@ -28,7 +34,12 @@ const SearchBar = ({onSetShowedUser}) => {
     const onClickSearchResult = async (e) => {
         e.preventDefault();
         const showedUserId = e.target.dataset.userId;
-        const res = await fetch(`/user/findById/${showedUserId}`);
+        const res = await fetch(`/user/findById/${showedUserId}`,
+            {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            });
         onSetShowedUser(await res.json())
         setSearchResultUsers();
         document.querySelector("#search-text").value = "";

@@ -4,12 +4,14 @@ import InteractionBar from "./post-components/InteractionBar";
 import {useState} from "react";
 import Comment, {createComment, deleteComment} from "./post-components/Comment";
 import CreateComment from "./CreateComment";
+import {getAuthenticationToken} from "../../util";
 
 
 export const deletePost = async (id) => {
     await fetch(`/post/delete/${id}`, {
         method: 'DELETE',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(id)
@@ -20,6 +22,7 @@ export const createPost = async (input) => {
     const res = await fetch(`/post/add`, {
         method: 'POST',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(input)
