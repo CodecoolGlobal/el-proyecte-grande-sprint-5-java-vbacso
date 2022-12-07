@@ -62,6 +62,13 @@ public class UserModel {
     @JoinColumn(name = "user_id")
     private List<Post> posts;
 
+    public UserModel(RegistrationUserModel user) {
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.age = user.getAge();
+        this.email = user.getEmail();
+    }
+
     @Override
     public String toString() {
         return "User{" +
