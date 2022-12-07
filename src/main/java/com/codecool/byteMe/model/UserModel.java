@@ -31,10 +31,15 @@ public class UserModel {
 
     @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
     private boolean isAccountNonExpired = true;
+    @JsonIgnore
     private boolean isAccountNonLocked = true;
+    @JsonIgnore
     private boolean isCredentialsNonExpired = true;
+    @JsonIgnore
     private boolean isEnabled = true;
 
     @JsonIncludeProperties({"id", "profilePictureId"})
@@ -56,6 +61,13 @@ public class UserModel {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Post> posts;
+
+    public UserModel(RegistrationUserModel user) {
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.age = user.getAge();
+        this.email = user.getEmail();
+    }
 
     @Override
     public String toString() {

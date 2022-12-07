@@ -8,6 +8,7 @@ import UserDetails from "./UserDetails";
 import Loading from "../common/Loading";
 import Friend from "./Friend";
 import {useParams} from "react-router-dom";
+import {getAuthenticationToken} from "../../util";
 
 const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
@@ -17,7 +18,12 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     // Get user posts
     useEffect(() => {
         const getShowedUser = async () => {
-            const res = await fetch(`http://localhost:8080/user/findById/${params.userId}`);
+            const res = await fetch(`/user/findById/${params.userId}`,
+                {
+                    headers: {
+                        "Authorization": getAuthenticationToken()
+                    }
+                });
             setShowedUser(await res.json())
         }
 
@@ -32,7 +38,12 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
 
     // Fetch user posts
     const fetchUserPosts = async () => {
-        const res = await fetch(`http://localhost:8080/post/user/${showedUser.id}`)
+        const res = await fetch(`/post/user/${showedUser.id}`,
+            {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            })
         return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     }
 

@@ -9,3 +9,4 @@
     - DB_USERNAME (e.g.: postgres)
     - DB_PASSWORD (e.g.: postgres)
     - DB_NAME (e.g.: byteme)
+    - JWT_SECRET (make sure it has enough entropy. It MUST have a size >= 256 bits)

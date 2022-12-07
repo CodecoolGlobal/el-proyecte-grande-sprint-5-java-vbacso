@@ -34,6 +34,8 @@ const RegistrationForm = ({onSubmitForm}) => {
                        required/>
                 <input id="age-input-registration" value={age} onChange={(e) => setAge(e.target.value)}
                        type="number"
+                       min="0"
+                       max="199"
                        placeholder="Enter your age"
                        className="form-control"
                        required/>

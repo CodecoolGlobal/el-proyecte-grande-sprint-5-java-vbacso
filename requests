@@ -1,0 +1,26 @@
+# -*- mode: restclient; restclient-inhibit-cookies: t -*-
+
+POST http://localhost:8080/registration
+Content-Type: application/json
+
+{
+ "name": "Benec",
+ "age": "36",
+ "email": "bence.fabian@codecool.com",
+ "password": "myverycoolpassword"
+}
+
+## Log in my super-duper user
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+ "email": "bence.fabian@codecool.com",
+ "password": "myverycoolpassword"
+}
+
+## Do an authorized request
+
+GET http://localhost:8080/user/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZW5jZS5mYWJpYW5AY29kZWNvb2wuY29tIiwiYXV0aG9yaXRpZXMiOltdLCJpYXQiOjE2NjkzNzI2NDQsImV4cCI6MTY3MDE5NDgwMH0.pEMOk2bKDRT4eHBRRcOty25w_CsKi0XaolS57vsKX_k

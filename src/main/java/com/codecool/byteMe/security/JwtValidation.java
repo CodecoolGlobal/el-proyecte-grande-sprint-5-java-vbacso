@@ -42,7 +42,7 @@ public class JwtValidation extends OncePerRequestFilter {
             return;
         }
 
-        String token = authorizationHeader.replace(jwtConfiguration.getTokenPrefix(), "");
+        String token = authorizationHeader.replace(jwtConfiguration.getTokenPrefix() + " ", "");
 
         try {
 

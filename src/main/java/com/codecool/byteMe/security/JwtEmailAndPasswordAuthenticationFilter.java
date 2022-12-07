@@ -1,8 +1,10 @@
 package com.codecool.byteMe.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -41,6 +43,9 @@ public class JwtEmailAndPasswordAuthenticationFilter extends UsernamePasswordAut
                     authenticationRequest.getPassword()
             );
             return authenticationManager.authenticate(authentication);
+        } catch (UnrecognizedPropertyException e) {
+            throw new AuthenticationServiceException("unrecognized field: " + e.getMessage(), e);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,6 +63,6 @@ public class JwtEmailAndPasswordAuthenticationFilter extends UsernamePasswordAut
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfiguration.getTokenExpirationAfterDays())))
                 .signWith(secretKey)
                 .compact();
-        response.addHeader(jwtConfiguration.getAuthorizationHeader(), jwtConfiguration.getTokenPrefix() + token);
+        response.addHeader(jwtConfiguration.getAuthorizationHeader(), jwtConfiguration.getTokenPrefix() + " " + token);
     }
 }
