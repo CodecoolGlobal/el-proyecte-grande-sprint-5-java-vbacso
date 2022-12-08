@@ -3,6 +3,7 @@ import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import Chat from "./chat/Chat";
 
 const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showedUser, setShowedUser] = useState(loggedInUser);
@@ -42,6 +43,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
                                           setShowedUser={setShowedUser}/>}
                 />
             </Routes>
+            <Chat loggedInUser={loggedInUser}/>
         </div>
     );
 };

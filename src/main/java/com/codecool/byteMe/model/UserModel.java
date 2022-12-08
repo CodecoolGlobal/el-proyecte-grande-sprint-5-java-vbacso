@@ -42,7 +42,7 @@ public class UserModel {
     @JsonIgnore
     private boolean isEnabled = true;
 
-    @JsonIncludeProperties({"id", "profilePictureId"})
+    @JsonIncludeProperties({"id", "name", "profilePictureId"})
     @ManyToMany
     @JoinTable(
             name = "user_friend",
@@ -63,9 +63,11 @@ public class UserModel {
     private List<Post> posts;
 
     @OneToMany(mappedBy = "sender")
+    @JsonIgnore
     private List<Message> sendedMessages;
 
     @OneToMany(mappedBy = "receiver")
+    @JsonIgnore
     private List<Message> receivedMessages;
 
     public UserModel(RegistrationUserModel user) {

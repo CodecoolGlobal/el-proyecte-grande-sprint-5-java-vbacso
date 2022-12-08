@@ -441,6 +441,45 @@ p {
     -webkit-appearance: none !important;
 }
 
+.chat-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.button-chat {
+    float: right;
+}
+
+.profile-pic-in-chat img {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.chat-box-header {
+    white-space: nowrap;
+}
+
+.chat-friend-container {
+    margin: 0.5em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.chat-message-sended {
+    text-align: left;
+}
+
+.chat-message-received {
+    text-align: right;
+}
+
+
 @media screen and (max-width: 1000px) {
     .navbar {
         flex-direction: column;
