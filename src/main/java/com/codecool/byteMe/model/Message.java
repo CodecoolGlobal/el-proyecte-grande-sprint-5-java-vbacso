@@ -35,4 +35,13 @@ public class Message {
 
     private String content;
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "sender=" + sender +
+                ", receiver=" + receiver +
+                ", created=" + created +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
