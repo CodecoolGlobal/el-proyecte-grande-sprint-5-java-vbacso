@@ -31,7 +31,6 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
                 created: new Date(),
                 status: "MESSAGE"
             };
-            console.log(chatMessage);
             stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
             copySelfMessage(chatMessage);
             setMessage("");

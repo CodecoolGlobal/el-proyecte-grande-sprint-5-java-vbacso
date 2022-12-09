@@ -13,7 +13,6 @@ const Chat = ({loggedInUser}) => {
 
     useEffect(() => {
         setFriends(loggedInUser.friendList)
-        console.log(privateChats)
     }, [loggedInUser.friendList]);
 
 

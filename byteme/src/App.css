@@ -465,6 +465,8 @@ p {
 
 .chat-friend-container {
     margin: 0.5em;
+    background-color: var(--secondary);
+    border: 1px solid var(--primary);
 }
 
 .hidden {
