@@ -4,7 +4,7 @@ import {getAuthenticationToken} from "../../../util";
 
 
 export const deleteComment = async (id) => {
-    await fetch(`/comment/delete/${id}`, {
+    await fetch(`http://localhost:8080/comment/delete/${id}`, {
         method: 'DELETE',
         headers: {
             "Authorization": getAuthenticationToken(),
@@ -15,7 +15,7 @@ export const deleteComment = async (id) => {
 }
 
 export const createComment = async (input) => {
-    const res = await fetch(`/comment/add`, {
+    const res = await fetch(`http://localhost:8080/comment/add`, {
         method: 'POST',
         headers: {
             "Authorization": getAuthenticationToken(),

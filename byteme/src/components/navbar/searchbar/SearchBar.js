@@ -9,7 +9,7 @@ const SearchBar = ({onSetShowedUser}) => {
     const navigate = useNavigate();
 
     const fetchSearchResult = async (param) => {
-        const resp = await fetch(`/user/search/${param}`,
+        const resp = await fetch(`http://localhost:8080/user/search/${param}`,
             {
                 headers: {
                     "Authorization": getAuthenticationToken()
@@ -34,7 +34,7 @@ const SearchBar = ({onSetShowedUser}) => {
     const onClickSearchResult = async (e) => {
         e.preventDefault();
         const showedUserId = e.target.dataset.userId;
-        const res = await fetch(`/user/findById/${showedUserId}`,
+        const res = await fetch(`http://localhost:8080/user/findById/${showedUserId}`,
             {
                 headers: {
                     "Authorization": getAuthenticationToken()

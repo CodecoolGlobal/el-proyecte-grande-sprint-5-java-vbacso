@@ -8,7 +8,7 @@ import {getAuthenticationToken} from "../../util";
 
 
 export const deletePost = async (id) => {
-    await fetch(`/post/delete/${id}`, {
+    await fetch(`http://localhost:8080/post/delete/${id}`, {
         method: 'DELETE',
         headers: {
             "Authorization": getAuthenticationToken(),
@@ -19,7 +19,7 @@ export const deletePost = async (id) => {
 }
 
 export const createPost = async (input) => {
-    const res = await fetch(`/post/add`, {
+    const res = await fetch(`http://localhost:8080/post/add`, {
         method: 'POST',
         headers: {
             "Authorization": getAuthenticationToken(),

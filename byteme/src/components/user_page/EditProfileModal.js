@@ -22,7 +22,7 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
         setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge});
 
         const saveUserData = async (user) => {
-            const resp = fetch('/user/update', {
+            const resp = fetch('http://localhost:8080/user/update', {
                 method: "PUT",
                 headers: {
                     "Authorization": getAuthenticationToken(),

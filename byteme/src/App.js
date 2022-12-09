@@ -15,7 +15,7 @@ function App() {
         if (token) {
             const fetchUser = async () => {
                 const userEmail = extractEmailFromToken(token);
-                const resp = await fetch(`/user/findByEmail/${userEmail}`, {
+                const resp = await fetch(`http://localhost:8080/user/findByEmail/${userEmail}`, {
                     headers: {
                         "Authorization": getAuthenticationToken()
                     }
@@ -34,7 +34,7 @@ function App() {
 
 
     const onLogin = async (email, password) => {
-        const resp = await fetch("/login", {
+        const resp = await fetch("http://localhost:8080/login", {
             method: "POST", headers: {
                 'Content-Type': 'application/json',
             }, body: JSON.stringify({"email": email, "password": password})
@@ -49,7 +49,7 @@ function App() {
     }
 
     const onRegistration = async (email, password, name, age) => {
-        const resp = await fetch("/registration", {
+        const resp = await fetch("http://localhost:8080/registration", {
             method: "POST", headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json',
             }, body: JSON.stringify({"email": email, "password": password, "name": name, "age": age})

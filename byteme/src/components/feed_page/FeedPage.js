@@ -11,7 +11,7 @@ const FeedPage = ({loggedInUser}) => {
 
     useEffect(() => {
         const getPosts = async () => {
-            const resp = await fetch(`/post/feed/${loggedInUser.id}`,
+            const resp = await fetch(`http://localhost:8080/post/feed/${loggedInUser.id}`,
                 {
                     headers: {
                         "Authorization": getAuthenticationToken()

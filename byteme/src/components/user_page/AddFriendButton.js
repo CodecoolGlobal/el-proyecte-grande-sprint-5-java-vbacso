@@ -4,7 +4,7 @@ const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUs
     const loggedInUserId = loggedInUser.id;
     const showedUserId = showedUser.id;
     const addFriend = async () => {
-        const resp = await fetch(`/user/${loggedInUserId}/${showedUserId}`, {
+        const resp = await fetch(`http://localhost:8080/user/${loggedInUserId}/${showedUserId}`, {
             method: "PUT",
             headers: {
                 "Authorization": getAuthenticationToken(),

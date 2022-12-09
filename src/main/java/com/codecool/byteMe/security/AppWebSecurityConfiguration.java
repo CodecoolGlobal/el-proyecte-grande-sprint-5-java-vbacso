@@ -12,8 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
 
 import javax.crypto.SecretKey;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -37,7 +39,14 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .cors()
+                .cors().configurationSource(request -> {
+                    var cors = new CorsConfiguration();
+                    cors.setAllowedOrigins(List.of("http://localhost:3000"));
+                    cors.setAllowedMethods(List.of("*"));
+                    cors.setAllowedHeaders(List.of("*"));
+                    cors.addExposedHeader("Authorization");
+                    return cors;
+                })
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
