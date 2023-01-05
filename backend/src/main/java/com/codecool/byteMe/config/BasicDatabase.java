@@ -154,7 +154,7 @@ public class BasicDatabase {
     public Image zenoProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/zeno.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/zeno.jpg").toPath()))
                     .user(zeno())
                     .build();
         } catch (IOException e) {
@@ -167,7 +167,7 @@ public class BasicDatabase {
     public Image vandaProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/vanda.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/vanda.jpg").toPath()))
                     .user(vanda())
                     .build();
         } catch (IOException e) {
@@ -180,7 +180,7 @@ public class BasicDatabase {
     public Image erikProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/erik.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/erik.jpg").toPath()))
                     .user(erik())
                     .build();
         } catch (IOException e) {
@@ -193,7 +193,7 @@ public class BasicDatabase {
     public Image daniProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("src/main/resources/static/dani.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/dani.jpg").toPath()))
                     .user(dani())
                     .build();
         } catch (IOException e) {
