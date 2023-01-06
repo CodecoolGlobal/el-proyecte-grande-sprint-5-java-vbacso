@@ -1,6 +1,7 @@
 package com.codecool.byteMe.controller;
 
 import com.codecool.byteMe.model.Group;
+import com.codecool.byteMe.model.postable.Post;
 import com.codecool.byteMe.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,12 @@ public class GroupController {
     @DeleteMapping("delete/{groupId}")
     public void deleteGroup(@PathVariable Long groupId) {
         groupService.delete(groupId);
+    }
+
+    @PostMapping("post/add/{groupId}")
+    public Group addPostToGroup(@RequestBody Post post, @PathVariable Long groupId) {
+        System.out.println(post);
+        System.out.println(groupId);
+        return groupService.addPostToGroup(post, groupId);
     }
 }
