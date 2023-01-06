@@ -1,0 +1,25 @@
+FROM node:18-alpine3.16 as builder
+
+WORKDIR build
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+
+RUN npm ci
+
+COPY src src
+COPY public public
+COPY .env .env
+
+RUN ["npm", "run", "build"]
+
+FROM node:18-alpine3.16
+
+WORKDIR app
+
+RUN npm i http-server
+
+COPY --from=builder /build/build static
+
+# TODO: set up proxy-ing
+ENTRYPOINT npx http-server static -bz
