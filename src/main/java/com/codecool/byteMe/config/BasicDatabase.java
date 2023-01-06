@@ -154,7 +154,7 @@ public class BasicDatabase {
     public Image zenoProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/zeno.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/zeno.jpg").toPath()))
                     .user(zeno())
                     .build();
         } catch (IOException e) {
@@ -167,7 +167,7 @@ public class BasicDatabase {
     public Image vandaProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/vanda.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/vanda.jpg").toPath()))
                     .user(vanda())
                     .build();
         } catch (IOException e) {
@@ -180,7 +180,7 @@ public class BasicDatabase {
     public Image erikProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/erik.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/erik.jpg").toPath()))
                     .user(erik())
                     .build();
         } catch (IOException e) {
@@ -193,7 +193,7 @@ public class BasicDatabase {
     public Image daniProfilePicture() {
         try {
             return Image.builder()
-                    .content(Files.readAllBytes(new File("backend/src/main/resources/static/dani.jpg").toPath()))
+                    .content(Files.readAllBytes(new File("src/main/resources/static/dani.jpg").toPath()))
                     .user(dani())
                     .build();
         } catch (IOException e) {
@@ -202,52 +202,52 @@ public class BasicDatabase {
         }
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository,
-                                        PostRepository postRepository,
-                                        CommentRepository commentRepository,
-                                        ImageRepository imageRepository) {
-        return args -> {
-            userRepository.save(vanda());
-            userRepository.save(zeno());
-            userRepository.save(erik());
-            userRepository.save(dani());
-
-            vanda().setFriendList(List.of(zeno()));
-            zeno().setFriendList(List.of(vanda()));
-
-            userRepository.save(vanda());
-            userRepository.save(zeno());
-
-            imageRepository.save(zenoProfilePicture());
-            imageRepository.save(vandaProfilePicture());
-            imageRepository.save(erikProfilePicture());
-            imageRepository.save(daniProfilePicture());
-
-            UserModel updateZeno = userRepository.findById(zeno().getId()).get();
-            updateZeno.setProfilePictureId(zenoProfilePicture().getId());
-            userRepository.save(updateZeno);
-
-            UserModel updateVanda = userRepository.findById(vanda().getId()).get();
-            updateVanda.setProfilePictureId(vandaProfilePicture().getId());
-            userRepository.save(updateVanda);
-
-            UserModel updateErik = userRepository.findById(erik().getId()).get();
-            updateErik.setProfilePictureId(erikProfilePicture().getId());
-            userRepository.save(updateErik);
-
-            UserModel updateDani = userRepository.findById(dani().getId()).get();
-            updateDani.setProfilePictureId(daniProfilePicture().getId());
-            userRepository.save(updateDani);
-
-            postRepository.save(zenoFirstPost());
-            postRepository.save(zenoSecondPost());
-            postRepository.save(vandaFirstPost());
-
-            commentRepository.save(daniFirstComment());
-            commentRepository.save(daniFirstComment2());
-            commentRepository.save(daniFirstComment3());
-            commentRepository.save(erikFirstComment());
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(UserRepository userRepository,
+//                                        PostRepository postRepository,
+//                                        CommentRepository commentRepository,
+//                                        ImageRepository imageRepository) {
+//        return args -> {
+//            userRepository.save(vanda());
+//            userRepository.save(zeno());
+//            userRepository.save(erik());
+//            userRepository.save(dani());
+//
+//            vanda().setFriendList(List.of(zeno()));
+//            zeno().setFriendList(List.of(vanda()));
+//
+//            userRepository.save(vanda());
+//            userRepository.save(zeno());
+//
+//            imageRepository.save(zenoProfilePicture());
+//            imageRepository.save(vandaProfilePicture());
+//            imageRepository.save(erikProfilePicture());
+//            imageRepository.save(daniProfilePicture());
+//
+//            UserModel updateZeno = userRepository.findById(zeno().getId()).get();
+//            updateZeno.setProfilePictureId(zenoProfilePicture().getId());
+//            userRepository.save(updateZeno);
+//
+//            UserModel updateVanda = userRepository.findById(vanda().getId()).get();
+//            updateVanda.setProfilePictureId(vandaProfilePicture().getId());
+//            userRepository.save(updateVanda);
+//
+//            UserModel updateErik = userRepository.findById(erik().getId()).get();
+//            updateErik.setProfilePictureId(erikProfilePicture().getId());
+//            userRepository.save(updateErik);
+//
+//            UserModel updateDani = userRepository.findById(dani().getId()).get();
+//            updateDani.setProfilePictureId(daniProfilePicture().getId());
+//            userRepository.save(updateDani);
+//
+//            postRepository.save(zenoFirstPost());
+//            postRepository.save(zenoSecondPost());
+//            postRepository.save(vandaFirstPost());
+//
+//            commentRepository.save(daniFirstComment());
+//            commentRepository.save(daniFirstComment2());
+//            commentRepository.save(daniFirstComment3());
+//            commentRepository.save(erikFirstComment());
+//        };
+//    }
 }
