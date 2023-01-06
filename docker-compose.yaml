@@ -1,13 +1,13 @@
 services:
   ui:
     container_name: frontend
-    build: byteme/.
+    build: frontend/.
     ports:
       - "3000:3000"
 
   api:
     container_name: backend
-    build: .
+    build: backend/.
     depends_on:
       - postgres
     ports:
