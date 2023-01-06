@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const CreatePost = ({onAdd}) => {
+const CreatePost = ({onAdd, placement}) => {
 
     const user = JSON.parse(localStorage.getItem("loggedInUser"))
     const [title, setName] = useState('');
