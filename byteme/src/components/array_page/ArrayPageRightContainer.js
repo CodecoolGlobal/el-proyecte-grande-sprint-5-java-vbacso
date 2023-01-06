@@ -2,12 +2,33 @@ import Post from "../post/Post";
 import CreatePost from "../post/CreatePost";
 import ProfilePicture from "../user_page/ProfilePicture";
 import CoverPhoto from "./CoverPhoto";
+import {useState} from "react";
 
 const ArrayPageRightContainer = ({showGroup}) => {
     const posts = showGroup.posts;
 
     const image = showGroup.image;
     const imageId = posts !== undefined && image !== null ? image.id : null;
+
+    const [groupPosts, setGroupPosts] = useState([]);
+
+    const createGroupPost = async (input) => {
+        console.log(input)
+        console.log(showGroup.id)
+        const res = await fetch(`http://localhost:8080/group/post/add/${showGroup.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(input)
+        })
+        return await res.json();
+    };
+
+    const createGroupPostEvent = async (input) => {
+        const newPost = await createGroupPost(input);
+        setGroupPosts([newPost, ...groupPosts]);
+    };
 
     return (
         <div className="user-page-right-container justify-content-center">
@@ -26,7 +47,7 @@ const ArrayPageRightContainer = ({showGroup}) => {
                                                                          userId={member.id} placement="post"/>)}
                     </div>}
                 </div>
-                <CreatePost/>
+                <CreatePost onAdd={createGroupPostEvent} placement="group"/>
             </div> : ""}
             {posts !== undefined ? posts.map(post => <Post key={post.id} post={post}/>) : ""}
         </div>
