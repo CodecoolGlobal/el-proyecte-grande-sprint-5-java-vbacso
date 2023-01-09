@@ -1,9 +1,7 @@
 package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.GroupRepository;
-import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.model.Group;
-import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +12,10 @@ import java.util.NoSuchElementException;
 public class GroupService {
 
     private GroupRepository groupRepository;
-    private PostRepository postRepository;
 
     @Autowired
-    public GroupService(GroupRepository groupRepository, PostRepository postRepository) {
+    public GroupService(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
-        this.postRepository = postRepository;
     }
 
     public List<Group> getAll() {
@@ -44,12 +40,5 @@ public class GroupService {
 
     public void delete(Long groupId) {
         groupRepository.deleteById(groupId);
-    }
-
-    public Group addPostToGroup(Post post, Long groupId) {
-        Post groupPost = postRepository.save(post);
-        Group group = findById(groupId);
-        group.setPosts(List.of(groupPost));
-        return groupRepository.save(group);
     }
 }
