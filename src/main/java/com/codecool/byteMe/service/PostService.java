@@ -1,7 +1,9 @@
 package com.codecool.byteMe.service;
 
+import com.codecool.byteMe.dao.GroupRepository;
 import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.dao.UserRepository;
+import com.codecool.byteMe.model.Group;
 import com.codecool.byteMe.model.User;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ import java.util.NoSuchElementException;
 public class PostService {
     private PostRepository postRepository;
     private UserRepository userRepository;
+    private GroupRepository groupRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, GroupRepository groupRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.groupRepository = groupRepository;
     }
 
     public List<Post> getAll() {
@@ -55,5 +59,15 @@ public class PostService {
         userIdsForFeed.add(userId);
         System.out.println(postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed));
         return postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed);
+    }
+
+    public Post addPostToGroup(Post post, Long groupId) {
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new NoSuchElementException("Invalid id: " + groupId));
+        post.setGroup(group);
+        return postRepository.save(post);
+    }
+
+    public List<Post> findByGroupId(Long groupId) {
+        return postRepository.findByGroupId(groupId);
     }
 }
