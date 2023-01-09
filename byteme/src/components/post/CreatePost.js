@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const CreatePost = ({onAdd, placement}) => {
+const CreatePost = ({onAdd, showGroupId, placement}) => {
 
     const user = JSON.parse(localStorage.getItem("loggedInUser"))
     const [title, setName] = useState('');
@@ -10,10 +10,19 @@ const CreatePost = ({onAdd, placement}) => {
         e.preventDefault()
 
         if (!body) {
-            alert("hey!")
-            return
+            alert("Empty body!")
+            return;
+        } else if (!title) {
+            alert("Empty title!");
+            return;
         }
-        onAdd({body, title, user})
+
+        if (placement === 'group') {
+            onAdd({body, title, showGroupId, user});
+        } else {
+            onAdd({body, title, user})
+        }
+
         setName('')
         setPostBody('')
     }
