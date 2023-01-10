@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
     private CommentService commentService;
 
@@ -50,5 +51,10 @@ public class CommentController {
     @DeleteMapping("delete/{commentId}")
     public void delete(@PathVariable Long commentId) {
         commentService.delete(commentId);
+    }
+
+    @PostMapping("/add/{postId}")
+    public Comment addCommentToPost(@PathVariable Long postId, @RequestBody Comment comment) {
+        return commentService.addCommentToPost(postId, comment);
     }
 }
