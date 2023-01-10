@@ -24,4 +24,17 @@ public class Comment extends Postable {
         super(user, body);
         this.post = post;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "post=" + post +
+                ", id=" + id +
+                ", user=" + user +
+                ", group=" + group +
+                ", body='" + body + '\'' +
+                ", vote=" + vote +
+                ", created=" + created +
+                '}';
+    }
 }
