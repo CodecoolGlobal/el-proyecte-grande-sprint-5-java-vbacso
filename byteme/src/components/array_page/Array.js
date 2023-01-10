@@ -1,9 +1,9 @@
-const Array = ({group, showedUser, placement, setShowGroup}) => {
+const Array = ({group, loggedInUser, placement, setShowGroup}) => {
 
     const isOwnerPlacement = () => {
-        if (group.owner.id === showedUser.id && placement === "owner") {
+        if (group.owner.id === loggedInUser.id && placement === "owner") {
             return true;
-        } else if (group.owner.id === showedUser.id && placement === "member") {
+        } else if (group.owner.id === loggedInUser.id && placement === "member") {
             return false;
         } else {
             return false;
@@ -12,9 +12,9 @@ const Array = ({group, showedUser, placement, setShowGroup}) => {
 
     const isMemberPlacement = () => {
         for (let member of group.members) {
-            if (member.id === showedUser.id && group.owner.id === showedUser.id) {
+            if (member.id === loggedInUser.id && group.owner.id === loggedInUser.id) {
                 return false;
-            } else if (member.id === showedUser.id && placement === "member") {
+            } else if (member.id === loggedInUser.id && placement === "member") {
                 return true;
             }
         }

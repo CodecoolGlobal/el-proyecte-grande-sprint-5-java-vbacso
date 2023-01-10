@@ -48,7 +48,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
                                           showedUser={showedUser}
                                           setShowedUser={setShowedUser}/>}
                 />
-                <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser} showedUser={showedUser}/>}/>
+                <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser}/>}/>
             </Routes>
         </div>
     );
