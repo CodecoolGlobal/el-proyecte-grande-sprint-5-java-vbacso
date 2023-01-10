@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -40,8 +41,8 @@ public class UserService {
 
     public UserModel edit(UserModel user) {
         UserModel updatableUser = userRepository.findById(user.getId()).get();
-        if (Boolean.parseBoolean(user.getName())) updatableUser.setName(user.getName());
-        if (user.getAge() != 0) updatableUser.setAge(user.getAge());
+        if ((!Objects.equals(user.getName(), ""))) updatableUser.setName(user.getName());
+        if (user.getAge() > 0) updatableUser.setAge(user.getAge());
         return userRepository.save(updatableUser);
     }
 
