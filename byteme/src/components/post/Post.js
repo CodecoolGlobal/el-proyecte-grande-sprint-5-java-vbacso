@@ -1,7 +1,7 @@
 import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
 import InteractionBar from "./post-components/InteractionBar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Comment from "./post-components/Comment";
 import CreateComment from "./CreateComment";
 
@@ -30,6 +30,21 @@ export const createPost = async (input) => {
 const Post = ({post, onDelete}) => {
 
     const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        const getCommentsByPostId = async () => {
+            const resp = await fetchCommentsByPostId();
+            setComments(resp);
+        };
+        getCommentsByPostId().catch(console.error);
+    }, []);
+
+    const fetchCommentsByPostId = async () => {
+        const comments = await fetch(`http://localhost:8080/comment/post/${post.id}`);
+        return (await comments.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
+    };
+
     return (
         <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
@@ -44,21 +59,20 @@ const Post = ({post, onDelete}) => {
                 postBody={post.body}
             />
 
-            <InteractionBar
-                toggle={() => setShowComments(!showComments)}
-                status={post.comments == null ? null : showComments}
-            />
-            {showComments && post.comments?.map((comment, index) => (
+            <InteractionBar toggle={() => {
+                setShowComments(!showComments)
+            }} status={post.comments == null ? null : showComments} post={post}/>
+            {showComments && comments?.map((comment, index) => (
                 <Comment key={index}
                          name={comment.user.name}
                          body={comment.body}
                          profilePictureID={comment.user.profilePictureId}
-                         last={post.comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
+                         last={comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
 
                 />
             ))}
             {showComments ? (
-                <CreateComment/>
+                <CreateComment postId={post.id} setComments={setComments} comments={comments}/>
             ) : null}
 
         </div>
