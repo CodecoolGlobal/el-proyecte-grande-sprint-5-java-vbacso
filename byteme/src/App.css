@@ -424,6 +424,11 @@ p {
     align-items: center;
 }
 
+.user-data-age input::-webkit-outer-spin-button,
+.user-data-age input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+
 
 .edit-btn {
     padding: 1em !important;
