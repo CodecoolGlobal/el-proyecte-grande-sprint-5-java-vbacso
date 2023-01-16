@@ -42,7 +42,15 @@ const Chat = ({loggedInUser}) => {
             privateChats.set(payloadData.sender.id, list);
             setPrivateChats(new Map(privateChats));
         }
+        alertIfHidden(payloadData.sender.id);
     }
+
+    const alertIfHidden = (senderId) => {
+        const isHidden = document.querySelector(`#chat-box-${senderId}`).classList.contains("hidden")
+        if (isHidden) {
+            document.querySelector(`#message-alert-${senderId}`).classList.remove("hide")
+        }
+    };
 
     const copySelfMessage = (msg) => {
         if (privateChats.get(msg.receiver.id)) {

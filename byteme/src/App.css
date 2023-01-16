@@ -604,6 +604,22 @@ p {
     right: 10%;
 }
 
+.message-alert-icon {
+    color: var(--primary);
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes pulse {
+    to {color: transparent;}
+}
+
+.hide {
+    visibility: hidden;
+}
+
 img:hover {
     cursor: pointer;
 }
