@@ -20,10 +20,14 @@ public class ChatController {
     }
 
     @MessageMapping("/message")
-    public Message receivePrivateMessage(@Payload Message message) {
+    public void receivePrivateMessage(@Payload Message message) {
         System.out.println(message);
 
         simpMessagingTemplate.convertAndSendToUser(message.getReceiver().getId().toString(),"/private",message); // /user/{userId}/private
-        return message;
+    }
+
+    @MessageMapping("/login")
+    public void login(@Payload Message message) {
+        System.out.println(message);
     }
 }

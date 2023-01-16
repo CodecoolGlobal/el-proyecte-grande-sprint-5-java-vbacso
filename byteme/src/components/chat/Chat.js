@@ -18,7 +18,7 @@ const Chat = ({loggedInUser}) => {
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/websocket');
         stompClient = over(Sock);
-        stompClient.connect({}, onConnected, onError);
+        stompClient.connect({userId:loggedInUser.id}, onConnected, onError);
     }
 
     const onConnected = () => {
