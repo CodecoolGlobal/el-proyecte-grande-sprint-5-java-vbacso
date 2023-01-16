@@ -62,7 +62,7 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     if (!posts || !showedUser) {
         return (<Loading/>)
     } else {
-        return (<div className="user-page-container">
+        return (<div className="user-page-container flex-fill">
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId} userId={showedUser.id}/>
                 <UserDetails showedUser={showedUser} setShowedUser={setShowedUser}/>

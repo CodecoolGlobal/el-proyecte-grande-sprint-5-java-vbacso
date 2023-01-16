@@ -15,12 +15,6 @@ const Chat = ({loggedInUser}) => {
         setFriends(loggedInUser.friendList)
     }, [loggedInUser.friendList]);
 
-
-    const toggleChat = () => {
-        const friendContainer = document.querySelector(".chat-friend-container");
-        friendContainer.classList.toggle("hidden");
-    };
-
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/websocket');
         stompClient = over(Sock);
@@ -30,7 +24,7 @@ const Chat = ({loggedInUser}) => {
     const onConnected = () => {
         setConnectionEstablished(true);
         stompClient.unsubscribe(loggedInUser.id);
-        stompClient.subscribe('/user/' + loggedInUser.id + '/private', onPrivateMessage,{id:loggedInUser.id});
+        stompClient.subscribe('/user/' + loggedInUser.id + '/private', onPrivateMessage, {id: loggedInUser.id});
     }
 
     const onError = (err) => {
@@ -66,22 +60,22 @@ const Chat = ({loggedInUser}) => {
         connect();
     }
 
-    return (<div>
+    return (
+        <div className="chat-panel d-flex flex-column me-3">
             {connectionEstablished ?
-                <div className="chat-container">
-                    <div className="chat-friend-container hidden">
-                        {friends?.map(friend => (
-                            <ChatBox key={friend.id}
-                                     stompClient={stompClient}
-                                     loggedInUser={loggedInUser}
-                                     receiverUser={friend}
-                                     privateChat={privateChats.get(friend.id)}
-                                     copySelfMessage={copySelfMessage}
-                            />))}
-                    </div>
-                    <button className="button button-light button-chat" onClick={toggleChat}>Chat</button>
-                </div> : <Loading/>
-            }</div>
+                friends?.map(friend => (
+                    <ChatBox key={friend.id}
+                             stompClient={stompClient}
+                             loggedInUser={loggedInUser}
+                             receiverUser={friend}
+                             privateChat={privateChats.get(friend.id)}
+                             copySelfMessage={copySelfMessage}
+                    />))
+                :
+                <Loading/>}
+
+        </div>
+
     );
 };
 

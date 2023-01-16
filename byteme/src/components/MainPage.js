@@ -32,18 +32,22 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         <div className="main-container">
             <NavigationBar loggedInUser={loggedInUser} loadFeedPage={loadFeedPage} loadUserPage={loadUserPage}
                            onLogout={onLogout} onSetShowedUser={onSetShowedUser}/>
+            <div className="content-container d-flex">
+                <Routes>
+                    <Route path="/*" element={<Navigate to={"feed"}/>}/>
+                    <Route exact path='/feed'
+                           element={<FeedPage loggedInUser={loggedInUser}/>}/>
+                    <Route path='/user/:userId'
+                           element={<UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                              showedUser={showedUser}
+                                              setShowedUser={setShowedUser}/>}
+                    />
+                </Routes>
+                <Chat loggedInUser={loggedInUser}/>
+                <div className="chat-box-body-container d-flex gap-2">
 
-            <Routes>
-                <Route path="/*" element={<Navigate to={"feed"}/>}/>
-                <Route exact path='/feed'
-                       element={<FeedPage loggedInUser={loggedInUser}/>}/>
-                <Route path='/user/:userId'
-                       element={<UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
-                                          showedUser={showedUser}
-                                          setShowedUser={setShowedUser}/>}
-                />
-            </Routes>
-            <Chat loggedInUser={loggedInUser}/>
+                </div>
+            </div>
         </div>
     );
 };

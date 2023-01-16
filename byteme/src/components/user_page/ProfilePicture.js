@@ -37,7 +37,8 @@ const ProfilePicture = ({userId, profilePictureId, placement}) => {
                      className={
                          placement === "post" ? "profile-pic-in-post" :
                              placement === "chat" ? "profile-pic-in-chat" :
-                                 "profile-pic-user-page"}>
+                                 placement === "chat-message" ? "profile-pic-in-chat-message" :
+                                     "profile-pic-user-page"}>
             <img className="rounded-circle ratio" data-user-id={userId} src={image} alt="Profile Picture"/>
         </div>)
     }

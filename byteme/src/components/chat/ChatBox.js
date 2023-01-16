@@ -1,14 +1,18 @@
 import ProfilePicture from "../user_page/ProfilePicture";
 import {useState} from "react";
-import ChatMessage from "./ChatMessage";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCircle} from "@fortawesome/free-solid-svg-icons";
+import ChatBoxBody from "./ChatBoxBody";
 
 const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelfMessage}) => {
 
     const [message, setMessage] = useState("");
 
     const toggleChatBoxBody = () => {
+        const chatBoxBodyContainer = document.querySelector(".chat-box-body-container")
         const chatBoxBody = document.querySelector(`#chat-box-${receiverUser.id}`)
         chatBoxBody.classList.toggle("hidden")
+        chatBoxBodyContainer.appendChild(chatBoxBody)
     };
 
     const handleMessage = (event) => {
@@ -17,7 +21,7 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
     }
 
     const sendValue = () => {
-        if (stompClient) {
+        if (stompClient && message) {
             const chatMessage = {
                 sender: {
                     "id": loggedInUser.id,
@@ -26,8 +30,7 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
                 receiver: {
                     "id": receiverUser.id,
                     "name": receiverUser.name
-                },
-                content: message,
+                }, content: message,
                 created: new Date(),
                 status: "MESSAGE"
             };
@@ -37,27 +40,21 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
         }
     }
 
-    return (
-        <div className="chat-box">
-            <div className="chat-box-header d-flex justify-content-end">
-                <ProfilePicture profilePictureId={receiverUser.profilePictureId} userId={receiverUser.id}
-                                placement="chat"/>
-                <a onClick={toggleChatBoxBody}>{receiverUser.name}</a>
-            </div>
-            <div id={"chat-box-" + receiverUser.id} className="chat-box-body hidden">
-                {privateChat?.map(msg => (
-                    <ChatMessage key={msg.created}
-                                 className={msg.sender.id === loggedInUser.id ? "chat-message-sended" : "chat-message-received"}
-                                 content={msg.content} />
-                ))}
-                <div className="send-message">
-                    <input type="text" className="input-message" placeholder="enter the message" value={message}
-                           onChange={handleMessage}/>
-                    <button type="button" className="send-button" onClick={sendValue}>send</button>
-                </div>
-            </div>
+    return (<div className="chat-box">
+        <div className="chat-box-header d-flex justify-content-start align-items-center gap-1">
+            <FontAwesomeIcon icon={faCircle} data-receiver-id={receiverUser.id} className="online-marker-off"/>
+            <ProfilePicture profilePictureId={receiverUser.profilePictureId} userId={receiverUser.id}
+                            placement="chat"/>
+            <a onClick={toggleChatBoxBody}>{receiverUser.name}</a>
         </div>
-    );
+        <ChatBoxBody loggedInUser={loggedInUser}
+                     receiverUser={receiverUser}
+                     privateChat={privateChat}
+                     handleMessage={handleMessage}
+                     sendValue={sendValue}
+                     message={message}
+                     onToggle={toggleChatBoxBody}/>
+    </div>);
 };
 
 export default ChatBox;
