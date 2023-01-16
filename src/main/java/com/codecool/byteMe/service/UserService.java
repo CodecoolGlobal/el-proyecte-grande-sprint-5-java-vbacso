@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -79,5 +80,12 @@ public class UserService {
 
         userRepository.save(updatableUser1);
         userRepository.save(updatableUser2);
+    }
+
+    public List<Long> getFriendIds(Long userId) {
+        return new ArrayList<>(userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
+                .getFriendList()
+                .stream()
+                .map(UserModel::getId).toList());
     }
 }

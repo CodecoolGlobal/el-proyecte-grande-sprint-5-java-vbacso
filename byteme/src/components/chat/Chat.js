@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ChatBox from "./ChatBox";
 import SockJS from "sockjs-client";
-import {over} from "stompjs";
+import {over} from "stompjs"
 import Loading from "../common/Loading";
 
 let stompClient = null;
@@ -16,9 +16,12 @@ const Chat = ({loggedInUser}) => {
     }, [loggedInUser.friendList]);
 
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/websocket');
-        stompClient = over(Sock);
-        stompClient.connect({userId:loggedInUser.id}, onConnected, onError);
+        let sock = new SockJS('http://localhost:8080/websocket');
+        stompClient = over(sock);
+        // stompClient.debug = null
+        stompClient.connect({
+            userId: loggedInUser.id
+        }, onConnected, onError);
     }
 
     const onConnected = () => {
@@ -29,20 +32,42 @@ const Chat = ({loggedInUser}) => {
 
     const onError = (err) => {
         console.log(err);
+        setTimeout(() => {
+            connect();
+        },2000);
     }
 
     const onPrivateMessage = (payload) => {
         const payloadData = JSON.parse(payload.body);
-        if (privateChats.get(payloadData.sender.id)) {
-            privateChats.get(payloadData.sender.id).push(payloadData);
-            setPrivateChats(new Map(privateChats));
+        if (payloadData.status === "MESSAGE") {
+            if (privateChats.get(payloadData.sender.id)) {
+                privateChats.get(payloadData.sender.id).push(payloadData);
+                setPrivateChats(new Map(privateChats));
+            } else {
+                let list = [];
+                list.push(payloadData);
+                privateChats.set(payloadData.sender.id, list);
+                setPrivateChats(new Map(privateChats));
+            }
+            alertIfHidden(payloadData.sender.id);
         } else {
-            let list = [];
-            list.push(payloadData);
-            privateChats.set(payloadData.sender.id, list);
-            setPrivateChats(new Map(privateChats));
+            if (payloadData.status === "ONLINE") {
+                const marker=document.querySelector(`#online-marker-${payloadData.content}`)
+                marker.classList.remove("online-marker-off")
+                marker.classList.add("online-marker-on")
+                const chatMessage = {
+                    receiver: {
+                        "id": payloadData.content,
+                    }, content: loggedInUser.id,
+                    status: "PING"
+                };
+                stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            } else if (payloadData.status === "PING") {
+                const marker=document.querySelector(`#online-marker-${payloadData.content}`)
+                marker.classList.remove("online-marker-off")
+                marker.classList.add("online-marker-on")
+            }
         }
-        alertIfHidden(payloadData.sender.id);
     }
 
     const alertIfHidden = (senderId) => {
@@ -81,7 +106,6 @@ const Chat = ({loggedInUser}) => {
                     />))
                 :
                 <Loading/>}
-
         </div>
 
     );

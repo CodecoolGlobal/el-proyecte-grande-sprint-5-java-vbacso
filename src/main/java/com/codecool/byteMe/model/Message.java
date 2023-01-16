@@ -30,10 +30,12 @@ public class Message {
     @JsonIncludeProperties({"id", "name", "profilePictureId"})
     @JoinColumn(name = "receiver_id")
     private UserModel receiver;
-    @Builder.Default
-    private final LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created;
 
     private String content;
+
+    @Transient
+    private MessageStatus status;
 
     @Override
     public String toString() {
@@ -44,4 +46,12 @@ public class Message {
                 ", content='" + content + '\'' +
                 '}';
     }
+
+    public enum MessageStatus {
+        MESSAGE,
+        ONLINE,
+        OFFLINE,
+        PING
+    }
+
 }

@@ -43,7 +43,7 @@ public class UserModel {
     private boolean isEnabled = true;
 
     @JsonIncludeProperties({"id", "name", "profilePictureId"})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_friend",
             joinColumns = @JoinColumn(name = "user_id"),
