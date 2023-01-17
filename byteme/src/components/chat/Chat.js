@@ -33,6 +33,13 @@ const Chat = ({loggedInUser}) => {
         setConnectionEstablished(true);
         stompClient.unsubscribe(loggedInUser.id);
         stompClient.subscribe('/user/' + loggedInUser.id + '/private', onPrivateMessage, {id: loggedInUser.id});
+        const loginMessage = {
+            sender: {
+                "id": loggedInUser.id,
+            },
+            status: "ONLINE"
+        };
+        stompClient.send("/app/login", {}, JSON.stringify(loginMessage));
     }
 
     const onError = (err) => {
@@ -42,6 +49,18 @@ const Chat = ({loggedInUser}) => {
             connect();
         }, 2000);
     }
+
+    const onDisconnect = () => {
+        const logoutMessage = {
+            sender: {
+                "id": loggedInUser.id,
+            },
+            status: "OFFLINE"
+        };
+        stompClient.send("/app/logout", {}, JSON.stringify(logoutMessage));
+        stompClient.disconnect();
+        setAllOnlineMarkerOff();
+    };
 
     const onPrivateMessage = (payload) => {
         const payloadData = JSON.parse(payload.body);
@@ -72,9 +91,21 @@ const Chat = ({loggedInUser}) => {
                 const marker = document.querySelector(`#online-marker-${payloadData.content}`)
                 marker.classList.remove("online-marker-off")
                 marker.classList.add("online-marker-on")
+            } else if (payloadData.status === "OFFLINE") {
+                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
+                marker.classList.remove("online-marker-on")
+                marker.classList.add("online-marker-off")
             }
         }
     }
+
+    const setAllOnlineMarkerOff = () => {
+        const markers = document.querySelectorAll('.online-marker-on');
+        Array.from(markers)?.map(marker => {
+            marker.classList.remove("online-marker-on")
+            marker.classList.add("online-marker-off")
+        })
+    };
 
     const alertIfHidden = (senderId) => {
         const isHidden = document.querySelector(`#chat-box-${senderId}`).classList.contains("hidden")
@@ -101,6 +132,7 @@ const Chat = ({loggedInUser}) => {
 
     return (
         <div className="chat-panel d-flex flex-column me-3">
+            <a onClick={onDisconnect}>logout</a>
             {connectionEstablished ?
                 friends?.map(friend => (
                     <ChatBox key={friend.id}
