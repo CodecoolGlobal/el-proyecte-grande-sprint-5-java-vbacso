@@ -9,13 +9,25 @@ let stompClient;
 
 const Chat = ({loggedInUser}) => {
     const [friends, setFriends] = useState();
-    const [selfStatus, setSelfStatus] = useState("OFFLINE");
+    const [selfStatus, setSelfStatus] = useState("ONLINE");
     const [privateChats, setPrivateChats] = useState(new Map());
     const [connectionEstablished, setConnectionEstablished] = useState(false);
 
     useEffect(() => {
-        setFriends(loggedInUser.friendList)
+        setFriends(loggedInUser.friendList);
+        const logoutButton = document.querySelector(`#logout`);
+        logoutButton.addEventListener("click", onDisconnect);
+        return () => {
+            logoutButton.removeEventListener("click", onDisconnect);
+        };
     }, [loggedInUser.friendList]);
+
+    const init = () => {
+        if (!connectionEstablished && selfStatus === "ONLINE") {
+            connect();
+        }
+        window.onbeforeunload = onDisconnect;
+    };
 
     const connect = () => {
         if (sockJs === undefined) {
@@ -31,9 +43,8 @@ const Chat = ({loggedInUser}) => {
     }
 
     const onConnected = () => {
-        setConnectionEstablished(true);
         stompClient.unsubscribe(loggedInUser.id);
-        stompClient.subscribe('/user/' + loggedInUser.id + '/private', onPrivateMessage, {id: loggedInUser.id});
+        stompClient.subscribe('/user/' + loggedInUser.id + '/private', onMessageReceived, {id: loggedInUser.id});
         const loginMessage = {
             sender: {
                 "id": loggedInUser.id,
@@ -41,15 +52,15 @@ const Chat = ({loggedInUser}) => {
             status: "ONLINE"
         };
         stompClient.send("/app/login", {}, JSON.stringify(loginMessage));
-        setSelfStatus("ONLINE")
+        setSelfStatus("ONLINE");
+        setConnectionEstablished(true);
     }
 
     const onError = (err) => {
         console.log(err);
-        sockJs = undefined;
         setTimeout(() => {
             connect();
-        }, 2000);
+        }, 5000);
     }
 
     const onDisconnect = () => {
@@ -63,44 +74,60 @@ const Chat = ({loggedInUser}) => {
         stompClient.disconnect();
         setAllOnlineMarkerOff();
         setSelfStatus("OFFLINE");
+        sockJs = undefined;
+        stompClient = undefined;
     };
 
-    const onPrivateMessage = (payload) => {
+    const onMessageReceived = (payload) => {
         const payloadData = JSON.parse(payload.body);
         if (payloadData.status === "MESSAGE") {
-            if (privateChats.get(payloadData.sender.id)) {
-                privateChats.get(payloadData.sender.id).push(payloadData);
-                setPrivateChats(new Map(privateChats));
-            } else {
-                let list = [];
-                list.push(payloadData);
-                privateChats.set(payloadData.sender.id, list);
-                setPrivateChats(new Map(privateChats));
-            }
-            alertIfHidden(payloadData.sender.id);
-        } else {
-            if (payloadData.status === "ONLINE") {
-                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
-                marker.classList.remove("online-marker-off")
-                marker.classList.add("online-marker-on")
-                const chatMessage = {
-                    receiver: {
-                        "id": payloadData.content,
-                    }, content: loggedInUser.id,
-                    status: "PING"
-                };
-                stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-            } else if (payloadData.status === "PING") {
-                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
-                marker.classList.remove("online-marker-off")
-                marker.classList.add("online-marker-on")
-            } else if (payloadData.status === "OFFLINE") {
-                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
-                marker.classList.remove("online-marker-on")
-                marker.classList.add("online-marker-off")
-            }
+            handlePrivateMessage(payload);
+        } else if (payloadData.status === "ONLINE") {
+            handleOnlineStatus(payloadData);
+        } else if (payloadData.status === "PING") {
+            handlePing(payloadData);
+        } else if (payloadData.status === "OFFLINE") {
+            handleOfflineStatus(payloadData);
         }
     }
+
+    const handlePrivateMessage = (payloadData) => {
+        if (privateChats.get(payloadData.sender.id)) {
+            privateChats.get(payloadData.sender.id).push(payloadData);
+            setPrivateChats(new Map(privateChats));
+        } else {
+            let list = [];
+            list.push(payloadData);
+            privateChats.set(payloadData.sender.id, list);
+            setPrivateChats(new Map(privateChats));
+        }
+        alertIfHidden(payloadData.sender.id);
+    };
+
+    const handleOnlineStatus = (payloadData) => {
+        const marker = document.querySelector(`#online-marker-${payloadData.content}`)
+        marker.classList.remove("online-marker-off")
+        marker.classList.add("online-marker-on")
+        const chatMessage = {
+            receiver: {
+                "id": payloadData.content,
+            }, content: loggedInUser.id,
+            status: "PING"
+        };
+        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+    };
+
+    const handleOfflineStatus = (payloadData) => {
+        const marker = document.querySelector(`#online-marker-${payloadData.content}`)
+        marker.classList.remove("online-marker-on")
+        marker.classList.add("online-marker-off")
+    };
+
+    const handlePing = (payloadData) => {
+        const marker = document.querySelector(`#online-marker-${payloadData.content}`)
+        marker.classList.remove("online-marker-off")
+        marker.classList.add("online-marker-on")
+    };
 
     const setAllOnlineMarkerOff = () => {
         const markers = document.querySelectorAll('.online-marker-on');
@@ -129,10 +156,7 @@ const Chat = ({loggedInUser}) => {
         }
     };
 
-    if (!connectionEstablished&&selfStatus==="OFFLINE") {
-        connect();
-    }
-
+    init();
     return (
         <div className="chat-panel d-flex flex-column me-3">
             <a onClick={onDisconnect}>logout</a>
