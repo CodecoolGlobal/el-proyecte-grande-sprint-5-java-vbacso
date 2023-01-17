@@ -3,7 +3,7 @@ import ChatMessage from "./ChatMessage";
 import ProfilePicture from "../user_page/ProfilePicture";
 import {FaTimes} from "react-icons/fa";
 
-const ChatBoxBody = ({loggedInUser, receiverUser, handleMessage, sendValue, privateChat, message, onToggle}) => {
+const ChatBoxBody = ({loggedInUser, receiverUser, handleMessage, sendValue, privateChat, message, onToggle, selfState}) => {
     return (
         <div id={"chat-box-" + receiverUser.id} className="chat-box-body align-self-end rounded p-1 hidden">
             <div className="chat-box-body-header d-flex mb-1 gap-1">
@@ -27,7 +27,7 @@ const ChatBoxBody = ({loggedInUser, receiverUser, handleMessage, sendValue, priv
                 <input type="text" className="input-message form-control" placeholder="enter the message"
                        value={message}
                        onChange={handleMessage}/>
-                <button type="button" className="send-button btn btn-sm" onClick={sendValue}>send</button>
+                <button type="button" className="send-button btn btn-sm" onClick={sendValue} disabled={selfState !== "ONLINE"}>send</button>
 
             </div>
         </div>

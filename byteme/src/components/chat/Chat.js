@@ -9,6 +9,7 @@ let stompClient;
 
 const Chat = ({loggedInUser}) => {
     const [friends, setFriends] = useState();
+    const [selfStatus, setSelfStatus] = useState("OFFLINE");
     const [privateChats, setPrivateChats] = useState(new Map());
     const [connectionEstablished, setConnectionEstablished] = useState(false);
 
@@ -40,6 +41,7 @@ const Chat = ({loggedInUser}) => {
             status: "ONLINE"
         };
         stompClient.send("/app/login", {}, JSON.stringify(loginMessage));
+        setSelfStatus("ONLINE")
     }
 
     const onError = (err) => {
@@ -60,6 +62,7 @@ const Chat = ({loggedInUser}) => {
         stompClient.send("/app/logout", {}, JSON.stringify(logoutMessage));
         stompClient.disconnect();
         setAllOnlineMarkerOff();
+        setSelfStatus("OFFLINE");
     };
 
     const onPrivateMessage = (payload) => {
@@ -126,7 +129,7 @@ const Chat = ({loggedInUser}) => {
         }
     };
 
-    if (!connectionEstablished) {
+    if (!connectionEstablished&&selfStatus==="OFFLINE") {
         connect();
     }
 
@@ -141,6 +144,7 @@ const Chat = ({loggedInUser}) => {
                              receiverUser={friend}
                              privateChat={privateChats.get(friend.id)}
                              copySelfMessage={copySelfMessage}
+                             selfState={selfStatus}
                     />))
                 :
                 <Loading/>}

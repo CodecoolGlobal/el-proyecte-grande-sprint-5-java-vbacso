@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircle, faMessage} from "@fortawesome/free-solid-svg-icons";
 import ChatBoxBody from "./ChatBoxBody";
 
-const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelfMessage}) => {
+const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelfMessage, selfState}) => {
 
     const [message, setMessage] = useState("");
 
@@ -43,8 +43,9 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
 
     return (<div className="chat-box">
         <div className="chat-box-header d-flex justify-content-start align-items-center gap-1">
-            <FontAwesomeIcon icon={faMessage} id={"message-alert-"+receiverUser.id} className="message-alert-icon hide fa-flip-horizontal"/>
-            <FontAwesomeIcon icon={faCircle} id={"online-marker-"+receiverUser.id} className="online-marker-off"/>
+            <FontAwesomeIcon icon={faMessage} id={"message-alert-" + receiverUser.id}
+                             className="message-alert-icon hide fa-flip-horizontal"/>
+            <FontAwesomeIcon icon={faCircle} id={"online-marker-" + receiverUser.id} className="online-marker-off"/>
             <ProfilePicture profilePictureId={receiverUser.profilePictureId} userId={receiverUser.id}
                             placement="chat"/>
             <a onClick={toggleChatBoxBody}>{receiverUser.name}</a>
@@ -55,7 +56,8 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
                      handleMessage={handleMessage}
                      sendValue={sendValue}
                      message={message}
-                     onToggle={toggleChatBoxBody}/>
+                     onToggle={toggleChatBoxBody}
+                     selfState={selfState}/>
     </div>);
 };
 
