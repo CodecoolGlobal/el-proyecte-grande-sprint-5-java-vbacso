@@ -31,7 +31,7 @@ public class PostService {
     }
 
     public Post findById(Long postId) {
-        return postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("No post with ginven id"));
+        return postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("No post with given id"));
     }
 
     public List<Post> findByUserId(Long userId) {

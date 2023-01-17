@@ -14,8 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,19 +69,37 @@ class PostServiceTests {
 
     @DisplayName("JUnit test for getAllPosts method")
     @Test
-    public void givenPostList_whenGetAll_thenReturnPostList() {
+    public void givenPostList_whenGetAllPosts_thenReturnPostList() {
+        // given
         given(postRepository.findAll()).willReturn(List.of(postOne, postTwo));
+        // when
         List<Post> postList = postService.getAllPosts();
-
+        // then
         assertThat(postList).isNotNull();
         assertThat(postList.size()).isEqualTo(2);
     }
 
-    @DisplayName("JUnit test for postAdd method")
+    @DisplayName("JUnit test for addPost method")
     @Test
     public void givenPostObject_whenSavePost_thenReturnPostObject() {
+        // given
         given(postRepository.save(postOne)).willReturn(postOne);
+        // when
         Post savedPost = postService.addPost(postOne);
+        // then
         assertThat(savedPost).isNotNull();
+        assertEquals(savedPost.getTitle(), "Test Post Title 1");
+    }
+
+    @DisplayName("JUnit test for getPostById method")
+    @Test
+    public void givenPostId_whenGetPostById_thenReturnPostObject() {
+        // given
+        given(postRepository.findById(3L)).willReturn(Optional.of(postOne));
+        // when
+        Post savedPost = postService.findById(postOne.getId());
+        // then
+        assertThat(savedPost).isNotNull();
+        assertEquals(savedPost.getTitle(), "Test Post Title 1");
     }
 }
