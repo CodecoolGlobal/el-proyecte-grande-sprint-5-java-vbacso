@@ -77,4 +77,8 @@ public class UserService {
         userRepository.save(updatableUser1);
         userRepository.save(updatableUser2);
     }
+
+    public List<User> findUserFriendListByUserId(Long userId) {
+        return userRepository.findByFriendList_Id(userId);
+    }
 }
