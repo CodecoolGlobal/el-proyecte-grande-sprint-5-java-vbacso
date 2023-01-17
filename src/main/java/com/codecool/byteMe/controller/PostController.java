@@ -22,12 +22,12 @@ public class PostController {
 
     @GetMapping("all")
     public List<Post> getAllPost() {
-        return postService.getAll();
+        return postService.getAllPosts();
     }
 
     @PostMapping("add")
     public Post addPost(@RequestBody Post post) {
-        return postService.add(post);
+        return postService.addPost(post);
     }
 
     @PutMapping("edit")

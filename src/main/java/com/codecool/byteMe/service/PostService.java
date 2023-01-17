@@ -22,11 +22,11 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
-    public List<Post> getAll() {
+    public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
 
-    public Post add(Post post) {
+    public Post addPost(Post post) {
         return postRepository.save(post);
     }
 
