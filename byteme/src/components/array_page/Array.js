@@ -29,7 +29,7 @@ const Array = ({group, loggedInUser, placement, setShowGroup}) => {
         <div className="nav-item array">
             {isOwnerPlacement() ?
                 <p onClick={onShowGroupDetails} className="owner-array">{group.name}</p> : isMemberPlacement() ?
-                    <p onClick={onShowGroupDetails} className="member-array">{group.name}</p> : <div></div>}
+                    <p onClick={onShowGroupDetails} className="member-array">{group.name}</p> : <p></p>}
         </div>
     );
 };
