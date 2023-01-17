@@ -40,6 +40,7 @@ class PostServiceTests {
         postService = new PostService(postRepository, userRepository);
 
         user = UserModel.builder()
+                .id(1L)
                 .age(18)
                 .email("test@byte.me")
                 .name("Test User")
@@ -91,15 +92,28 @@ class PostServiceTests {
         assertEquals(savedPost.getTitle(), "Test Post Title 1");
     }
 
-    @DisplayName("JUnit test for getPostById method")
+    @DisplayName("JUnit test for findById method")
     @Test
-    public void givenPostId_whenGetPostById_thenReturnPostObject() {
+    public void givenPostId_whenFindById_thenReturnPostObject() {
         // given
-        given(postRepository.findById(3L)).willReturn(Optional.of(postOne));
+        given(postRepository.findById(postOne.getId())).willReturn(Optional.of(postOne));
         // when
         Post savedPost = postService.findById(postOne.getId());
         // then
         assertThat(savedPost).isNotNull();
         assertEquals(savedPost.getTitle(), "Test Post Title 1");
+    }
+
+    @DisplayName("JUnit test for findByUserId method")
+    @Test
+    public void givenUserId_whenFindByUserId_thenReturnPostList() {
+        // given
+        given(postRepository.findByUserId(user.getId())).willReturn(List.of(postOne, postTwo));
+        // when
+        List<Post> postList = postService.findByUserId(user.getId());
+        // then
+        assertThat(postList).isNotNull();
+        assertThat(postList.size()).isEqualTo(2);
+        System.out.println(user.getPassword());
     }
 }
