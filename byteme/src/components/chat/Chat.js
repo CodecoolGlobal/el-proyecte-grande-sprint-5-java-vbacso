@@ -4,7 +4,8 @@ import SockJS from "sockjs-client";
 import {over} from "stompjs"
 import Loading from "../common/Loading";
 
-let stompClient = null;
+let sockJs;
+let stompClient;
 
 const Chat = ({loggedInUser}) => {
     const [friends, setFriends] = useState();
@@ -16,12 +17,16 @@ const Chat = ({loggedInUser}) => {
     }, [loggedInUser.friendList]);
 
     const connect = () => {
-        let sock = new SockJS('http://localhost:8080/websocket');
-        stompClient = over(sock);
+        if (sockJs === undefined) {
+            sockJs = new SockJS('http://localhost:8080/websocket');
+        }
+        stompClient = over(sockJs);
         // stompClient.debug = null
         stompClient.connect({
-            userId: loggedInUser.id
-        }, onConnected, onError);
+                "userId": loggedInUser.id
+            },
+            onConnected,
+            onError);
     }
 
     const onConnected = () => {
@@ -32,9 +37,10 @@ const Chat = ({loggedInUser}) => {
 
     const onError = (err) => {
         console.log(err);
+        sockJs = undefined;
         setTimeout(() => {
             connect();
-        },2000);
+        }, 2000);
     }
 
     const onPrivateMessage = (payload) => {
@@ -52,7 +58,7 @@ const Chat = ({loggedInUser}) => {
             alertIfHidden(payloadData.sender.id);
         } else {
             if (payloadData.status === "ONLINE") {
-                const marker=document.querySelector(`#online-marker-${payloadData.content}`)
+                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
                 marker.classList.remove("online-marker-off")
                 marker.classList.add("online-marker-on")
                 const chatMessage = {
@@ -63,7 +69,7 @@ const Chat = ({loggedInUser}) => {
                 };
                 stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
             } else if (payloadData.status === "PING") {
-                const marker=document.querySelector(`#online-marker-${payloadData.content}`)
+                const marker = document.querySelector(`#online-marker-${payloadData.content}`)
                 marker.classList.remove("online-marker-off")
                 marker.classList.add("online-marker-on")
             }
