@@ -427,3 +427,28 @@ p {
 .side-bar {
     width: 280px;
 }
+
+.owner-array, .member-array, .nav-link {
+    cursor: pointer;
+}
+
+.selected-friends {
+    display: flex;
+    margin: 0 4rem 0 4rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#friends-select {
+    position: relative;
+}
+
+#friends-select {
+    background-color: var(--primary) !important;
+    border-radius: 5px;
+}
+
+::selection {
+    color: var(--secondary) !important;
+    background: white !important;
+}
