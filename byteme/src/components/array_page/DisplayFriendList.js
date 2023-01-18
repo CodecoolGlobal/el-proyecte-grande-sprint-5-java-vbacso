@@ -6,12 +6,12 @@ const DisplayFriendList = ({availableFriends, selectedFriends, inviteFriend}) =>
             <div id="selected-friends">
                 <p>Invited Friends:</p>
                 {selectedFriends.map((friend) => <div className="selected-friends" key={friend.id} data-id={friend.id}>
-                    <ProfilePicture userId={friend.id} profilePictureId={friend.profilePictureId} placement="post"/>
-                    {friend.name}
+                    <div className="selected-friends-name">{friend.name}</div>
+                    <ProfilePicture userId={friend.id} profilePictureId={friend.profilePictureId} placement="post" className="selected-friends-pic"/>
                 </div>)}
             </div>
             <br/>
-            <select id="friends" onChange={inviteFriend}>
+            <select id="friends-select" onChange={inviteFriend}>
                 <option id="choose-friend">Choose friend</option>
                 {availableFriends.map((friend) => <option className="available-friends" key={friend.id}
                                                           data-id={friend.id}
