@@ -34,7 +34,11 @@ const ProfilePicture = ({userId, profilePictureId, placement}) => {
         return (<Loading/>)
     } else {
         return (<div onClick={onLoadUserPage}
-                     className={(placement === "post") ? "profile-pic-in-post" : "profile-pic-user-page"}>
+                     className={
+                         placement === "post" ? "profile-pic-in-post" :
+                             placement === "chat" ? "profile-pic-in-chat" :
+                                 placement === "chat-message" ? "profile-pic-in-chat-message" :
+                                     "profile-pic-user-page"}>
             <img className="rounded-circle ratio" data-user-id={userId} src={image} alt="Profile Picture"/>
         </div>)
     }

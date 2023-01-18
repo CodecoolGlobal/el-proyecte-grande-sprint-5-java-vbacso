@@ -213,11 +213,13 @@ public class BasicDatabase {
             userRepository.save(erik());
             userRepository.save(dani());
 
-            vanda().setFriendList(List.of(zeno()));
-            zeno().setFriendList(List.of(vanda()));
+            vanda().setFriendList(List.of(zeno(),dani()));
+            zeno().setFriendList(List.of(vanda(),dani()));
+            dani().setFriendList(List.of(vanda(),zeno()));
 
             userRepository.save(vanda());
             userRepository.save(zeno());
+            userRepository.save(dani());
 
             imageRepository.save(zenoProfilePicture());
             imageRepository.save(vandaProfilePicture());
