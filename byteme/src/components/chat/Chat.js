@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ChatBox from "./ChatBox";
 import SockJS from "sockjs-client";
 import {over} from "stompjs"
 import Loading from "../common/Loading";
+import ChatSwitch from "./ChatSwitch";
 
 let sockJs;
 let stompClient;
@@ -13,6 +14,29 @@ const Chat = ({loggedInUser}) => {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [connectionEstablished, setConnectionEstablished] = useState(false);
 
+    const init = () => {
+
+        if (!connectionEstablished && selfStatus === "ONLINE") {
+            connect();
+        }
+        window.onbeforeunload = onDisconnect;
+    };
+
+    const onDisconnect = useCallback(() => {
+        const logoutMessage = {
+            sender: {
+                "id": loggedInUser.id,
+            },
+            status: "OFFLINE"
+        };
+        stompClient.send("/app/logout", {}, JSON.stringify(logoutMessage));
+        stompClient.disconnect();
+        setAllOnlineMarkerOff();
+        setSelfStatus("OFFLINE");
+        sockJs = undefined;
+        stompClient = undefined;
+    },[loggedInUser.id]);
+
     useEffect(() => {
         setFriends(loggedInUser.friendList);
         const logoutButton = document.querySelector(`#logout`);
@@ -20,14 +44,7 @@ const Chat = ({loggedInUser}) => {
         return () => {
             logoutButton.removeEventListener("click", onDisconnect);
         };
-    }, [loggedInUser.friendList]);
-
-    const init = () => {
-        if (!connectionEstablished && selfStatus === "ONLINE") {
-            connect();
-        }
-        window.onbeforeunload = onDisconnect;
-    };
+    }, [loggedInUser.friendList, onDisconnect]);
 
     const connect = () => {
         if (sockJs === undefined) {
@@ -62,21 +79,6 @@ const Chat = ({loggedInUser}) => {
             connect();
         }, 5000);
     }
-
-    const onDisconnect = () => {
-        const logoutMessage = {
-            sender: {
-                "id": loggedInUser.id,
-            },
-            status: "OFFLINE"
-        };
-        stompClient.send("/app/logout", {}, JSON.stringify(logoutMessage));
-        stompClient.disconnect();
-        setAllOnlineMarkerOff();
-        setSelfStatus("OFFLINE");
-        sockJs = undefined;
-        stompClient = undefined;
-    };
 
     const onMessageReceived = (payload) => {
         const payloadData = JSON.parse(payload.body);
@@ -131,7 +133,7 @@ const Chat = ({loggedInUser}) => {
 
     const setAllOnlineMarkerOff = () => {
         const markers = document.querySelectorAll('.online-marker-on');
-        Array.from(markers)?.map(marker => {
+        Array.from(markers)?.forEach(marker => {
             marker.classList.remove("online-marker-on")
             marker.classList.add("online-marker-off")
         })
@@ -159,7 +161,8 @@ const Chat = ({loggedInUser}) => {
     init();
     return (
         <div className="chat-panel d-flex flex-column me-3">
-            <a onClick={onDisconnect}>logout</a>
+            <button onClick={onDisconnect}>logout</button>
+            <ChatSwitch/>
             {connectionEstablished ?
                 friends?.map(friend => (
                     <ChatBox key={friend.id}
