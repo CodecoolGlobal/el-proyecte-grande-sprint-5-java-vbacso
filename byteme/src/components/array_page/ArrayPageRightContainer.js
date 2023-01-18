@@ -3,8 +3,9 @@ import CreatePost from "../post/CreatePost";
 import ProfilePicture from "../user_page/ProfilePicture";
 import CoverPhoto from "./CoverPhoto";
 import {useEffect, useState} from "react";
+import NoCoverPhoto from "./NoCoverPhoto";
 
-const ArrayPageRightContainer = ({showGroup}) => {
+const ArrayPageRightContainer = ({showGroup, setShowGroup}) => {
     const posts = showGroup.posts;
     const image = showGroup.image;
     const imageId = posts !== undefined && image !== null ? image.id : null;
@@ -52,8 +53,9 @@ const ArrayPageRightContainer = ({showGroup}) => {
     return (
         <div className="user-page-right-container justify-content-center">
             {Object.keys(showGroup).length > 0 ? <div>
-                <div className="">
-                    {posts !== undefined && image !== null ? <CoverPhoto photoId={imageId}/> : <div></div>}
+                <div className="cover=photo">
+                    {posts !== undefined && image !== null ? <CoverPhoto photoId={imageId}/> : image === null ?
+                        <NoCoverPhoto showGroup={showGroup} setShowGroup={setShowGroup}/> : <div></div>}
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                     <span className="fs-4 align-content-center">{showGroup.name}</span>
@@ -68,7 +70,8 @@ const ArrayPageRightContainer = ({showGroup}) => {
                 </div>
                 <CreatePost onAdd={createGroupPostEvent} showGroupId={showGroup.id} placement="group"/>
             </div> : ""}
-            {groupPosts !== undefined ? groupPosts.map(post => <Post key={post.id} post={post} onDelete={deletePostEvent}/>) : ""}
+            {groupPosts !== undefined ? groupPosts.map(post => <Post key={post.id} post={post}
+                                                                     onDelete={deletePostEvent}/>) : ""}
         </div>
     );
 };
