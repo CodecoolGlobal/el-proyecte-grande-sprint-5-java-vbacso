@@ -32,7 +32,7 @@ public class PostController {
 
     @PutMapping("edit")
     public Post editPost(@RequestBody Post post) {
-        return postService.edit(post);
+        return postService.editPost(post);
     }
 
     @GetMapping("{postId}")

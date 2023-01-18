@@ -114,6 +114,20 @@ class PostServiceTests {
         // then
         assertThat(postList).isNotNull();
         assertThat(postList.size()).isEqualTo(2);
-        System.out.println(user.getPassword());
+    }
+
+    @DisplayName("JUnit test for editPost method")
+    @Test
+    public void givenPostObject_whenEditPost_thenReturnEditedPost(){
+        // given
+        given(postRepository.save(postOne)).willReturn(postOne);
+        postOne.setTitle("Edited Title");
+        postOne.setBody("Edited Body");
+        // when
+        Post updatedPost = postService.editPost(postOne);
+        // then
+        assertThat(updatedPost.getTitle()).isEqualTo("Edited Title");
+        assertThat(updatedPost.getBody()).isEqualTo("Edited Body");
     }
 }
+

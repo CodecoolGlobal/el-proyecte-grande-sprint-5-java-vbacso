@@ -38,7 +38,7 @@ public class PostService {
         return postRepository.findByUserId(userId);
     }
 
-    public Post edit(Post post) {
+    public Post editPost(Post post) {
         return postRepository.save(post);
     }
 
