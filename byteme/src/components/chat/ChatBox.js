@@ -9,11 +9,13 @@ const ChatBox = ({loggedInUser, receiverUser, stompClient, privateChat, copySelf
     const [message, setMessage] = useState("");
 
     const toggleChatBoxBody = () => {
-        const chatBoxBodyContainer = document.querySelector(".chat-box-body-container")
-        const chatBoxBody = document.querySelector(`#chat-box-${receiverUser.id}`)
-        chatBoxBody.classList.toggle("hidden")
-        document.querySelector(`#message-alert-${receiverUser.id}`).classList.add("hide")
-        chatBoxBodyContainer.appendChild(chatBoxBody)
+        if (selfState==="ONLINE") {
+            const chatBoxBodyContainer = document.querySelector(".chat-box-body-container")
+            const chatBoxBody = document.querySelector(`#chat-box-${receiverUser.id}`)
+            chatBoxBody.classList.toggle("hidden")
+            document.querySelector(`#message-alert-${receiverUser.id}`).classList.add("hide")
+            chatBoxBodyContainer.appendChild(chatBoxBody)
+        }
     };
 
     const handleMessage = (event) => {

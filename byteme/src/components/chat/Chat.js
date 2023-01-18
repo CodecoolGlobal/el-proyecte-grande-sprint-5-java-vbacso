@@ -32,10 +32,11 @@ const Chat = ({loggedInUser}) => {
         stompClient.send("/app/logout", {}, JSON.stringify(logoutMessage));
         stompClient.disconnect();
         setAllOnlineMarkerOff();
+        hideAllOpenChatBox();
         setSelfStatus("OFFLINE");
         sockJs = undefined;
         stompClient = undefined;
-    },[loggedInUser.id]);
+    }, [loggedInUser.id]);
 
     useEffect(() => {
         setFriends(loggedInUser.friendList);
@@ -94,6 +95,7 @@ const Chat = ({loggedInUser}) => {
     }
 
     const handlePrivateMessage = (payloadData) => {
+        console.log(payloadData)
         if (privateChats.get(payloadData.sender.id)) {
             privateChats.get(payloadData.sender.id).push(payloadData);
             setPrivateChats(new Map(privateChats));
@@ -139,6 +141,13 @@ const Chat = ({loggedInUser}) => {
         })
     };
 
+    const hideAllOpenChatBox = () => {
+        const chatBoxBodyNodes = document.querySelectorAll(`.chat-box-body:not(.hidden)`)
+        Array.from(chatBoxBodyNodes)?.forEach(node => {
+            node.classList.add("hidden")
+        })
+    };
+
     const alertIfHidden = (senderId) => {
         const isHidden = document.querySelector(`#chat-box-${senderId}`).classList.contains("hidden")
         if (isHidden) {
@@ -161,22 +170,24 @@ const Chat = ({loggedInUser}) => {
     init();
     return (
         <div className="chat-panel d-flex flex-column me-3">
-            <button onClick={onDisconnect}>logout</button>
-            <ChatSwitch/>
-            {connectionEstablished ?
-                friends?.map(friend => (
-                    <ChatBox key={friend.id}
-                             stompClient={stompClient}
-                             loggedInUser={loggedInUser}
-                             receiverUser={friend}
-                             privateChat={privateChats.get(friend.id)}
-                             copySelfMessage={copySelfMessage}
-                             selfState={selfStatus}
-                    />))
-                :
-                <Loading/>}
+            <ChatSwitch selfStatus={selfStatus}
+                        onConnect={connect}
+                        onDisconnect={onDisconnect}/>
+            <div className={selfStatus==="ONLINE"?"":"opacity-50"}>
+                {connectionEstablished ?
+                    friends?.map(friend => (
+                        <ChatBox key={friend.id}
+                                 stompClient={stompClient}
+                                 loggedInUser={loggedInUser}
+                                 receiverUser={friend}
+                                 privateChat={privateChats.get(friend.id)}
+                                 copySelfMessage={copySelfMessage}
+                                 selfState={selfStatus}
+                        />))
+                    :
+                    <Loading/>}
+            </div>
         </div>
-
     );
 };
 
