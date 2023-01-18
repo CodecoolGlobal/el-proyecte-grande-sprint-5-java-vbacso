@@ -1,7 +1,6 @@
 package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.PostRepository;
-import com.codecool.byteMe.dao.UserRepository;
 import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.model.postable.Post;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,14 +19,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTests {
     @Mock
     private PostRepository postRepository;
     @Mock
-    private UserRepository userRepository;
+    private UserService userService;
     private PostService postService;
 
     @Mock
@@ -39,7 +39,7 @@ class PostServiceTests {
 
     @BeforeEach
     void setupService() {
-        postService = new PostService(postRepository, userRepository);
+        postService = new PostService(postRepository, userService);
 
         user = UserModel.builder()
                 .id(1L)
@@ -120,7 +120,7 @@ class PostServiceTests {
 
     @DisplayName("JUnit test for editPost method")
     @Test
-    public void givenPostObject_whenEditPost_thenReturnEditedPost(){
+    public void givenPostObject_whenEditPost_thenReturnEditedPost() {
         // given
         given(postRepository.save(postOne)).willReturn(postOne);
         postOne.setTitle("Edited Title");
@@ -134,13 +134,26 @@ class PostServiceTests {
 
     @DisplayName("JUnit test for deletePostById method")
     @Test
-    public void givenIdTODeleteThenShouldDeleteTheProduct(){
+    public void givenIdTODeleteThenShouldDeleteTheProduct() {
         // given
         willDoNothing().given(postRepository).deleteById(postOne.getId());
         // when
         postService.deletePostById(postOne.getId());
         // then
-        verify(postRepository,times(1)).deleteById(postOne.getId());
+        verify(postRepository, times(1)).deleteById(postOne.getId());
+    }
+
+    @DisplayName("JUnit test for getFeedPosts method")
+    @Test
+    public void givenUserId_whenGetFeedPosts_thenReturnFeedPostList() {
+        // given
+        given(userService.getFriendIds(1L)).willReturn(List.of(2L));
+        given(postRepository.findByUser_IdIn(List.of(2L, 1L))).willReturn(List.of(postOne, postTwo));
+        // when
+        List<Post> postList = postService.getFeedPosts(1L);
+        // then
+        assertThat(postList).isNotNull();
+        assertThat(postList.size()).isEqualTo(2);
     }
 }
 
