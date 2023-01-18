@@ -13,7 +13,10 @@ const AddFriendButton = ({loggedInUser, setLoggedInUser, showedUser, setShowedUs
         });
         if (resp.ok) {
             const updatedLoggedInUserFriendList = loggedInUser.friendList;
-            updatedLoggedInUserFriendList.push({"id": showedUser.id, "profilePictureId": showedUser.profilePictureId});
+            updatedLoggedInUserFriendList.push({
+                "id": showedUser.id,
+                "name": showedUser.name,
+                "profilePictureId": showedUser.profilePictureId});
             setLoggedInUser({...loggedInUser, "friendList": updatedLoggedInUserFriendList});
 
             const updatedShowedUserFriendList = showedUser.friendList;

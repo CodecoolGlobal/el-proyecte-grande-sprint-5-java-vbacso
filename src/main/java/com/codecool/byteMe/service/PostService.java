@@ -1,8 +1,6 @@
 package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.PostRepository;
-import com.codecool.byteMe.dao.UserRepository;
-import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +12,12 @@ import java.util.NoSuchElementException;
 @Service("postService")
 public class PostService {
     private PostRepository postRepository;
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public List<Post> getAllPosts() {
@@ -47,11 +45,7 @@ public class PostService {
     }
 
     public List<Post> getFeedPosts(Long userId) {
-        List<Long> userIdsForFeed = new ArrayList<>(
-                userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
-                        .getFriendList()
-                        .stream()
-                        .map(UserModel::getId).toList());
+        List<Long> userIdsForFeed = new ArrayList<>(userService.getFriendIds(userId));
         userIdsForFeed.add(userId);
         return postRepository.findByUser_IdIn(userIdsForFeed);
     }
