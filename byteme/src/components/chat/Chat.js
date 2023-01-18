@@ -83,7 +83,7 @@ const Chat = ({loggedInUser}) => {
     const onMessageReceived = (payload) => {
         const payloadData = JSON.parse(payload.body);
         if (payloadData.status === "MESSAGE") {
-            handlePrivateMessage(payload);
+            handlePrivateMessage(payloadData);
         } else if (payloadData.status === "ONLINE") {
             handleOnlineStatus(payloadData);
         } else if (payloadData.status === "PING") {
