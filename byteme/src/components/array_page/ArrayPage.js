@@ -22,7 +22,7 @@ const ArrayPage = ({loggedInUser}) => {
         <div className="group-main-container">
             <ArrayPageLeftContainer groups={groups} setGroups={setGroups} loggedInUser={loggedInUser}
                                     setShowGroup={setShowGroup}/>
-            {showGroup ? <ArrayPageRightContainer showGroup={showGroup}/> : ""}
+            {showGroup ? <ArrayPageRightContainer showGroup={showGroup} setShowGroup={setShowGroup}/> : ""}
         </div>
     );
 }
