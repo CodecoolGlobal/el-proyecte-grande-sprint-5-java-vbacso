@@ -30,8 +30,8 @@ public class GroupController {
     }
 
     @PutMapping("edit")
-    public void editGroup(@RequestBody Group group) {
-        groupService.edit(group);
+    public Group editGroup(@RequestBody Group group) {
+        return groupService.edit(group);
     }
 
     @GetMapping("{groupId}")
