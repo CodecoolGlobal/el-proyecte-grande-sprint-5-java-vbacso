@@ -95,7 +95,6 @@ const Chat = ({loggedInUser}) => {
     }
 
     const handlePrivateMessage = (payloadData) => {
-        console.log(payloadData)
         if (privateChats.get(payloadData.sender.id)) {
             privateChats.get(payloadData.sender.id).push(payloadData);
             setPrivateChats(new Map(privateChats));
@@ -173,7 +172,7 @@ const Chat = ({loggedInUser}) => {
             <ChatSwitch selfStatus={selfStatus}
                         onConnect={connect}
                         onDisconnect={onDisconnect}/>
-            <div className={selfStatus==="ONLINE"?"":"opacity-50"}>
+            <div className={selfStatus === "ONLINE" ? "" : "opacity-50"}>
                 {connectionEstablished ?
                     friends?.map(friend => (
                         <ChatBox key={friend.id}

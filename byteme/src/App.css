@@ -582,7 +582,6 @@ p {
     object-position: center;
 }
 
-
 .online-marker-off {
     color: darkred;
 }
@@ -601,6 +600,26 @@ p {
 
 .chat-message-container {
     background-color: var(--secondary);
+    max-height: 20em;
+    overflow: clip;
+    overflow-y: scroll;
+}
+
+.chat-message-container .loading {
+    display: none;
+}
+
+.chat-message-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.chat-message-container::-webkit-scrollbar-track {
+    /*box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.3);*/
+}
+
+.chat-message-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-dark);
+    border-radius: 1em;
 }
 
 .chat-box-body-container {
