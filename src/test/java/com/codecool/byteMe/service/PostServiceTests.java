@@ -19,6 +19,8 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTests {
@@ -128,6 +130,17 @@ class PostServiceTests {
         // then
         assertThat(updatedPost.getTitle()).isEqualTo("Edited Title");
         assertThat(updatedPost.getBody()).isEqualTo("Edited Body");
+    }
+
+    @DisplayName("JUnit test for deletePostById method")
+    @Test
+    public void givenIdTODeleteThenShouldDeleteTheProduct(){
+        // given
+        willDoNothing().given(postRepository).deleteById(postOne.getId());
+        // when
+        postService.deletePostById(postOne.getId());
+        // then
+        verify(postRepository,times(1)).deleteById(postOne.getId());
     }
 }
 

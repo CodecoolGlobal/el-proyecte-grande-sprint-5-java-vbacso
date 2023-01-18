@@ -46,8 +46,8 @@ public class PostController {
     }
 
     @DeleteMapping("delete/{postId}")
-    public void deletePost(@PathVariable Long postId) {
-        postService.delete(postId);
+    public void deletePostById(@PathVariable Long postId) {
+        postService.deletePostById(postId);
     }
 
     @GetMapping("feed/{userId}")
