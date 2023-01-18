@@ -52,7 +52,7 @@ const Chat = ({loggedInUser}) => {
             sockJs = new SockJS('http://localhost:8080/websocket');
         }
         stompClient = over(sockJs);
-        // stompClient.debug = null
+        stompClient.debug = null // Comment this line for console.log stomp debug messages
         stompClient.connect({
                 "userId": loggedInUser.id
             },
