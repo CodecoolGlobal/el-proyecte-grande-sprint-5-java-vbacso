@@ -16,7 +16,7 @@ const ArrayPage = ({loggedInUser}) => {
             }
         };
         getGroups().catch(console.error);
-    }, []);
+    }, [showGroup]);
 
     return (
         <div className="group-main-container">
