@@ -1,12 +1,17 @@
 import {useEffect, useState} from "react";
 import Loading from "../common/Loading";
+import {getAuthenticationToken} from "../../util";
 
 const CoverPhoto = ({photoId}) => {
     const [image, setImage] = useState();
 
     useEffect(() => {
         const fetchImage = async () => {
-            const resp = await fetch(`http://localhost:8080/image/${photoId}`);
+            const resp = await fetch(`/image/${photoId}`, {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            });
             const imageBlob = await resp.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImage(imageObjectURL);
@@ -20,9 +25,9 @@ const CoverPhoto = ({photoId}) => {
     if (!image) {
         return (<Loading/>)
     } else {
-        return (<div className="profile-pic-user-page">
+        return (<>
             <img src={image} alt="Cover Picture"/>
-        </div>)
+        </>)
     }
 };
 

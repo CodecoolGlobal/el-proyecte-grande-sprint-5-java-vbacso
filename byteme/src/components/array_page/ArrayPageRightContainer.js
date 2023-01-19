@@ -2,10 +2,10 @@ import Post, {deletePost} from "../post/Post";
 import CreatePost from "../post/CreatePost";
 import ProfilePicture from "../user_page/ProfilePicture";
 import CoverPhoto from "./CoverPhoto";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import NoCoverPhoto from "./NoCoverPhoto";
 import {MdOutlineDelete} from "react-icons/md";
-import React from "react";
+import {getAuthenticationToken} from "../../util";
 
 const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
 
@@ -32,15 +32,20 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
     }, [showGroup.id]);
 
     const fetchGroupPosts = async () => {
-        const groupPostsFromServer = await fetch(`http://localhost:8080/post/group/${showGroup.id}`);
+        const groupPostsFromServer = await fetch(`/post/group/${showGroup.id}`, {
+            headers: {
+                "Authorization": getAuthenticationToken()
+            }
+        });
         return (await groupPostsFromServer.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
     };
 
     //Create Post to corresponding Group
     const createGroupPost = async (input) => {
-        const res = await fetch(`http://localhost:8080/post/group/add/${showGroup.id}`, {
+        const res = await fetch(`/post/group/add/${showGroup.id}`, {
             method: 'POST',
             headers: {
+                "Authorization": getAuthenticationToken(),
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(input)
@@ -71,8 +76,12 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
 
     // Remove Group
     const removeGroup = async () => {
-        await fetch(`http://localhost:8080/group/delete/${showGroup.id}`, {
-            method: 'DELETE'
+        await fetch(`/group/delete/${showGroup.id}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": getAuthenticationToken()
+            }
+
         });
         closeModal();
         setShowGroup();
@@ -92,7 +101,7 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
                     < div className="remove-group">
                         <MdOutlineDelete onClick={openModal} size={35}/>
                     </div> : ""}
-                <div className="cover=photo">
+                <div className="cover-photo-container">
                     {posts !== undefined && image !== null ? <CoverPhoto photoId={imageId}/> : image === null ?
                         <NoCoverPhoto showGroup={showGroup} setShowGroup={setShowGroup}/> : <div></div>}
                 </div>
@@ -107,9 +116,9 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
                                                                          userId={member.id} placement="post"/>)}
                     </div>}
                 </div>
-                <CreatePost onAdd={createGroupPostEvent} showGroupId={showGroup.id} placement="group"/>
+                <CreatePost loggedInUser={loggedInUser} onAdd={createGroupPostEvent} showGroupId={showGroup.id} placement="group"/>
             </div> : ""}
-            {groupPosts !== undefined ? groupPosts.map(post => <Post key={post.id} post={post}
+            {groupPosts !== undefined ? groupPosts?.map(post => <Post loggedInUser={loggedInUser} key={post.id} post={post}
                                                                      onDelete={deletePostEvent}/>) : ""}
         </div>
     );

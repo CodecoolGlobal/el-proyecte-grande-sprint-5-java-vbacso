@@ -1,4 +1,5 @@
 import React from 'react';
+import {getAuthenticationToken} from "../../util";
 
 const NoCoverPhoto = ({showGroup, setShowGroup}) => {
 
@@ -8,8 +9,11 @@ const NoCoverPhoto = ({showGroup, setShowGroup}) => {
         const file = input.files[0];
         formData.append("file", file);
 
-        const imageResponse = await fetch(`http://localhost:8080/image/upload`, {
+        const imageResponse = await fetch(`/image/upload`, {
             method: "POST",
+            headers: {
+                "Authorization": getAuthenticationToken()
+            },
             body: formData
         });
 
@@ -18,10 +22,11 @@ const NoCoverPhoto = ({showGroup, setShowGroup}) => {
             setTimeout(async () => {
                 const image = await imageResponse.json();
                 showGroup.image = image;
-                const groupResponse = await fetch(`http://localhost:8080/group/edit`, {
+                const groupResponse = await fetch(`/group/edit`, {
                     method: 'PUT',
                     headers: {
-                        'Content-type': 'application/json'
+                        'Content-type': 'application/json',
+                        "Authorization": getAuthenticationToken()
                     },
                     body: JSON.stringify(showGroup)
                 });

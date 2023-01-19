@@ -24,7 +24,7 @@ public class Group {
     private String name;
 
     @ManyToOne
-    private User owner;
+    private UserModel owner;
 
     @OneToOne
     @JoinColumn(name = "image_id")
@@ -40,7 +40,7 @@ public class Group {
             name = "group_member",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> members;
+    private List<UserModel> members;
 
 
     @Override

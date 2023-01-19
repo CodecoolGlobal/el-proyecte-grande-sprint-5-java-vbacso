@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Service
 public class ImageService {
@@ -33,6 +34,7 @@ public class ImageService {
         // Save to folder
         String fileName = file.getOriginalFilename();
         String absolutePath = FileSystems.getDefault().getPath("src/main/resources/static/").normalize().toAbsolutePath().toString();
+        Files.createDirectories(Paths.get(absolutePath + "/uploaded"));
         File newFile = new File(absolutePath + "/uploaded/" + fileName);
         try {
             file.transferTo(newFile);

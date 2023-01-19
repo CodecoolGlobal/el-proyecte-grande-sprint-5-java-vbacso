@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import DisplayFriendList from "./DisplayFriendList";
+import {getAuthenticationToken} from "../../util";
 
 const CreateNewGroup = ({loggedInUser, groups, setGroups}) => {
 
@@ -52,10 +53,11 @@ const CreateNewGroup = ({loggedInUser, groups, setGroups}) => {
     };
 
     const fetchToServer = async (input) => {
-        const res = await fetch(`http://localhost:8080/group/add`, {
+        const res = await fetch(`/group/add`, {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                "Authorization": getAuthenticationToken()
             },
             body: JSON.stringify(input)
         });
@@ -63,12 +65,20 @@ const CreateNewGroup = ({loggedInUser, groups, setGroups}) => {
     };
 
     const getUserFriendsById = async (id) => {
-        const resp = await fetch(`http://localhost:8080/user/friends/${id}`);
+        const resp = await fetch(`/user/friends/${id}`, {
+            headers: {
+                "Authorization": getAuthenticationToken()
+            }
+        });
         return await resp.json();
     };
 
     const getUserById = async (id) => {
-        const resp = await fetch(`http://localhost:8080/user/findById/${id}`);
+        const resp = await fetch(`/user/findById/${id}`, {
+            headers: {
+                "Authorization": getAuthenticationToken()
+            }
+        });
         if (resp.ok) {
             return (await resp.json());
         }

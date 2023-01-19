@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import ArrayPageLeftContainer from "./ArrayPageLeftContainer";
 import ArrayPageRightContainer from "./ArrayPageRightContainer";
+import {getAuthenticationToken} from "../../util";
 
 const ArrayPage = ({loggedInUser}) => {
 
@@ -10,7 +11,11 @@ const ArrayPage = ({loggedInUser}) => {
 
     useEffect(() => {
         const getGroups = async () => {
-            const resp = await fetch(`http://localhost:8080/group/user/${loggedInUser.id}`);
+            const resp = await fetch(`/group/user/${loggedInUser.id}`, {
+                headers: {
+                    "Authorization": getAuthenticationToken()
+                }
+            });
             if (resp.ok) {
                 setGroups(await resp.json());
             }
@@ -19,7 +24,7 @@ const ArrayPage = ({loggedInUser}) => {
     }, [showGroup]);
 
     return (
-        <div className="group-main-container">
+        <div className="group-main-container flex-fill">
             <ArrayPageLeftContainer groups={groups} setGroups={setGroups} loggedInUser={loggedInUser}
                                     setShowGroup={setShowGroup}/>
             {showGroup ? <ArrayPageRightContainer showGroup={showGroup} setShowGroup={setShowGroup}

@@ -16,14 +16,12 @@ import java.util.NoSuchElementException;
 @Service("postService")
 public class PostService {
     private PostRepository postRepository;
-    private UserRepository userRepository;
     private GroupRepository groupRepository;
     private UserService userService;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository, GroupRepository groupRepository) {
+    public PostService(PostRepository postRepository, GroupRepository groupRepository, UserService userService) {
         this.postRepository = postRepository;
-        this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.userService = userService;
     }
@@ -55,7 +53,6 @@ public class PostService {
     public List<Post> getFeedPosts(Long userId) {
         List<Long> userIdsForFeed = new ArrayList<>(userService.getFriendIds(userId));
         userIdsForFeed.add(userId);
-        System.out.println(postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed));
         return postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed);
     }
 
