@@ -4,11 +4,20 @@ import ProfilePicture from "../user_page/ProfilePicture";
 import CoverPhoto from "./CoverPhoto";
 import {useEffect, useState} from "react";
 import NoCoverPhoto from "./NoCoverPhoto";
+import {MdOutlineDelete} from "react-icons/md";
+import React from "react";
 
-const ArrayPageRightContainer = ({showGroup, setShowGroup}) => {
+const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
+
     const posts = showGroup.posts;
     const image = showGroup.image;
     const imageId = posts !== undefined && image !== null ? image.id : null;
+    let ownerId = null;
+    const loggedInUserId = loggedInUser.id;
+
+    if (!Array.isArray(showGroup)) {
+        ownerId = showGroup.owner.id;
+    }
 
     const [groupPosts, setGroupPosts] = useState([]);
 
@@ -50,9 +59,39 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup}) => {
         setGroupPosts([newPost, ...groupPosts]);
     };
 
+    const openModal = () => {
+        const modal = document.querySelector("#remove-group-modal");
+        modal.style.display = "block";
+    };
+
+    const closeModal = () => {
+        const modal = document.querySelector("#remove-group-modal")
+        modal.style.display = "none";
+    };
+
+    // Remove Group
+    const removeGroup = async () => {
+        await fetch(`http://localhost:8080/group/delete/${showGroup.id}`, {
+            method: 'DELETE'
+        });
+        closeModal();
+        setShowGroup();
+    };
+
     return (
         <div className="user-page-right-container justify-content-center">
+            <div id="remove-group-modal" className="modal">
+                <div className="modal-content">
+                    <p>Are you sure you want to delete this group?</p>
+                    <button onClick={closeModal} id="no-remove" className="button button-dark">No</button>
+                    <button onClick={removeGroup} id="yes-remove" className="button button-dark">Yes</button>
+                </div>
+            </div>
             {Object.keys(showGroup).length > 0 ? <div>
+                {ownerId === loggedInUserId ?
+                    < div className="remove-group">
+                        <MdOutlineDelete onClick={openModal} size={35}/>
+                    </div> : ""}
                 <div className="cover=photo">
                     {posts !== undefined && image !== null ? <CoverPhoto photoId={imageId}/> : image === null ?
                         <NoCoverPhoto showGroup={showGroup} setShowGroup={setShowGroup}/> : <div></div>}
