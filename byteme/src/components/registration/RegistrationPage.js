@@ -14,7 +14,6 @@ const RegistrationPage = ({loggedInUser, onRegistration}) => {
 
     return (
         <div>
-            return (
             <div className="login-container">
                 <img id="login-logo" src={logo} alt="logo"/>
                 <RegistrationForm onSubmitForm={onRegistration}/>

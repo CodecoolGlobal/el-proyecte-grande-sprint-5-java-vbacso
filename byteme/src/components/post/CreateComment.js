@@ -1,39 +1,37 @@
 import {useState} from "react";
 
-const CreateComment = ({postId, setComments, comments}) => {
+const CreateComment = ({loggedInUser, post, onAdd}) => {
 
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    const [body, setCommentBody] = useState('');
+    const [commentBody, setCommentBody] = useState('')
 
-    const fetchToServer = async () => {
-        const input = {body, user, postId};
-        const res = await fetch(`http://localhost:8080/comment/add/${postId}`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(input)
-        });
-        return await res.json();
-    };
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        const newComment = await fetchToServer();
-        setComments([newComment, ...comments]);
-    };
-
+    const onSubmit = (e) => {
+        e.preventDefault()
+        if (!commentBody) {
+            alert("hey!")
+            return
+        }
+        const newComment = {
+            'body': commentBody,
+            'user': loggedInUser,
+            'post': {'id': post.id}
+        }
+        onAdd(newComment)
+        setCommentBody('')
+    }
 
     return (
         <div className="createComment-container">
             <form onSubmit={onSubmit}>
-                <textarea className="text" rows="3"
-                          placeholder="What's in your byte today?" value={body}
-                          onChange={(e) => setCommentBody(e.target.value)}/>
-                <button className='btn-sm button-sm button-light ms-auto'>Add Comment</button>
+                <div>
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label"></label>
+                    <textarea className="form-control" rows="3" value={commentBody}
+                              onChange={(e) => setCommentBody(e.target.value)}
+                              placeholder="What's in your byte today?"/>
+                </div>
+                <button type={"submit"} className='btn-sm button-sm button-light ms-auto'>Add Comment</button>
             </form>
         </div>
     )
 }
 
-export default CreateComment;
+export default CreateComment

@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @Table(name = "users")
-public class User {
+public class UserModel {
 
     private final LocalDate regDate = LocalDate.now();
     @Id
@@ -31,15 +31,24 @@ public class User {
 
     @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
+    @JsonIgnore
+    private boolean isAccountNonExpired = true;
+    @JsonIgnore
+    private boolean isAccountNonLocked = true;
+    @JsonIgnore
+    private boolean isCredentialsNonExpired = true;
+    @JsonIgnore
+    private boolean isEnabled = true;
 
-    @JsonIncludeProperties({"id", "profilePictureId"})
-    @ManyToMany
+    @JsonIncludeProperties({"id", "name", "profilePictureId"})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_friend",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_user_id"))
-    private List<User> friendList;
+    private List<UserModel> friendList;
 
     private Long profilePictureId;
 
@@ -52,6 +61,21 @@ public class User {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "sender")
+    @JsonIgnore
+    private List<Message> sendedMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    @JsonIgnore
+    private List<Message> receivedMessages;
+
+    public UserModel(RegistrationUserModel user) {
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.age = user.getAge();
+        this.email = user.getEmail();
+    }
 
     @Override
     public String toString() {

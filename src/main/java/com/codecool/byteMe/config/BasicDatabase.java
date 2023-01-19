@@ -3,12 +3,14 @@ package com.codecool.byteMe.config;
 import com.codecool.byteMe.dao.*;
 import com.codecool.byteMe.model.Group;
 import com.codecool.byteMe.model.Image;
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.model.postable.Comment;
 import com.codecool.byteMe.model.postable.Post;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,40 +20,66 @@ import java.util.List;
 
 @Configuration
 public class BasicDatabase {
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public BasicDatabase(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Bean
-    public User vanda() {
-        return User.builder()
+    public UserModel vanda() {
+        return UserModel.builder()
                 .age(18)
                 .email("vanda@byte.me")
                 .name("Bacso Vanda")
-                .password("password")
+                .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
     @Bean
-    public User zeno() {
-        return User.builder()
+    public UserModel zeno() {
+        return UserModel.builder()
                 .age(12)
                 .email("zeno@byte.me")
                 .name("Fergencs Zeno")
+                .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
     @Bean
-    public User erik() {
-        return User.builder()
+    public UserModel erik() {
+        return UserModel.builder()
                 .age(13)
                 .email("erik@byte.me")
                 .name("Izeli Erik")
+                .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
     @Bean
-    public User dani() {
-        return User.builder()
+    public UserModel dani() {
+        return UserModel.builder()
                 .age(69420)
                 .email("dani@byte.me")
                 .name("Fekete Daniel")
+                .password(passwordEncoder.encode("password"))
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isEnabled(true)
+                .isCredentialsNonExpired(true)
                 .build();
     }
 
@@ -250,11 +278,13 @@ public class BasicDatabase {
             userRepository.save(erik());
             userRepository.save(dani());
 
-            vanda().setFriendList(List.of(zeno()));
-            zeno().setFriendList(List.of(vanda()));
+            vanda().setFriendList(List.of(zeno(),dani()));
+            zeno().setFriendList(List.of(vanda(),dani()));
+            dani().setFriendList(List.of(vanda(),zeno()));
 
             userRepository.save(vanda());
             userRepository.save(zeno());
+            userRepository.save(dani());
 
             imageRepository.save(zenoProfilePicture());
             imageRepository.save(vandaProfilePicture());
@@ -262,19 +292,19 @@ public class BasicDatabase {
             imageRepository.save(daniProfilePicture());
             imageRepository.save(daniGroupCoverPicture());
 
-            User updateZeno = userRepository.findById(zeno().getId()).get();
+            UserModel updateZeno = userRepository.findById(zeno().getId()).get();
             updateZeno.setProfilePictureId(zenoProfilePicture().getId());
             userRepository.save(updateZeno);
 
-            User updateVanda = userRepository.findById(vanda().getId()).get();
+            UserModel updateVanda = userRepository.findById(vanda().getId()).get();
             updateVanda.setProfilePictureId(vandaProfilePicture().getId());
             userRepository.save(updateVanda);
 
-            User updateErik = userRepository.findById(erik().getId()).get();
+            UserModel updateErik = userRepository.findById(erik().getId()).get();
             updateErik.setProfilePictureId(erikProfilePicture().getId());
             userRepository.save(updateErik);
 
-            User updateDani = userRepository.findById(dani().getId()).get();
+            UserModel updateDani = userRepository.findById(dani().getId()).get();
             updateDani.setProfilePictureId(daniProfilePicture().getId());
             userRepository.save(updateDani);
 

@@ -1,7 +1,7 @@
 package com.codecool.byteMe.model.postable;
 
-import com.codecool.byteMe.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.codecool.byteMe.model.UserModel;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -15,12 +15,12 @@ import javax.persistence.ManyToOne;
 public class Comment extends Postable {
 
     public static final int VOTE = 0;
-    @JsonIgnore
+    @JsonIncludeProperties("id")
     @ManyToOne
     private Post post;
 
     @Builder
-    public Comment(User user, String body, Post post) {
+    public Comment(UserModel user, String body, Post post) {
         super(user, body);
         this.post = post;
     }

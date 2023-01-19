@@ -1,11 +1,41 @@
 import ProfilePicture from "../../user_page/ProfilePicture";
+import {FaTimes} from "react-icons/fa";
+import {getAuthenticationToken} from "../../../util";
 
-const Comment = ({name, body, last, profilePictureID}) => {
+
+export const deleteComment = async (id) => {
+    await fetch(`/comment/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Authorization": getAuthenticationToken(),
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(id)
+    }).catch(console.error)
+}
+
+export const createComment = async (input) => {
+    const res = await fetch(`/comment/add`, {
+        method: 'POST',
+        headers: {
+            "Authorization": getAuthenticationToken(),
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(input)
+    })
+    return await res.json();
+}
+
+const Comment = ({commentId, name, body, profilePictureID, onDeleteCom, loggedInUserId, userId}) => {
+
+
     return (
-        <div className={last ? 'comments-container' : 'comments-container last'} style={{color: 'white'}}>
-            <ProfilePicture profilePictureId={profilePictureID} placement={"post"}/>
+        <div className={'comments-container'} style={{color: 'white'}}>
+            <ProfilePicture profilePictureId={profilePictureID} placement={"post"} userId={userId}/>
             <p>{name}</p>
             <p>{body}</p>
+            {userId === loggedInUserId ?
+                <FaTimes className={'comments-delete-link'} onClick={() => onDeleteCom(commentId)}/> : ""}
         </div>
     )
 }

@@ -2,43 +2,48 @@ package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.UserInfo;
 import com.codecool.byteMe.dao.UserRepository;
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAll() {
+    public List<UserModel> getAll() {
         return userRepository.findAll();
     }
 
-    public User add(User user) {
+    public UserModel add(UserModel user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public User findByEmail(String email) {
+    public UserModel findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public User findById(Long userId) {
+    public UserModel findById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No user with given id"));
     }
 
-    public User edit(User user) {
-        User updatableUser = userRepository.findById(user.getId()).get();
-        updatableUser.setName(user.getName());
-        updatableUser.setAge(user.getAge());
-        updatableUser.setEmail(user.getEmail());
+    public UserModel edit(UserModel user) {
+        UserModel updatableUser = userRepository.findById(user.getId()).get();
+        if ((!Objects.equals(user.getName(), ""))) updatableUser.setName(user.getName());
+        if (user.getAge() > 0) updatableUser.setAge(user.getAge());
         return userRepository.save(updatableUser);
     }
 
@@ -47,10 +52,10 @@ public class UserService {
     }
 
     public void addFriend(Long user1Id, Long user2Id) {
-        User updatableUser1 = userRepository.findById(user1Id).get();
-        User updatableUser2 = userRepository.findById(user2Id).get();
-        List<User> updatableUser1FriendList = updatableUser1.getFriendList();
-        List<User> updatableUser2FriendList = updatableUser2.getFriendList();
+        UserModel updatableUser1 = userRepository.findById(user1Id).get();
+        UserModel updatableUser2 = userRepository.findById(user2Id).get();
+        List<UserModel> updatableUser1FriendList = updatableUser1.getFriendList();
+        List<UserModel> updatableUser2FriendList = updatableUser2.getFriendList();
 
         updatableUser1FriendList.add(updatableUser2);
         updatableUser2FriendList.add(updatableUser1);
@@ -63,10 +68,10 @@ public class UserService {
     }
 
     public void deleteFriend(Long user1Id, Long user2Id) {
-        User updatableUser1 = userRepository.findById(user1Id).get();
-        User updatableUser2 = userRepository.findById(user2Id).get();
-        List<User> updatableUser1FriendList = updatableUser1.getFriendList();
-        List<User> updatableUser2FriendList = updatableUser2.getFriendList();
+        UserModel updatableUser1 = userRepository.findById(user1Id).get();
+        UserModel updatableUser2 = userRepository.findById(user2Id).get();
+        List<UserModel> updatableUser1FriendList = updatableUser1.getFriendList();
+        List<UserModel> updatableUser2FriendList = updatableUser2.getFriendList();
 
         updatableUser1FriendList.remove(updatableUser2);
         updatableUser2FriendList.remove(updatableUser1);
@@ -78,7 +83,14 @@ public class UserService {
         userRepository.save(updatableUser2);
     }
 
-    public List<User> findUserFriendListByUserId(Long userId) {
+    public List<UserModel> findUserFriendListByUserId(Long userId) {
         return userRepository.findByFriendList_Id(userId);
+    }
+
+    public List<Long> getFriendIds(Long userId) {
+        return new ArrayList<>(userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
+                .getFriendList()
+                .stream()
+                .map(UserModel::getId).toList());
     }
 }

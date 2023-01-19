@@ -2,14 +2,16 @@ import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
 import InteractionBar from "./post-components/InteractionBar";
 import {useEffect, useState} from "react";
-import Comment from "./post-components/Comment";
+import Comment, {createComment, deleteComment} from "./post-components/Comment";
 import CreateComment from "./CreateComment";
+import {getAuthenticationToken} from "../../util";
 
 
 export const deletePost = async (id) => {
-    await fetch(`http://localhost:8080/post/delete/${id}`, {
+    await fetch(`/post/delete/${id}`, {
         method: 'DELETE',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(id)
@@ -17,9 +19,10 @@ export const deletePost = async (id) => {
 }
 
 export const createPost = async (input) => {
-    const res = await fetch(`http://localhost:8080/post/add`, {
+    const res = await fetch(`/post/add`, {
         method: 'POST',
         headers: {
+            "Authorization": getAuthenticationToken(),
             'Content-type': 'application/json'
         },
         body: JSON.stringify(input)
@@ -27,24 +30,22 @@ export const createPost = async (input) => {
     return await res.json();
 }
 
-const Post = ({post, onDelete}) => {
+
+const Post = ({loggedInUser, post, onDelete}) => {
+
 
     const [showComments, setShowComments] = useState(false);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(post.comments ? post.comments : [])
 
-    useEffect(() => {
-        const getCommentsByPostId = async () => {
-            const resp = await fetchCommentsByPostId();
-            setComments(resp);
-        };
-        getCommentsByPostId().catch(console.error);
-    }, []);
+    const deleteCommentEvent = async (id) => {
+        await deleteComment(id);
+        setComments(comments.filter((c) => c.id !== id))
+    }
 
-    const fetchCommentsByPostId = async () => {
-        const comments = await fetch(`http://localhost:8080/comment/post/${post.id}`);
-        return (await comments.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
-    };
-
+    const createCommentEvent = async (input) => {
+        const newComment = await createComment(input)
+        setComments([...comments, newComment])
+    }
     return (
         <div className={showComments ? 'post-card open' : 'post-card'}>
             <PostHeader userName={post.user.name}
@@ -54,25 +55,32 @@ const Post = ({post, onDelete}) => {
                         userId={post.user.id}
                         onDelete={onDelete}
                         profilePictureId={post.user.profilePictureId}
+                        loggedInUser={loggedInUser}
             />
             <PostBody
                 postBody={post.body}
             />
 
-            <InteractionBar toggle={() => {
-                setShowComments(!showComments)
-            }} status={post.comments == null ? null : showComments} post={post}/>
-            {showComments && comments?.map((comment, index) => (
-                <Comment key={index}
-                         name={comment.user.name}
-                         body={comment.body}
-                         profilePictureID={comment.user.profilePictureId}
-                         last={comments.slice(-1).map((lll) => lll.id).toString() !== comment.id.toString()}
-
-                />
-            ))}
+            <InteractionBar
+                toggle={() => setShowComments(!showComments)}
+                status={post.comments < 1 ? null : showComments}
+                post={post}
+            />
+            <div className='comments-wrapper'>
+                {showComments && comments?.map((comment, index) => (
+                    <Comment key={index}
+                             commentId={comment.id}
+                             name={comment.user.name}
+                             body={comment.body}
+                             profilePictureID={comment.user.profilePictureId}
+                             onDeleteCom={deleteCommentEvent}
+                             loggedInUserId={loggedInUser.id}
+                             userId={comment.user.id}
+                    />
+                ))}
+            </div>
             {showComments ? (
-                <CreateComment postId={post.id} setComments={setComments} comments={comments}/>
+                <CreateComment loggedInUser={loggedInUser} post={post} onAdd={createCommentEvent}/>
             ) : null}
 
         </div>

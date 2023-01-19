@@ -4,6 +4,7 @@ import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import ArrayPage from "./array_page/ArrayPage";
+import Chat from "./chat/Chat";
 
 const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     const [showedUser, setShowedUser] = useState(loggedInUser);
@@ -38,18 +39,23 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         <div className="main-container">
             <NavigationBar loggedInUser={loggedInUser} loadFeedPage={loadFeedPage} loadUserPage={loadUserPage}
                            onLogout={onLogout} onSetShowedUser={onSetShowedUser} loadArrayPage={loadArrayPage}/>
+            <div className="content-container d-flex">
+                <Routes>
+                    <Route path="/*" element={<Navigate to={"feed"}/>}/>
+                    <Route exact path='/feed'
+                           element={<FeedPage loggedInUser={loggedInUser}/>}/>
+                    <Route path='/user/:userId'
+                           element={<UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                              showedUser={showedUser}
+                                              setShowedUser={setShowedUser}/>}
+                    />
+                    <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser}/>}/>
+                </Routes>
+                <Chat loggedInUser={loggedInUser}/>
+                <div className="chat-box-body-container d-flex gap-2">
 
-            <Routes>
-                <Route path="/*" element={<Navigate to={"feed"}/>}/>
-                <Route exact path='/feed'
-                       element={<FeedPage loggedInUser={loggedInUser}/>}/>
-                <Route path='/user/:userId'
-                       element={<UserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
-                                          showedUser={showedUser}
-                                          setShowedUser={setShowedUser}/>}
-                />
-                <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser}/>}/>
-            </Routes>
+                </div>
+            </div>
         </div>
     );
 };

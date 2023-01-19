@@ -2,7 +2,7 @@ package com.codecool.byteMe.controller;
 
 
 import com.codecool.byteMe.dao.UserInfo;
-import com.codecool.byteMe.model.User;
+import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,32 +22,32 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public List<User> getAllUser() {
+    public List<UserModel> getAllUser() {
         return userService.getAll();
     }
 
     @PostMapping("/add")
-    public User add(@RequestBody User user) {
+    public UserModel add(@RequestBody UserModel user) {
         return userService.add(user);
     }
 
     @PutMapping("/update")
-    public User update(@RequestBody User user) {
+    public UserModel update(@RequestBody UserModel user) {
         return userService.edit(user);
     }
 
     @GetMapping("/findById/{userId}")
-    public User findUserById(@PathVariable Long userId) {
+    public UserModel findUserById(@PathVariable Long userId) {
         return userService.findById(userId);
     }
 
-    @GetMapping("/findByEmail")
-    public User findUserByEmail(@RequestBody User user) {
-        return userService.findByEmail(user.getEmail());
+    @GetMapping("/findByEmail/{email}")
+    public UserModel findUserByEmail(@PathVariable String email) {
+        return userService.findByEmail(email);
     }
 
     @DeleteMapping("/delete")
-    public User deleteUser(@RequestBody User user) {
+    public UserModel deleteUser(@RequestBody UserModel user) {
         return deleteUser(user);
     }
 
