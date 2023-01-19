@@ -4,6 +4,7 @@ import SockJS from "sockjs-client";
 import {over} from "stompjs"
 import Loading from "../common/Loading";
 import ChatSwitch from "./ChatSwitch";
+import {getAuthenticationToken} from "../../util";
 
 let sockJs;
 let stompClient;
@@ -49,12 +50,12 @@ const Chat = ({loggedInUser}) => {
 
     const connect = () => {
         if (sockJs === undefined) {
-            sockJs = new SockJS('http://localhost:8080/websocket');
+            sockJs = new SockJS('/websocket');
         }
         stompClient = over(sockJs);
-        stompClient.debug = null // Comment this line for console.log stomp debug messages
+        // stompClient.debug = null // Comment this line for console.log stomp debug messages
         stompClient.connect({
-                "userId": loggedInUser.id
+                "X-Authorization": getAuthenticationToken()
             },
             onConnected,
             onError);
