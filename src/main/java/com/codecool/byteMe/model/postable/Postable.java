@@ -1,5 +1,6 @@
 package com.codecool.byteMe.model.postable;
 
+import com.codecool.byteMe.model.Group;
 import com.codecool.byteMe.model.UserModel;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
@@ -19,12 +20,19 @@ public abstract class Postable {
     @GeneratedValue(generator = "postable_sequence")
     @SequenceGenerator(name = "postable_sequence", allocationSize = 1)
     protected Long id;
+
     @JsonIncludeProperties({"id", "name", "profilePictureId"})
     @ManyToOne
     @JoinColumn(name = "user_id")
     protected UserModel user;
+
+    @JsonIncludeProperties({"id"})
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    protected Group group;
     protected String body;
     protected int vote = 0;
+
     @Builder.Default
     protected LocalDateTime created = LocalDateTime.now();
 

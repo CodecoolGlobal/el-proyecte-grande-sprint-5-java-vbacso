@@ -3,8 +3,9 @@ import Logout from "./Logout";
 import LinkFeedPage from "./LinkFeedPage";
 import LinkLoggedInUserPage from "./LinkLoggedInUserPage";
 import SearchBar from "./searchbar/SearchBar";
+import LinkArrayPage from "../array_page/LinkArrayPage";
 
-const NavigationBar = ({loggedInUser, loadFeedPage, loadUserPage, onLogout, onSetShowedUser}) => {
+const NavigationBar = ({loggedInUser, loadFeedPage, loadUserPage, loadArrayPage, onLogout, onSetShowedUser}) => {
     return (
         <div className="navbar-container">
             <nav className="navbar justify-content-between px-3">
@@ -22,7 +23,7 @@ const NavigationBar = ({loggedInUser, loadFeedPage, loadUserPage, onLogout, onSe
                             <LinkFeedPage loadFeedPage={loadFeedPage}/>
                         </li>
                         <li className="nav-item mx-2">
-                            <a className="nav-link" href="byteme/src/components/NavigationBar#">byte.Arrays</a>
+                            <LinkArrayPage loadArrayPage={loadArrayPage}/>
                         </li>
                     </ul>
                 </div>

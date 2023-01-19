@@ -10,4 +10,5 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     List<UserInfo> findByNameIsContainingAllIgnoreCase(String userName);
 
+    List<UserModel> findByFriendList_Id(Long userId);
 }

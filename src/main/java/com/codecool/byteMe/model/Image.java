@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -21,4 +22,13 @@ public class Image {
     @JoinColumn(name = "user_id")
     protected UserModel user;
     byte[] content;
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", user=" + user +
+                ", content=" + Arrays.toString(content) +
+                '}';
+    }
 }

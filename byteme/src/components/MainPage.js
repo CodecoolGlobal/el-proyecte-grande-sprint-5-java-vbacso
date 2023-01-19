@@ -3,6 +3,7 @@ import NavigationBar from "./navbar/NavigationBar";
 import FeedPage from "./feed_page/FeedPage";
 import UserPage from "./user_page/UserPage";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import ArrayPage from "./array_page/ArrayPage";
 import Chat from "./chat/Chat";
 
 const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
@@ -19,9 +20,15 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
         e.preventDefault();
         navigate("/feed")
     };
+
     const loadUserPage = (e) => {
         e.preventDefault();
         navigate("/user/" + loggedInUser.id)
+    };
+
+    const loadArrayPage = (e) => {
+        e.preventDefault();
+        navigate("/arrays");
     };
 
     const onSetShowedUser = (user) => {
@@ -31,7 +38,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
     return (
         <div className="main-container">
             <NavigationBar loggedInUser={loggedInUser} loadFeedPage={loadFeedPage} loadUserPage={loadUserPage}
-                           onLogout={onLogout} onSetShowedUser={onSetShowedUser}/>
+                           onLogout={onLogout} onSetShowedUser={onSetShowedUser} loadArrayPage={loadArrayPage}/>
             <div className="content-container d-flex">
                 <Routes>
                     <Route path="/*" element={<Navigate to={"feed"}/>}/>
@@ -42,6 +49,7 @@ const MainPage = ({loggedInUser, setLoggedInUser, onLogout}) => {
                                               showedUser={showedUser}
                                               setShowedUser={setShowedUser}/>}
                     />
+                    <Route path="/arrays" element={<ArrayPage loggedInUser={loggedInUser}/>}/>
                 </Routes>
                 <Chat loggedInUser={loggedInUser}/>
                 <div className="chat-box-body-container d-flex gap-2">

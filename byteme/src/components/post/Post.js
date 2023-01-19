@@ -1,7 +1,7 @@
 import PostBody from './post-components/PostBody'
 import PostHeader from "./post-components/PostHeader";
 import InteractionBar from "./post-components/InteractionBar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Comment, {createComment, deleteComment} from "./post-components/Comment";
 import CreateComment from "./CreateComment";
 import {getAuthenticationToken} from "../../util";
@@ -64,6 +64,7 @@ const Post = ({loggedInUser, post, onDelete}) => {
             <InteractionBar
                 toggle={() => setShowComments(!showComments)}
                 status={post.comments < 1 ? null : showComments}
+                post={post}
             />
             <div className='comments-wrapper'>
                 {showComments && comments?.map((comment, index) => (

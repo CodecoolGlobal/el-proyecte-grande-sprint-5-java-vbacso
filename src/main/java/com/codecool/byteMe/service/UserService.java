@@ -83,6 +83,10 @@ public class UserService {
         userRepository.save(updatableUser2);
     }
 
+    public List<UserModel> findUserFriendListByUserId(Long userId) {
+        return userRepository.findByFriendList_Id(userId);
+    }
+
     public List<Long> getFriendIds(Long userId) {
         return new ArrayList<>(userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
                 .getFriendList()

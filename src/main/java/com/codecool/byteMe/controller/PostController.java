@@ -14,7 +14,6 @@ public class PostController {
 
     private PostService postService;
 
-
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
@@ -53,5 +52,15 @@ public class PostController {
     @GetMapping("feed/{userId}")
     public List<Post> getFeedPosts(@PathVariable Long userId) {
         return postService.getFeedPosts(userId);
+    }
+
+    @PostMapping("group/add/{groupId}")
+    public Post addPostToGroup(@RequestBody Post post, @PathVariable Long groupId) {
+        return postService.addPostToGroup(post, groupId);
+    }
+
+    @GetMapping("group/{groupId}")
+    public List<Post> getPostsByGroupId(@PathVariable Long groupId) {
+        return postService.findByGroupId(groupId);
     }
 }
