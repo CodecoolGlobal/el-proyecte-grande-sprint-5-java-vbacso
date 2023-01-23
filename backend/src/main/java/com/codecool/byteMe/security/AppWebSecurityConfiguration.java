@@ -45,7 +45,7 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtEmailAndPasswordAuthenticationFilter(authenticationManager(), jwtConfiguration, secretKey))
                 .addFilterAfter(new JwtValidation(secretKey, jwtConfiguration), JwtEmailAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/login", "/registration").permitAll()
+                .antMatchers("/css/**", "/js/**", "/login", "/registration", "/favicon.ico").permitAll()
                 .anyRequest()
                 .authenticated();
     }
