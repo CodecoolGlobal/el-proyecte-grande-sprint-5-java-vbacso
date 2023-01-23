@@ -42,8 +42,8 @@ public class UserModel {
     @JsonIgnore
     private boolean isEnabled = true;
 
-    @JsonIncludeProperties({"id", "profilePictureId"})
-    @ManyToMany
+    @JsonIncludeProperties({"id", "name", "profilePictureId"})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_friend",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -61,6 +61,14 @@ public class UserModel {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "sender")
+    @JsonIgnore
+    private List<Message> sendedMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    @JsonIgnore
+    private List<Message> receivedMessages;
 
     public UserModel(RegistrationUserModel user) {
         this.name = user.getName();

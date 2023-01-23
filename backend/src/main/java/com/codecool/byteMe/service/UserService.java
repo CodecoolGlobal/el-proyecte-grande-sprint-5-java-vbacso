@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -40,8 +42,8 @@ public class UserService {
 
     public UserModel edit(UserModel user) {
         UserModel updatableUser = userRepository.findById(user.getId()).get();
-        if (Boolean.parseBoolean(user.getName())) updatableUser.setName(user.getName());
-        if (user.getAge() != 0) updatableUser.setAge(user.getAge());
+        if ((!Objects.equals(user.getName(), ""))) updatableUser.setName(user.getName());
+        if (user.getAge() > 0) updatableUser.setAge(user.getAge());
         return userRepository.save(updatableUser);
     }
 
@@ -79,5 +81,16 @@ public class UserService {
 
         userRepository.save(updatableUser1);
         userRepository.save(updatableUser2);
+    }
+
+    public List<UserModel> findUserFriendListByUserId(Long userId) {
+        return userRepository.findByFriendList_Id(userId);
+    }
+
+    public List<Long> getFriendIds(Long userId) {
+        return new ArrayList<>(userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
+                .getFriendList()
+                .stream()
+                .map(UserModel::getId).toList());
     }
 }

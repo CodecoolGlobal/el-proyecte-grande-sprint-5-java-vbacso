@@ -1,7 +1,9 @@
 package com.codecool.byteMe.service;
 
 import com.codecool.byteMe.dao.CommentRepository;
+import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.model.postable.Comment;
+import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import java.util.NoSuchElementException;
 
 public class CommentService {
     private CommentRepository commentRepository;
+    private PostRepository postRepository;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
     }
 
     public List<Comment> getAll() {
@@ -44,6 +48,12 @@ public class CommentService {
 
     public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
+    }
+
+    public Comment addCommentToPost(Long postId, Comment comment) {
+        Post currentPost = postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("Invalid id: " + postId));
+        comment.setPost(currentPost);
+        return add(comment);
     }
 }
 

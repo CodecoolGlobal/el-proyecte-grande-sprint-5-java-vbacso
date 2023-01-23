@@ -37,8 +37,6 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .cors()
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -46,6 +44,7 @@ public class AppWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtValidation(secretKey, jwtConfiguration), JwtEmailAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/login", "/registration", "/favicon.ico").permitAll()
+                .antMatchers("/websocket/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }

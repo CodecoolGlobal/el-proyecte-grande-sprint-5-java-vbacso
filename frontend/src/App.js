@@ -68,15 +68,15 @@ function App() {
     };
 
     return (<Routes>
-            <Route path='/*'
-                   element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
-                                                     onLogout={onLogout}/> : loggedInUser === undefined ?
-                       <div>Loading...</div> : <Navigate replace to={"/login"}/>}/>
-            <Route exact path='/login'
-                   element={<LoginPage loggedInUser={loggedInUser} onLogin={onLogin}/>}/>
-            <Route exact path='/registration'
-                   element={<RegistrationPage loggedInUser={loggedInUser} onRegistration={onRegistration}/>}/>
-        </Routes>);
+        <Route path='/*'
+               element={loggedInUser ? <MainPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                                 onLogout={onLogout}/> : loggedInUser === undefined ?
+                   <div>Loading...</div> : <Navigate replace to={"/login"}/>}/>
+        <Route exact path='/login'
+               element={<LoginPage loggedInUser={loggedInUser} onLogin={onLogin}/>}/>
+        <Route exact path='/registration'
+               element={<RegistrationPage loggedInUser={loggedInUser} onRegistration={onRegistration}/>}/>
+    </Routes>);
 }
 
 export default App;

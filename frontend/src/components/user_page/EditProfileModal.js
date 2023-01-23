@@ -1,14 +1,16 @@
 import ProfilePicture from "./ProfilePicture";
-import EditButton from "./EditButton";
+import EditButtonOnModal from "./EditButtonOnModal";
 import Loading from "../common/Loading";
 import {getAuthenticationToken} from "../../util";
 
-const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
+const EditProfileModal = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) => {
 
     // Close Modal
     function closeModal() {
         const modal = document.querySelector("#myModal")
         modal.style.display = "none";
+        document.querySelector(".user-data-name").textContent = loggedInUser.name;
+        document.querySelector(".user-data-age").textContent = loggedInUser.age
     }
 
     // Save changes
@@ -16,10 +18,17 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
         const modal = document.querySelector(".modal");
         const userId = modal.dataset.id;
 
-        const savedUserName = document.querySelector(".user-data-name").textContent;
-        const savedUserAge = document.querySelector(".user-data-age").textContent;
+        let nameFieldTextContent = document.querySelector(".user-data-name").textContent;
+        let savedUserName = nameFieldTextContent === "" ? loggedInUser.name : nameFieldTextContent;
+        document.querySelector(".user-data-name").textContent = savedUserName;
+
+        let ageFieldTextContent = document.querySelector(".user-data-age").textContent;
+        let savedUserAge = ageFieldTextContent < 0 || ageFieldTextContent === "" ? loggedInUser.age : ageFieldTextContent;
+        document.querySelector(".user-data-age").textContent = savedUserAge;
+
         const updateUser = {"id": userId, "name": savedUserName, "age": savedUserAge};
         setLoggedInUser({...loggedInUser, "name": savedUserName, "age": savedUserAge});
+        setShowedUser({...showedUser, "name": savedUserName, "age": savedUserAge});
 
         const saveUserData = async (user) => {
             const resp = fetch('/user/update', {
@@ -54,12 +63,12 @@ const EditProfileModal = ({loggedInUser, setLoggedInUser}) => {
                         <div id="user-name" className="edit-user-details">
                             <p className="datas-to-edit">Name</p>
                             <p className="user-data-name">{loggedInUser.name}</p>
-                            <EditButton dataset="name"/>
+                            <EditButtonOnModal dataset="name"/>
                         </div>
                         <div id="user-age" className="edit-user-details">
                             <p className="datas-to-edit">Age</p>
                             <p className="user-data-age">{loggedInUser.age}</p>
-                            <EditButton dataset="age"/>
+                            <EditButtonOnModal dataset="age"/>
                         </div>
                     </div>
                     <div className="modal-footer">

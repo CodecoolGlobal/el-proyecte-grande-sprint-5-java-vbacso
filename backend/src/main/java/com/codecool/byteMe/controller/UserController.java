@@ -65,4 +65,9 @@ public class UserController {
     public void deleteFriend(@PathVariable Long user1Id, @PathVariable Long user2Id) {
         userService.deleteFriend(user1Id, user2Id);
     }
+
+    @GetMapping("/friends/{userId}")
+    public List<UserModel> findUserFriendListByUserId(@PathVariable Long userId) {
+        return userService.findUserFriendListByUserId(userId);
+    }
 }

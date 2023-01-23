@@ -2,7 +2,7 @@ import '../../App.css';
 import {useEffect, useState} from 'react'
 import Post, {createPost, deletePost} from '../post/Post'
 import CreatePost from '../post/CreatePost';
-import EditProfileButton from "./EditProfileButton";
+import EditButtonOnUserPage from "./EditButtonOnUserPage";
 import ProfilePicture from "./ProfilePicture";
 import UserDetails from "./UserDetails";
 import Loading from "../common/Loading";
@@ -27,25 +27,26 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
             setShowedUser(await res.json())
         }
 
+        // Fetch user posts
+        const fetchUserPosts = async () => {
+            const res = await fetch(`/post/user/${showedUser.id}`,
+                {
+                    headers: {
+                        "Authorization": getAuthenticationToken()
+                    }
+                })
+            return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
+        }
+
         const getUserPosts = async () => {
             const postsFromServer = await fetchUserPosts();
             setPosts(postsFromServer);
         }
+
         getShowedUser().catch(console.error).then(() => {
             getUserPosts().catch(console.error);
         });
-    }, [showedUser.id, params.userId, JSON.stringify(loggedInUser)])
-
-    // Fetch user posts
-    const fetchUserPosts = async () => {
-        const res = await fetch(`/post/user/${showedUser.id}`,
-            {
-                headers: {
-                    "Authorization": getAuthenticationToken()
-                }
-            })
-        return (await res.json()).sort((a, b) => new Date(b.created) - new Date(a.created));
-    }
+    }, [setShowedUser, params.userId, showedUser.id])
 
     // Delete Post
     const deletePostEvent = async (id) => {
@@ -62,12 +63,14 @@ const UserPage = ({loggedInUser, setLoggedInUser, showedUser, setShowedUser}) =>
     if (!posts || !showedUser) {
         return (<Loading/>)
     } else {
-        return (<div>
+        return (<div className="user-page-container flex-fill">
             <div className="user-page-left-container">
                 <ProfilePicture profilePictureId={showedUser.profilePictureId} userId={showedUser.id}/>
                 <UserDetails showedUser={showedUser} setShowedUser={setShowedUser}/>
                 {loggedInUser.id === showedUser.id ?
-                    <EditProfileButton loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}/> : ""}
+                    <EditButtonOnUserPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser}
+                                          showedUser={showedUser}
+                                          setShowedUser={setShowedUser}/> : ""}
                 <Friend loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} showedUser={showedUser}
                         setShowedUser={setShowedUser}/>
             </div>

@@ -52,4 +52,9 @@ public class CommentController {
     public void delete(@PathVariable Long commentId) {
         commentService.delete(commentId);
     }
+
+    @PostMapping("/add/{postId}")
+    public Comment addCommentToPost(@PathVariable Long postId, @RequestBody Comment comment) {
+        return commentService.addCommentToPost(postId, comment);
+    }
 }

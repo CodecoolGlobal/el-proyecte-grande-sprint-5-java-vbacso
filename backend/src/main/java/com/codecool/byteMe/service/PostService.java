@@ -1,7 +1,9 @@
 package com.codecool.byteMe.service;
 
+import com.codecool.byteMe.dao.GroupRepository;
 import com.codecool.byteMe.dao.PostRepository;
 import com.codecool.byteMe.dao.UserRepository;
+import com.codecool.byteMe.model.Group;
 import com.codecool.byteMe.model.UserModel;
 import com.codecool.byteMe.model.postable.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,14 @@ import java.util.NoSuchElementException;
 @Service("postService")
 public class PostService {
     private PostRepository postRepository;
-    private UserRepository userRepository;
+    private GroupRepository groupRepository;
+    private UserService userService;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, GroupRepository groupRepository, UserService userService) {
         this.postRepository = postRepository;
-        this.userRepository = userRepository;
+        this.groupRepository = groupRepository;
+        this.userService = userService;
     }
 
     public List<Post> getAll() {
@@ -35,7 +39,7 @@ public class PostService {
     }
 
     public List<Post> findByUserId(Long userId) {
-        return postRepository.findByUserId(userId);
+        return postRepository.findByUserIdAndGroupIdIsNull(userId);
     }
 
     public Post edit(Post post) {
@@ -47,12 +51,18 @@ public class PostService {
     }
 
     public List<Post> getFeedPosts(Long userId) {
-        List<Long> userIdsForFeed = new ArrayList<>(
-                userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("No User with provided id"))
-                        .getFriendList()
-                        .stream()
-                        .map(UserModel::getId).toList());
+        List<Long> userIdsForFeed = new ArrayList<>(userService.getFriendIds(userId));
         userIdsForFeed.add(userId);
-        return postRepository.findByUser_IdIn(userIdsForFeed);
+        return postRepository.findByUser_IdInAndGroupIdIsNull(userIdsForFeed);
+    }
+
+    public Post addPostToGroup(Post post, Long groupId) {
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new NoSuchElementException("Invalid id: " + groupId));
+        post.setGroup(group);
+        return postRepository.save(post);
+    }
+
+    public List<Post> findByGroupId(Long groupId) {
+        return postRepository.findByGroupId(groupId);
     }
 }
