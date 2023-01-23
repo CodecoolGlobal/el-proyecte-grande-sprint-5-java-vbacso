@@ -33,7 +33,7 @@ public class ImageService {
     public Image saveGroupCoverPhoto(MultipartFile file) throws IOException {
         // Save to folder
         String fileName = file.getOriginalFilename();
-        String absolutePath = FileSystems.getDefault().getPath("backend/src/main/resources/static/").normalize().toAbsolutePath().toString();
+        String absolutePath = FileSystems.getDefault().getPath("").normalize().toAbsolutePath().toString();
         Files.createDirectories(Paths.get(absolutePath + "/uploaded"));
         File newFile = new File(absolutePath + "/uploaded/" + fileName);
         try {
