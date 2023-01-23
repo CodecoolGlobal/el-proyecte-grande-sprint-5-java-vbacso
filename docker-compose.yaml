@@ -1,7 +1,9 @@
 services:
   ui:
     container_name: frontend
-    build: frontend/.
+    build:
+      context: frontend/.
+      dockerfile: Dockerfile-nodeHttp
     ports:
       - "3000:3000"
 

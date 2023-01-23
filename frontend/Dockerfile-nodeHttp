@@ -21,5 +21,4 @@ RUN npm i http-server
 
 COPY --from=builder /build/build static
 
-# TODO: set up proxy-ing
-ENTRYPOINT npx http-server static -bz
+ENTRYPOINT npx http-server static -bz -p 3000 -P http://backend:8080
