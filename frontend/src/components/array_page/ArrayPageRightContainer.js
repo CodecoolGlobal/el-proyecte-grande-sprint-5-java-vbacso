@@ -88,7 +88,7 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
     };
 
     return (
-        <div className="user-page-right-container justify-content-center">
+        <div className="user-page-right-container">
             <div id="remove-group-modal" className="modal">
                 <div className="modal-content">
                     <p>Are you sure you want to delete this group?</p>
@@ -96,7 +96,7 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
                     <button onClick={removeGroup} id="yes-remove" className="button button-dark">Yes</button>
                 </div>
             </div>
-            {Object.keys(showGroup).length > 0 ? <div>
+            {Object.keys(showGroup).length > 0 ? <div className="group-page-pic-post-container">
                 {ownerId === loggedInUserId ?
                     < div className="remove-group">
                         <MdOutlineDelete onClick={openModal} size={35}/>
@@ -106,17 +106,17 @@ const ArrayPageRightContainer = ({showGroup, setShowGroup, loggedInUser}) => {
                         <NoCoverPhoto showGroup={showGroup} setShowGroup={setShowGroup}/> : <div></div>}
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <span className="fs-4 align-content-center">{showGroup.name}</span>
+                    <span className="group-name fs-4">{showGroup.name}</span>
                 </div>
                 <div className="friend-list-container">
-                    <p>Members</p>
-                    {<div className="friend-pics-container flex-box">
+                    <p className="fs-5">Members</p>
+                    {<div className="friend-pics-container-array flex-box">
                         {showGroup.members.map(member => <ProfilePicture key={member.id}
                                                                          profilePictureId={member.profilePictureId}
-                                                                         userId={member.id} placement="post"/>)}
+                                                                         userId={member.id} placement="array-member"/>)}
                     </div>}
                 </div>
-                <CreatePost loggedInUser={loggedInUser} onAdd={createGroupPostEvent} showGroupId={showGroup.id} placement="group"/>
+            <CreatePost loggedInUser={loggedInUser} onAdd={createGroupPostEvent} showGroupId={showGroup.id} placement="group"/>
             </div> : ""}
             {groupPosts !== undefined ? groupPosts?.map(post => <Post loggedInUser={loggedInUser} key={post.id} post={post}
                                                                      onDelete={deletePostEvent}/>) : ""}

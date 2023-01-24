@@ -35,7 +35,7 @@ const FeedPage = ({loggedInUser}) => {
         setPosts(posts.filter((p) => p.id !== id))
     }
     if (loggedInUser && posts) {
-        return (<div className="post-container flex-fill">
+        return (<div className="post-container">
             <CreatePost onAdd={createPostEvent} loggedInUser={loggedInUser}/>
             {posts?.map((post) => (
                 <Post key={post.id} post={post} loggedInUser={loggedInUser} onDelete={deletePostEvent}/>))}
