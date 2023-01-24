@@ -24,7 +24,7 @@ const ArrayPage = ({loggedInUser}) => {
     }, [showGroup]);
 
     return (
-        <div className="group-main-container flex-fill">
+        <div className="group-main-container">
             <ArrayPageLeftContainer groups={groups} setGroups={setGroups} loggedInUser={loggedInUser}
                                     setShowGroup={setShowGroup}/>
             {showGroup ? <ArrayPageRightContainer showGroup={showGroup} setShowGroup={setShowGroup}

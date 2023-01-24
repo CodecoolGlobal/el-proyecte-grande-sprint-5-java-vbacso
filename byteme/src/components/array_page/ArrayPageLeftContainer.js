@@ -14,7 +14,7 @@ const ArrayPageLeftContainer = ({groups, setGroups, loggedInUser, setShowGroup})
     if (groups.length > 0) {
         return (
             <div className="user-page-left-container">
-                <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark side-bar">
+                <div className="arrays-container d-flex flex-column flex-shrink-0 p-3 text-white bg-dark side-bar">
                     <div className="d-flex justify-content-between align-items-center">
                         <span className="fs-4">Arrays</span>
                         <TiGroupOutline/>

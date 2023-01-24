@@ -38,13 +38,41 @@ html, body {
 }
 
 .user-page-container {
-    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.group-main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.group-page-pic-post-container {
+    display: flex;
+    flex: auto!important;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.arrays-container {
+    margin: 1rem;
+}
+
+.post-container {
+    display: flex;
+    width: 66%;
+    margin-right: 15%;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .user-page-left-container {
-    width: 33%;
-    min-height: 100vh;
-    float: left;
+    flex: 33.33%;
     text-align: center;
 }
 
@@ -65,6 +93,23 @@ html, body {
     object-fit: cover;
     object-position: center;
     float: right;
+}
+.pofile-pic-in-array-member-list {
+    display: flex;
+    justify-content: left;
+}
+
+.friend-pics-container-array {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em;
+}
+
+.pofile-pic-in-array-member-list img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .user-details-container {
@@ -90,15 +135,14 @@ html, body {
 }
 
 .user-page-right-container {
-    min-width: 66%;
-    overflow: hidden;
-    float: right;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 66%;
+    flex-wrap: wrap;
 }
 
 .create-new-post-container {
-    margin: 1em auto;
-    width: 50%;
+    width: 66%;
     text-align: center;
     padding: 1em;
     border: 2px solid var(--secondary);
@@ -108,16 +152,16 @@ html, body {
 }
 
 .post-card {
-    margin: 3em auto 20px;
+    margin: 3em 0;
     position: relative;
-    width: 40%;
+    width: 66%;
     border: 2px solid var(--primary);
     color: var(--secondary);
     border-radius: 10px;
 }
 
 .open {
-    margin: 3em auto 150px;
+    margin: 3em 0;
 }
 
 .post-title {
@@ -690,11 +734,27 @@ div {
     background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%23fff%27/%3e%3c/svg%3e");
 }
 
+.cover-photo-container {
+    display: flex;
+    flex: auto;
+}
+
+.group-name {
+    display: flex;
+    margin: 1rem;
+    justify-content: center;
+}
+
 .cover-photo-container img{
-    width: 800px;
-    height: 400px;
+    margin-top: 1rem;
+    width: 66%;
+    height: 250px;
     object-fit: cover;
     object-position: center;
+}
+
+svg {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {
